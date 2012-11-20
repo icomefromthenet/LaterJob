@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<schema name="later_job">
+ <writer platform="mysql" outFileFormat="list_handler_seed.{ext}" format="phpunit" />
+ <!--
+  This Fixture is used to tests the purge
+  
+  Using a seed date 1/11/2013 01:00:00 (1am)
+  
+  Use 40 jobs
+  
+ -->
+ <table name="later_job_queue" generate="40">
+  
+  <column name="job_id" type="string">
+   <datatype name="job_id" />
+  </column>
+  
+  <column name="state_id" type="integer">
+   <swap>
+    
+    <!-- finished Jobs -->
+    <when switch="10">
+     <datatype name="constant_number">
+      <option name="value" value="3" />
+     </datatype>
+    </when>
+    
+    <!-- Error Jobs -->
+    <when switch="5">
+     <datatype name="constant_number">
+      <option name="value" value="4" />
+     </datatype>
+    </when>
+    
+    <!-- Failed Jobs -->
+    <when switch="5">
+     <datatype name="constant_number">
+      <option name="value" value="5" />
+     </datatype>
+    </when>
+    
+    <!-- Added Jobs -->
+    <when switch="20">
+     <datatype name="constant_number">
+      <option name="value" value="1" />
+     </datatype>
+    </when>
+    
+   </swap>
+  </column>
+  
+  <!-- One job added every minute -->
+  <column name="dte_add" type="datetime">
+   <datatype name="date">
+    <option name="start" value="1st November 2013 01:00:00" />
+    <option name="modify" value="+5 minute" />
+   </datatype>
+  </column>
+  
+  <!-- Retry Count : only failed and error jobs should be less than the default of 3 -->
+   <column name="retry_count" type="integer">
+   <swap>
+    <!-- finished Jobs -->
+    <when switch="10">
+     <datatype name="constant_number">
+      <option name="value" value="3" />
+     </datatype>
+    </when>
+   
+    <!-- Error Jobs -->
+    <when switch="5">
+     <datatype name="constant_number">
+      <option name="value" value="2" />
+     </datatype>
+    </when>
+   
+    <!-- Failed Jobs -->
+    <when switch="5">
+     <datatype name="constant_number">
+      <option name="value" value="0" />
+     </datatype>
+    </when>
+   
+    <!-- Added Jobs -->
+    <when switch="25">
+     <datatype name="constant_number">
+      <option name="value" value="3" />
+     </datatype>
+    </when>
+    
+   </swap>
+  </column>
+  
+  
+  <column name="retry_last" type="datetime">
+   <swap>
+    
+    <!-- finished -->
+    <when switch="10">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- Error Jobs need timer -->
+    <when switch="5">
+     <datatype name="date">
+      <option name="start" value="1st November 2013 13:30:00" />
+      <option name="modify" value="+10 minute" />
+     </datatype>
+    </when>
+    
+    <!-- Failed Jobs -->
+    <when switch="5">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- Add jobs -->
+    <when switch="20">
+     <datatype name="null_type" />
+    </when>
+    
+   </swap>
+  </column>
+  
+  <column name="job_data" type="object">
+   <datatype name="job_data" />
+  </column>
+  
+  <!--
+   Lock handle
+  -->
+  <column name="handle" type="string">
+   <swap>
+    
+    <!-- finished jobs -->
+    <when switch="10">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- Error Jobs 3 locks up to (1st November 2013 13:39:00)  -->
+    <when switch="3">
+     <datatype name="constant_string" value="550e8400-e29b-41d4-a716-446655440000" />
+    </when>
+    
+    <!-- Error Jobs 2 unlocked should not be selected -->
+    <when switch="2">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- Failed Jobs -->
+    <when switch="5">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- added jobs 10 of locked -->
+    <when switch="10">
+     <datatype name="constant_string" value="550e8400-e29b-41d4-a716-446655440000" />
+    </when>
+    
+    <!-- added jobs 10  unlocked -->
+    <when switch="10">
+     <datatype name="null_type" />
+    </when>
+    
+   </swap>
+  </column>
+  
+  
+  <column name="lock_timeout" type="datetime">
+   <swap>
+    
+    <!-- finished jobs -->
+    <when switch="10">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- Error Jobs-->
+    <when switch="5">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- Failed Jobs -->
+    <when switch="5">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- added jobs -->    
+    <when switch="20">
+     <datatype name="null_type" />
+    </when>
+    
+   </swap>
+  </column>
+ 
+ </table>
+</schema>

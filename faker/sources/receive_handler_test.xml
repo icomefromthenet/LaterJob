@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<schema name="later_job">
+ <writer platform="mysql" outFileFormat="add_handler_seed.{ext}" format="phpunit" />
+ <!--
+  This Fixture is used to tests the add and remove event handlers
+  
+  Using a seed date 1/11/2013 01:00:00 (1am)
+  
+  Use 20 jobs
+  
+ -->
+ <table name="later_job_queue" generate="20">
+  
+  <column name="job_id" type="string">
+   <datatype name="job_id" />
+  </column>
+  
+  <column name="state_id" type="integer">
+   <swap>
+    <!-- finished Jobs -->
+    <when switch="10">
+     <datatype name="constant_number">
+      <option name="value" value="3" />
+     </datatype>
+    </when>
+    <!-- Error Jobs -->
+    <when switch="5">
+     <datatype name="constant_number">
+      <option name="value" value="4" />
+     </datatype>
+    </when>
+    <!-- Added Jobs -->
+    <when switch="25">
+     <datatype name="constant_number">
+      <option name="value" value="1" />
+     </datatype>
+    </when>
+   </swap>
+  </column>
+  
+  <!-- One job added every minute -->
+  <column name="dte_add" type="datetime">
+   <datatype name="date">
+    <option name="start" value="1st November 2013 01:00:00" />
+    <option name="modify" value="+1 minute" />
+   </datatype>
+  </column>
+  
+  <column name="retry_count" type="integer">
+   <swap>
+    <!-- finished Jobs -->
+    <when switch="10">
+     <datatype name="constant_number">
+      <option name="value" value="3" />
+     </datatype>
+    </when>
+    <!-- Error Jobs -->
+    <when switch="5">
+     <datatype name="constant_number">
+      <option name="value" value="2" />
+     </datatype>
+    </when>
+    <!-- Added Jobs -->
+    <when switch="25">
+     <datatype name="constant_number">
+      <option name="value" value="3" />
+     </datatype>
+    </when>
+   </swap>
+  </column>
+  
+  
+  <column name="retry_last" type="datetime">
+   <swap>
+    <!-- finished no rety timer -->
+    <when switch="10">
+     <datatype name="null_type" />
+    </when>
+    <!-- Error Jobs need timer 3 -->
+    <when switch="5">
+     <datatype name="date">
+      <option name="start" value="1st November 2013 13:30:00" />
+      <option name="modify" value="+3 minute" />
+     </datatype>
+    </when>
+    <!-- Add jobs no retry timer -->
+    <when switch="25">
+     <datatype name="null_type" />
+    </when>
+    
+   </swap>
+  </column>
+  
+  <column name="job_data" type="object">
+   <datatype name="job_data" />
+  </column>
+  
+  <!--
+   Lock the first 20 jobs rest remain unlocked
+  -->
+  <column name="handle" type="string">
+   <swap>
+    <!-- finished and error jobs no handle -->
+    <when switch="15">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- added jobs 20 of already locked -->
+    <when switch="20">
+     <datatype name="constant_string" value="550e8400-e29b-41d4-a716-446655440000" />
+    </when>
+    
+    <!-- added jobs that will be locked in test -->
+    <when switch="5">
+     <datatype name="null_type" />
+    </when>
+   </swap>
+  </column>
+  
+  
+  <column name="lock_timeout" type="datetime">
+   <swap>
+    <!-- finished and error jobs no handle -->
+    <when switch="15">
+     <datatype name="null_type" />
+    </when>
+    
+    <!-- added jobs that are locked -->
+    <when switch="20">
+     <datatype name="date">
+      <option name="start" value="1st November 2013 15:00:00" />
+     </datatype>
+    </when>
+    
+    <!-- added jobs that will need lock in the test -->
+    <when switch="5">
+     <datatype name="null_type" />
+    </when>
+   </swap>
+  </column>
+ 
+ </table>
+</schema>

@@ -1,0 +1,10 @@
+manifests
+vendor
+migrations\config\*.php
+faker\config\*.php
+faker\dump\*.xml
+faker\dump\*.sql
+.vagrant
+.komodotools
+composer.lock
+LaterJob.komodoproject

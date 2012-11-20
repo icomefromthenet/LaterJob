@@ -1,0 +1,415 @@
+<!--
+== Result for the lock event handler
+-->
+<dataset>
+    <table name="later_job_queue">
+        <column>job_id</column>
+        <column>state_id</column>
+        <column>dte_add</column>
+        <column>retry_count</column>
+        <column>retry_last</column>
+        <column>job_data</column>
+        <column>handle</column>
+        <column>lock_timeout</column>
+        <row>
+            <value>4b336e15-cac0-3307-8b81-f1de26e6c383</value>
+            <value>3</value>
+            <value>2013-11-01 01:01:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>871a92bd-931d-33b2-b227-f31886e6c730</value>
+            <value>3</value>
+            <value>2013-11-01 01:02:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>25a33764-3703-3695-b5a6-cf7ef653974f</value>
+            <value>3</value>
+            <value>2013-11-01 01:03:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>faba42ef-2dcc-35f3-925e-05c43f853ba6</value>
+            <value>3</value>
+            <value>2013-11-01 01:04:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>cbeceae2-1fe1-3469-92f6-eec3c768b66d</value>
+            <value>3</value>
+            <value>2013-11-01 01:05:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>06f7328d-5e18-3a0b-8578-76649b2b92d3</value>
+            <value>3</value>
+            <value>2013-11-01 01:06:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>0affaa68-ea37-3b12-8703-ae97cdf23167</value>
+            <value>3</value>
+            <value>2013-11-01 01:07:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>a0b97227-aaad-332b-a8c9-ffd308c351c8</value>
+            <value>3</value>
+            <value>2013-11-01 01:08:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>686a6d0f-c86f-36b9-a2c0-04c61dd44b78</value>
+            <value>3</value>
+            <value>2013-11-01 01:09:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>312bc843-0199-3649-a49f-81c4c14f52dc</value>
+            <value>3</value>
+            <value>2013-11-01 01:10:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>0a2aee70-4ad1-35bc-a91f-6a77860de49e</value>
+            <value>4</value>
+            <value>2013-11-01 01:11:00</value>
+            <value>2</value>
+            <value>2013-11-01 13:33:00</value>
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>a8382aa8-d12d-32ec-a371-38bdf04678c8</value>
+            <value>4</value>
+            <value>2013-11-01 01:12:00</value>
+            <value>2</value>
+            <value>2013-11-01 13:36:00</value>
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>63a25636-c25b-34cf-8a8b-83635d7e4516</value>
+            <value>4</value>
+            <value>2013-11-01 01:13:00</value>
+            <value>2</value>
+            <value>2013-11-01 13:39:00</value>
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>ab0baa92-cc22-31fc-9adb-033c10dbc1dd</value>
+            <value>4</value>
+            <value>2013-11-01 01:14:00</value>
+            <value>2</value>
+            <value>2013-11-01 13:42:00</value>
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>fe791a81-8f15-3ca1-b03a-3898af5f09b5</value>
+            <value>4</value>
+            <value>2013-11-01 01:15:00</value>
+            <value>2</value>
+            <value>2013-11-01 13:45:00</value>
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <null />
+            <null />
+        </row>
+        <row>
+            <value>96b860ce-ba24-3a26-aa5d-6fe334d20f69</value>
+            <value>1</value>
+            <value>2013-11-01 01:16:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>40a79e3c-e06e-3ced-b41d-fae0bdb84b70</value>
+            <value>1</value>
+            <value>2013-11-01 01:17:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>066cf4da-f20d-352f-b2e9-419ea8615693</value>
+            <value>1</value>
+            <value>2013-11-01 01:18:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>d6b230b7-f245-38df-b80a-36513f210f55</value>
+            <value>1</value>
+            <value>2013-11-01 01:19:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>3f055a48-1cec-3d14-a55d-d1ce43be476c</value>
+            <value>1</value>
+            <value>2013-11-01 01:20:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>bc023c62-3fa3-31e7-ab0d-a0163665daa1</value>
+            <value>1</value>
+            <value>2013-11-01 01:21:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>e2b8147f-6389-385c-b62c-27f54eccb783</value>
+            <value>1</value>
+            <value>2013-11-01 01:22:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>5e3a1552-8107-3632-a707-c25cbd571f48</value>
+            <value>1</value>
+            <value>2013-11-01 01:23:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>0979519f-3bf4-3570-b9c0-4fa2908e4c5c</value>
+            <value>1</value>
+            <value>2013-11-01 01:24:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>5de293a6-787f-334e-bcc3-880b36ef4860</value>
+            <value>1</value>
+            <value>2013-11-01 01:25:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>96f2ccb8-5771-3c28-9516-2466b35bb3b4</value>
+            <value>1</value>
+            <value>2013-11-01 01:26:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>fea3ec29-b846-3f67-9772-ad79da373225</value>
+            <value>1</value>
+            <value>2013-11-01 01:27:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>ea1340c2-7974-31a2-a314-02b1e12fd867</value>
+            <value>1</value>
+            <value>2013-11-01 01:28:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>7fd21eb5-00a5-3adb-b107-07791108ddf8</value>
+            <value>1</value>
+            <value>2013-11-01 01:29:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>84aac498-8eee-3398-a769-624565983680</value>
+            <value>1</value>
+            <value>2013-11-01 01:30:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>08cd83d9-e6b9-39e9-a013-79b67fd29516</value>
+            <value>1</value>
+            <value>2013-11-01 01:31:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>da8e8bf7-ca99-3ce0-a489-b40f35b9f200</value>
+            <value>1</value>
+            <value>2013-11-01 01:32:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>118d6134-e1ea-3b46-b2d4-5f68a432ff19</value>
+            <value>1</value>
+            <value>2013-11-01 01:33:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>057483e0-f23e-35b7-8623-075c2d12042a</value>
+            <value>1</value>
+            <value>2013-11-01 01:34:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>da04c597-2b8d-3dd1-a1c7-ec9edbe1aefe</value>
+            <value>1</value>
+            <value>2013-11-01 01:35:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>550e8400-e29b-41d4-a716-446655440000</value>
+            <value>2013-11-01 15:00:00</value>
+        </row>
+        <row>
+            <value>cf216b0d-9c94-3913-b6bb-f57f554cde78</value>
+            <value>1</value>
+            <value>2013-11-01 01:36:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>9151f4c0-6055-3e89-9561-a96651cea4f4</value>
+            <value>1</value>
+            <value>2013-11-01 01:37:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>db54efed-dd8a-3788-8cac-4bdc16450fd8</value>
+            <value>1</value>
+            <value>2013-11-01 01:38:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>686f9d1c-667a-3d01-9567-84da0ceb923c</value>
+            <value>1</value>
+            <value>2013-11-01 01:39:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+        <row>
+            <value>98aca125-2edf-37ed-b6eb-0c1857f2e78b</value>
+            <value>1</value>
+            <value>2013-11-01 01:40:00</value>
+            <value>3</value>
+            <null />
+            <value>s:19:"O:8:"stdClass":0:{}";</value>
+            <value>f6045c88-f527-4648-9464-4c56b5f3dd11</value>
+            <value>2013-11-01 18:00:00</value>
+        </row>
+    </table>
+</dataset>

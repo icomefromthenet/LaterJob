@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<schema name="later_job">
+ 
+ <writer platform="mysql" format="phpunit" />
+ 
+ <!--
+ <table name="later_job_monitor" generate="0">
+  <column name="monitor_id" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="monitor_dte" type="datetime">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="worker_max_time" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="worker_min_time" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="worker_mean_time" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="worker_mean_throughput" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="worker_max_throughput" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="worker_mean_utilization" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_no_waiting_jobs" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_no_failed_jobs" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_no_error_jobs" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_no_completed_jobs" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_no_processing_jobs" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_mean_service_time" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_min_service_time" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+  <column name="queue_max_service_time" type="integer">
+   <datatype name="alphanumeric">
+    <option name="format" value="ccccc" />
+    <option name="repeatMin" value="1" />
+    <option name="repeatMax" value="1" />
+   </datatype>
+  </column>
+ </table>
+ -->
+ 
+ 
+ 
+ <table name="later_job_queue" generate="100">
+  
+  <column name="job_id" type="string">
+   <datatype name="job_id" />
+  </column>
+  
+  <!-- use the added state 1 -->
+  <column name="state_id" type="integer">
+   <datatype name="constant_number" >
+     <option name="value" value="1" />
+   </datatype>
+  </column>
+  
+  <!-- One job added every minute -->
+  <column name="dte_add" type="datetime">
+   <datatype name="date">
+    <option name="start" value="today 13:00:00" />
+    <option name="modify" value="+1 minute" />
+   </datatype>
+  </column>
+  
+  <column name="retry_count" type="integer">
+  <datatype name="constant_number" >
+     <option name="value" value="3" />
+    </datatype>
+  </column>
+  
+  <column name="retry_last" type="datetime">
+   <datatype name="null_type" />
+  </column>
+  
+  <column name="job_data" type="object">
+   <datatype name="job_data" />
+  </column>
+  
+  <column name="handle" type="string">
+   <datatype name="null_type" />
+  </column>
+  
+  <column name="lock_timeout" type="datetime">
+   <datatype name="null_type" />
+  </column>
+  
+ </table>
+
+ 
+ 
+ <table name="later_job_transition" generate="100">
+  
+  <column name="transition_id" type="integer">
+   <datatype name="autoincrement" />
+  </column>
+  
+  <column name="worker_id" type="string">
+   <datatype name="null_type" />
+  </column>
+  
+  <column name="job_id" type="string">
+   <foreign-key name="later_job_transition.job" foreignColumn="job_id" foreignTable ="later_job_queue" />
+  </column>
+  
+  <column name="state_id" type="integer">
+    <datatype name="constant_number" >
+     <option name="value" value="1" />
+    </datatype>
+  </column>
+  
+  <column name="dte_occured" type="datetime">
+   <datatype name="date">
+    <option name="start" value="today 13:00:00" />
+    <option name="modify" value="+1 minute" />
+   </datatype>
+  </column>
+  
+  <column name="transition_msg" type="string">
+   <datatype name="regex" format="\w[50,200]" />
+  </column>
+ 
+ </table>
+ 
+</schema>

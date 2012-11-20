@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         syntaxCheck="false"
+         bootstrap="vendor/autoload.php"
+>
+    <php>
+        <var name="DB_DSN" value="mysql:dbname=later_job;host=localhost" />
+        <var name="DB_USER" value="root" />
+        <var name="DB_PASSWD" value="" />
+        <var name="DB_DBNAME" value="later_job" />
+    </php>
+    <testsuites>
+        <testsuite name="default">
+            <directory suffix="Test.php">src/LaterJob/Tests/</directory>
+            <exclude>src/LaterJob/Tests/Base</exclude>
+        </testsuite>
+  </testsuites>  
+    
+</phpunit>

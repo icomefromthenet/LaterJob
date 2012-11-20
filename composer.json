@@ -1,0 +1,35 @@
+{
+    "name": "icomefromthenet/later-job",
+    "description": "Database job queue library",
+    "keywords": [ "job","queue" ],
+    "homepage": "http://github.com/icomefromthenet/LaterJob",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lewis Dyer",
+            "email": "getintouch@icomefromthenet.com",
+            "homepage": "http://www.icomefromthenet.com"
+        }
+    ],
+
+    "require-dev" : {
+        "icomefromthenet/faker"     : "1.0.3.*",
+        "icomefromthenet/migration" : "dev-master"
+    },
+    
+    "require" : {
+        "icomefromthenet/dbal-gateway" :"dev-master",
+        "pimple/pimple"                :"1.0.*",
+        "symfony/event-dispatcher"     :"2.1.*",
+        "monolog/monolog"              :"1.2.*"
+        
+    },
+    
+    "autoload": {
+        "psr-0": {
+            "LaterJob": "src/"
+        }
+    }
+    
+}
