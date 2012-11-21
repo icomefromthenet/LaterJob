@@ -81,7 +81,7 @@ class QueueSubscriber implements EventSubscriberInterface
                         ->update();
             
             # did we lock some rows
-            $event->setLocked($this->gateway->rowsAffected());
+            $event->setResult($this->gateway->rowsAffected());
         
         } catch(DBALGatewayException $e) {
             throw new LaterJobException($e->getMessage(),0,$e);
@@ -103,7 +103,7 @@ class QueueSubscriber implements EventSubscriberInterface
                         ->update();
             
             # did we lock some rows
-            $event->setLocked($this->gateway->rowsAffected());
+            $event->setResult($this->gateway->rowsAffected());
         
         } catch(DBALGatewayException $e) {
             $event->setLocked(0);
@@ -196,7 +196,7 @@ class QueueSubscriber implements EventSubscriberInterface
             # set the order by the date added
             $query->orderByDateAdded($event->getOrder());
             
-            $event->setResults($query->end()->find());
+            $event->setResult($query->end()->find());
         
         
         } catch(DBALGatewayException $e) {

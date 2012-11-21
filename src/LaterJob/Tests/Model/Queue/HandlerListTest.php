@@ -87,7 +87,7 @@ class HandlerListEventTest extends TestsWithFixture
         
         $handler->onList($event);
         
-        $results = $event->getResults();
+        $results = $event->getResult();
         
         
         $this->assertEquals(5,count($results));
@@ -113,7 +113,7 @@ class HandlerListEventTest extends TestsWithFixture
         
         $event = new QueueListEvent(0,5,null,'DESC');
         $handler->onList($event);
-        $results = $event->getResults();
+        $results = $event->getResult();
         
         $this->assertEquals(5,count($results));
         
@@ -131,7 +131,7 @@ class HandlerListEventTest extends TestsWithFixture
        
         $event        = new QueueListEvent(0,20,QueueConfig::STATE_FINISH);
         $handler->onList($event);
-        $results      = $event->getResults();
+        $results      = $event->getResult();
         
         # there are 10 finished jobs in the queue
         $this->assertEquals(10,count($results));
@@ -149,7 +149,7 @@ class HandlerListEventTest extends TestsWithFixture
         
         $event   = new QueueListEvent(0,10,null,null,$before,$after);
         $handler->onList($event);
-        $results = $event->getResults();
+        $results = $event->getResult();
         
         $this->assertEquals(7,count($results));
     }

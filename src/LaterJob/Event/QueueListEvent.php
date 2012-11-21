@@ -100,7 +100,7 @@ class QueueListEvent extends Event
       *  @access public
       *  @return Traversable
       */
-    public function getResults()
+    public function getResult()
     {
         return $this->results;
     }
@@ -111,7 +111,7 @@ class QueueListEvent extends Event
       *  @param Traversable
       *  @access public
       */
-    public function setResults(Traversable $results)
+    public function setResult(Traversable $results)
     {
         $this->results = $results;
     }

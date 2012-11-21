@@ -102,7 +102,7 @@ class QueueLockEvent extends Event
       *  @access public
       *  @param integer $locked;
       */
-    public function setLocked($locked)
+    public function setResult($locked)
     {
         $this->locked = $locked;
     }
@@ -113,7 +113,7 @@ class QueueLockEvent extends Event
       *  @access public
       *  @return integer the number of rows locked
       */
-    public function getLocked()
+    public function getResult()
     {
         return $this->locked;
     }

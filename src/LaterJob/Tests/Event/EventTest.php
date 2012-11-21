@@ -7,7 +7,13 @@ use LaterJob\Event\WorkerTransitionEvent;
 use LaterJob\Event\JobEventsMap;
 use LaterJob\Event\MonitoringEventsMap;
 use LaterJob\Event\WorkerEventsMap;
-
+use LaterJob\Event\QueueListEvent;
+use LaterJob\Event\QueueLockEvent;
+use LaterJob\Event\QueuePurgeEvent;
+use LaterJob\Event\QueuePurgeHistoryEvent;
+use LaterJob\Event\QueueReceiveEvent;
+use LaterJob\Event\QueueRemoveEvent;
+use LaterJob\Event\QueueSendEvent;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
@@ -62,6 +68,115 @@ class EventTest extends PHPUnit_Framework_TestCase
         $job_map     = new JobEventsMap();
         
         $this->assertTrue(true);
+    }
+    
+    
+    public function testQueueListEvent()
+    {
+        $before = new DateTime();
+        $after  = new DateTime();
+        $state  = 1;
+        $limit  = 5;
+        $offset = 3;
+        $order  = 'DESC';
+        $result = new \ArrayIterator(array());
+        
+        $list = new QueueListEvent($offset,$limit,$state,$order,$before,$after);
+        $list->setResult($result);
+        
+        $this->assertEquals($before,$list->getBefore());
+        $this->assertEquals($after ,$list->getAfter());
+        $this->assertEquals($state ,$list->getState());
+        $this->assertEquals($limit ,$list->getLimit());
+        $this->assertEquals($offset,$list->getOffset());
+        $this->assertEquals($order ,$list->getOrder());
+        $this->assertEquals($result,$list->getResult());
+    }
+    
+    public function testQueueLockEvent()
+    {
+        $handle  = '4b336e15-cac0-3307-8b81-f1de26e6c383';
+        $now     = new DateTime();
+        $timeout = new DateTime();
+        $limit   = 20;
+        $result  = 10;
+        $lock    = new QueueLockEvent($handle,$timeout,$limit,$now);
+        $lock->setResult($result);
+        
+        $this->assertEquals($handle,$lock->getHandle());
+        $this->assertEquals($result,$lock->getResult());
+        $this->assertEquals($timeout,$lock->getTimeout());
+        $this->assertEquals($limit,$lock->getLimit());
+        $this->assertEquals($now,$lock->getNow());
+    }
+    
+    public function testQueuePurgeEvent()
+    {
+        $before = new DateTime();
+        $result = true;
+        
+        $purge = new QueuePurgeEvent($before);
+        $purge->setResult($result);
+        
+        $this->assertEquals($result,$purge->getResult());
+        $this->assertEquals($before,$purge->getBeforeDate());
+    }
+    
+    public function testQueuePurgeHistoryEvent()
+    {
+        $before = new DateTime();
+        $result = true;
+        
+        $purge = new QueuePurgeHistoryEvent($before);
+        $purge->setResult($result);
+        
+        $this->assertEquals($result,$purge->getResult());
+        $this->assertEquals($before,$purge->getBeforeDate());
+    }
+    
+    
+    public function testQueueReceiveEvent()
+    {
+        $storage = $this->getMock('LaterJob\Model\Queue\Storage');
+        $result  = true;
+        
+        $receive = new QueueReceiveEvent($storage);
+        $receive->setResult($result);
+        
+        $this->assertEquals($storage,$receive->getStorage());
+        $this->assertEquals($result,$receive->getResult());
+    }
+    
+    
+    public function testQueueRemoveEvent()
+    {
+        $now    = new DateTime();
+        $job_id = '4b336e15-cac0-3307-8b81-f1de26e6c383';
+        $result = true;
+        
+        $remove = new QueueRemoveEvent($job_id,$now);
+        $remove->setResult(true);
+        
+        $this->assertEquals($result,$remove->getResult());
+        $this->assertEquals($now,$remove->getNow());
+        $this->assertEquals($job_id,$remove->getJobId());
+    }
+    
+    
+    public function testQueueSendEvent()
+    {
+        $handle  = '4b336e15-cac0-3307-8b81-f1de26e6c383';
+        $timeout = new DateTime();
+        $limit   = 5;
+        $result  = new \ArrayIterator(array());
+        
+        $send = new QueueSendEvent($handle,$timeout,$limit);
+        $send->setResult($result);
+        
+        $this->assertEquals($handle,$send->getHandle());
+        $this->assertEquals($timeout,$send->getTimeout());
+        $this->assertEquals($limit,$send->getLimit());
+        $this->assertEquals($result,$send->getResult());
     }
     
 }
