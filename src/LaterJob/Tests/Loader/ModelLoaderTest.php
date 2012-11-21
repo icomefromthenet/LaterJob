@@ -16,8 +16,8 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
     
     public function testTransitionModelLoader()
     {
-        $loader   = new ModelLoader(); 
         $doctrine = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
+        $loader   = new ModelLoader($doctrine); 
         $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
@@ -25,15 +25,16 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
              ->method('getName')
              ->will($this->returnValue('table'));
         
-        $gateway = $loader->bootTransitionModel('table',$doctrine,$event,$meta);
+        $gateway = $loader->bootTransitionModel('table',$event,$meta);
         
         $this->assertInstanceOf('LaterJob\Model\Transition\TransitionGateway',$gateway);
     }
     
     public function testStorageModelLoader()
     {
-        $loader   = new ModelLoader(); 
         $doctrine = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
+        $loader   = new ModelLoader($doctrine); 
+        
         $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
@@ -41,7 +42,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
              ->method('getName')
              ->will($this->returnValue('table'));
         
-        $gateway = $loader->bootStorageModel('table',$doctrine,$event,$meta);
+        $gateway = $loader->bootStorageModel('table',$event,$meta);
         
         $this->assertInstanceOf('LaterJob\Model\Queue\StorageGateway',$gateway);
         
@@ -49,8 +50,8 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
     
     public function testMonitorModelLoader()
     {
-        $loader   = new ModelLoader(); 
         $doctrine = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
+        $loader   = new ModelLoader($doctrine); 
         $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
@@ -58,7 +59,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
              ->method('getName')
              ->will($this->returnValue('table'));
         
-        $gateway = $loader->bootMonitorModel('table',$doctrine,$event,$meta);
+        $gateway = $loader->bootMonitorModel('table',$event,$meta);
         
         $this->assertInstanceOf('LaterJob\Model\Monitor\StatsGateway',$gateway);
         
@@ -68,12 +69,12 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
     
     public function testPimpleBoot()
     {
-        $loader                    = new ModelLoader(); 
+        $doctrine                  = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
+        $loader                    = new ModelLoader($doctrine); 
         $pimple                    = new Pimple();
-        $pimple['doctrine']        = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
         $pimple['dispatcher']      = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         
-        $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
+        $meta                      = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
         $meta->expects($this->exactly(3))
              ->method('getName')

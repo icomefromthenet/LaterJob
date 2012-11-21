@@ -2,7 +2,6 @@
 namespace LaterJob;
 
 use Symfony\Components\EventDispatcher\EventDispatcherInterface;
-use Doctrine\DBAL\Connection;
 use Pimple;
 use DateTime;
 use LaterJob\Log\LogInterface;
@@ -29,9 +28,9 @@ class Queue extends Pimple
       *  @access public
       *  @return \LaterJob\Queue;
       */    
-    public function __construct(Connection $doctrine, EventDispatcherInterface $dispatcher, LogInterface $logger, array $options, UUID $uuid, LoaderInterface $config_loader, LoaderInterface $model_loader,LoaderInterface $event_loader)
+    public function __construct(EventDispatcherInterface $dispatcher, LogInterface $logger, array $options, UUID $uuid, LoaderInterface $config_loader, LoaderInterface $model_loader,LoaderInterface $event_loader)
     {
-        $this['doctrine']   = $doctrine;
+        
         $this['dispatcher'] = $dispatcher;
         $this['logger']     = $logger;
         $this['uuid']       = $uuid;

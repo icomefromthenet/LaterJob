@@ -19,50 +19,64 @@ use LaterJob\Model\Monitor\StatsGateway;
   */
 class ModelLoader implements LoaderInterface
 {
+    /**
+      *  @var Doctrine\DBAL\Connection 
+      */
+    protected $doctrine;
     
-    public function bootTransitionModel($table, Connection $db, EventDispatcherInterface $event, $meta)
+    
+    public function bootTransitionModel($table, EventDispatcherInterface $event, $meta)
     {
-        return new TransitionGateway($table,$db,$event,$meta,null, new TransitionBuilder());
+        return new TransitionGateway($table,$this->doctrine,$event,$meta,null, new TransitionBuilder());
     }
     
     
-    public function bootStorageModel($table, Connection $db, EventDispatcherInterface $event, $meta)
+    public function bootStorageModel($table, EventDispatcherInterface $event, $meta)
     {
-        return new StorageGateway($table,$db,$event,$meta,null,new StorageBuilder());
+        return new StorageGateway($table,$this->doctrine,$event,$meta,null,new StorageBuilder());
     }
 
     
-    public function bootMonitorModel($table, Connection $db, EventDispatcherInterface $event, $meta)
+    public function bootMonitorModel($table, EventDispatcherInterface $event, $meta)
     {
-        return new StatsGateway($table,$db,$event,$meta,null, new StatsBuilder());
+        return new StatsGateway($table,$this->doctrine,$event,$meta,null, new StatsBuilder());
     }
     
     public function boot(Pimple $queue)
     {
-        $doctrine = $queue['doctrine'];
-        $event    = $queue['dispatcher'];
+        # assign doctrine to the DI object
+        $queue['doctrine'] = $this->doctrine;
+        
+        # fetch reference to event handler for quicker lookup
+        $event = $queue['dispatcher'];
         
         $queue['model.transition'] = $this->bootTransitionModel($queue['config.database']->getTransitionTableName(),
-                                                                   $doctrine,
                                                                    $event,
                                                                    $queue['config.database']->getTransitionTable()
                                                                    );
         
 
         $queue['model.queue'] = $this->bootStorageModel($queue['config.database']->getQueueTableName(),
-                                                                   $doctrine,
                                                                    $event,
                                                                    $queue['config.database']->getQueueTable()
                                                                    );
         
         $queue['model.monitor'] = $this->bootMonitorModel($queue['config.database']->getMonitorTableName(),
-                                                                   $doctrine,
                                                                    $event,
                                                                    $queue['config.database']->getMonitorTable()
                                                                    );
         
         return $queue;        
     }
+    
+    /**
+      *  Class Constructor
+      *
+      *  @param
+      */
+    public function __construct(Connection $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
 }
-
 /* End of File */
