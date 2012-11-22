@@ -25,6 +25,7 @@ class StatsBuilder implements BuilderInterface
         $obj = new Stats();
         
         # bind the db id and date the monitor covers  
+        $obj->setComplete($data['monitor_complete']);
         $obj->setMonitorId($data['monitor_id']);
         if($data['monitor_dte'] instanceof DateTime) {
             $obj->setMonitorDate($data['monitor_dte']);
@@ -57,6 +58,7 @@ class StatsBuilder implements BuilderInterface
     {
         return array(
            'monitor_id'              => $entity->getMonitorId(),
+           'monitor_complete'        => $entity->getComplete(),
            'monitor_dte'             => $entity->getMonitorDate(),
            'worker_max_time'         => $entity->getWorkerMaxTime(),
            'worker_min_time'         => $entity->getWorkerMinTime(),

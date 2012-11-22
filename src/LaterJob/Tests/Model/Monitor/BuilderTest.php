@@ -27,7 +27,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $worker_mean_throughput = 100;
         $worker_max_throughput = 100;
         $worker_mean_utilization = 50;
-        
+        $monitor_complete = false;
         
         $entity->setMonitorId($monitor_id);
         $entity->setMonitorDate($monitor_date);
@@ -37,10 +37,10 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $entity->setWorkerMeanThroughput($worker_mean_throughput);
         $entity->setWorkerMaxThroughput($worker_max_throughput);
         $entity->setWorkerMeanUtilization($worker_mean_utilization);
+        $entity->setComplete($monitor_complete);
         
         
-        
-        
+        $this->assertEquals($monitor_complete,$entity->getComplete());
         $this->assertEquals($monitor_id,$entity->getMonitorId());
         $this->assertEquals($monitor_date,$entity->getMonitorDate());
         $this->assertEquals($worker_max_runtime,$entity->getWorkerMaxTime());
@@ -63,9 +63,11 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $worker_mean_throughput = 100;
         $worker_max_throughput = 100;
         $worker_mean_utilization = 50;
+        $monitor_complete        = false;
         
         $data = array (
            'monitor_id'              => $monitor_id,
+           'monitor_complete'        => $monitor_complete,
            'monitor_dte'             => $monitor_date,
            'worker_max_time'         => $worker_max_runtime,
            'worker_min_time'         => $worker_min_runtime,
@@ -87,7 +89,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $this->assertEquals($worker_mean_throughput,$entity->getWorkerMeanThroughput());
         $this->assertEquals($worker_max_throughput,$entity->getWorkerMaxThroughput());
         $this->assertEquals($worker_mean_utilization,$entity->getWorkerMeanUtilization());
-        
+        $this->assertEquals($monitor_complete,$entity->getComplete());
         
     }
     
@@ -104,6 +106,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $worker_mean_throughput = 100;
         $worker_max_throughput = 100;
         $worker_mean_utilization = 50;
+        $monitor_complete        = false;
         
         
         $entity->setMonitorId($monitor_id);
@@ -114,7 +117,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $entity->setWorkerMeanThroughput($worker_mean_throughput);
         $entity->setWorkerMaxThroughput($worker_max_throughput);
         $entity->setWorkerMeanUtilization($worker_mean_utilization);
-        
+        $entity->setComplete($monitor_complete);
         
         $builder = new StatsBuilder();
         
@@ -122,6 +125,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         
         $this->assertEquals($data, array (
            'monitor_id'              => $monitor_id,
+           'monitor_complete'        => $monitor_complete,
            'monitor_dte'             => $monitor_date,
            'worker_max_time'         => $worker_max_runtime,
            'worker_min_time'         => $worker_min_runtime,

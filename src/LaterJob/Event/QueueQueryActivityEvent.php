@@ -5,12 +5,12 @@ use Symfony\Component\EventDispatcher\Event;
 use DateTime;
 
 /**
-  *  Events purges the transaction history given a date.
+  *  Events Query transition history
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class QueuePurgeHistoryEvent extends Event
+class QueueQueryActivityEvent extends Event
 {
     /**
       *  @var DateTime purge added before date x

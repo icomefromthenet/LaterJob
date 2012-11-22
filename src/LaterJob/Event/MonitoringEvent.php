@@ -13,9 +13,15 @@ use Symfony\Component\EventDispatcher\Event;
 class MonitoringEvent extends Event
 {
     /**
-      *  @var LaterJob\Model\Monitor\Stats 
+      *  @var boolean was the event sucessful
       */
     protected $results;
+    
+    /**
+      *  @var LaterJob\Model\Monitor\Stats  
+      */
+    protected $stats;
+    
     
     /**
       *  Class constructor
@@ -23,9 +29,20 @@ class MonitoringEvent extends Event
       *  @access public
       *  @param LaterJob\Model\Monitor\Stats $results
       */
-    public function __construct(Stats $results)
+    public function __construct(Stats $stats)
     {
-        $this->results = $results;
+        $this->stats = $stats;
+    }
+    
+    /**
+      *  Return this monitoring periods entity object
+      *
+      *  @access public
+      *  @return LaterJob\Model\Monitor\Stats
+      */    
+    public function getStats()
+    {
+        return $this->stats;
     }
     
     
@@ -33,11 +50,22 @@ class MonitoringEvent extends Event
       *  Return the results of monitoring operation
       *
       *  @access public
-      *  @return LaterJob\Model\Monitor\Stats
+      *  @return boolean
       */
-    public function getResults()
+    public function getResult()
     {
         return $this->results;
+    }
+    
+    /**
+      *  Set the results of monitoring operation
+      *
+      *  @access public
+      *  @param boolean
+      */
+    public function setResult($results)
+    {
+        $this->results = $results;
     }
     
 }

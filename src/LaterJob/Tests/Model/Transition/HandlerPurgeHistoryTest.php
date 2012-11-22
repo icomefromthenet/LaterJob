@@ -6,7 +6,7 @@ use LaterJob\Model\Transition\TransitionBuilder;
 use LaterJob\Model\Transition\TransitionQuery;
 use LaterJob\Model\Transition\TransitionGateway;
 use LaterJob\Config\Queue as QueueConfig;
-use LaterJob\Event\QueuePurgeHistoryEvent;
+use LaterJob\Event\QueuePurgeActivityEvent;
 use LaterJob\Tests\Base\TestsWithFixture;
 use LaterJob\UUID;
 use DateTime;
@@ -83,7 +83,7 @@ class HandlerPurgeHistoryTest extends  TestsWithFixture
         $handler = new QueueSubscriber($gateway);
         
         $before = new DateTime('2012-11-22 13:10:00');
-        $event = new QueuePurgeHistoryEvent($before);
+        $event = new QueuePurgeActivityEvent($before);
         
         $handler->onPurgeHistory($event);
         

@@ -90,14 +90,40 @@ class Stats
     protected $queue_min_service_time;
     
     /**
-      *  @var integer the maxium service time in last hour
+      *  @var integer the maximum service time in last hour
       */
     protected $queue_max_service_time;
     
-    
+    /**
+      *  @var boolean has the monitoring operation been completed or reserved 
+      */
+    protected $monitor_complete;
     
     //------------------------------------------------------------------
     # Worker Accessors
+    
+    /**
+      *  Gets if the monitoring operation is complete
+      *
+      *  @access public
+      *  @return boolean true if complete
+      */
+    public function getComplete()
+    {
+        return $this->monitor_complete;
+    }
+    
+    /**
+      *   Sets if the monitoring operation is complete
+      *
+      *   @access public
+      *   @return boolean true if complete
+      */
+    public function setComplete($complete)
+    {
+        $this->monitor_complete = $complete;
+    }
+    
     
     /**
       *  Gets the Monitor Database id

@@ -2,7 +2,7 @@
 namespace LaterJob\Model\Transition;
 
 use LaterJob\Event\QueueEventsMap;
-use LaterJob\Event\QueuePurgeHistoryEvent;
+use LaterJob\Event\QueuePurgeActivityEvent;
 use LaterJob\Model\Transition\TransitionGateway;
 use LaterJob\Model\Transition\Transition;
 use LaterJob\Exception as LaterJobException;
@@ -54,7 +54,7 @@ class QueueSubscriber implements EventSubscriberInterface
     }
     
    
-    public function onPurgeHistory(QueuePurgeHistoryEvent $event)
+    public function onPurgeHistory(QueuePurgeActivityEvent $event)
     {
          try {
             

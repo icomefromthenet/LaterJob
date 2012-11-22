@@ -97,7 +97,7 @@ final class QueueEventsMap
    /**
      * The queue.purge.history event is used to old remove transition history. 
      *
-     * The event listener receives LaterJob\Event\QueuePurgeHistoryEvent
+     * The event listener receives LaterJob\Event\QueuePurgeActivityEvent
      * instance.
      *
      * @var string
