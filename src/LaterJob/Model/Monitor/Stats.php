@@ -99,73 +99,184 @@ class Stats
     //------------------------------------------------------------------
     # Worker Accessors
     
+    /**
+      *  Gets the Monitor Database id
+      *
+      *  @access public
+      *  @return integer 
+      */
     public function getMonitorId()
     {
         return $this->monitor_id;
     }
     
+    /**
+      *  Sets the monitor database id
+      *
+      *  @access public
+      *  @param integer the db id
+      */
     public function setMonitorId($id)
     {
         $this->monitor_id = $id;
     }
     
-    
+    /**
+      *  DateTime the monitor covers, the hour where coverage starts
+      *
+      *  @access public
+      *  @return DateTime 
+      */
     public function getMonitorDate()
     {
         return $this->monitor_date;
     }
     
-    public function setMonitorDate(DateTime $det)
+    /**
+      *  Sets the DateTime the monitor covers
+      *
+      *  @access public
+      *  @param DateTime
+      */
+    public function setMonitorDate(DateTime $date)
     {
-        $this->monitor_date = $dte;
+        $this->monitor_date = $date;
     }
     
+    /**
+      *  Gets the Maximum time a worker has taken
+      *
+      *  @access public
+      *  @return integer the time taken in seconds
+      */
     public function getWorkerMaxTime()
     {
         return $this->worker_max_time;
     }
     
+    /**
+      *  Sets the Maximum time a worker has taken
+      *
+      *  @access public
+      *  @param integer $time in seconds
+      */
     public function setWorkerMaxTime($time)
     {
         $this->worker_max_time = $time;
     }
     
+    /**
+      *  Gets the minimum time taken by a worker
+      *
+      *  @access public
+      *  @return integer the time in seconds
+      */
     public function getWorkerMinTime()
     {
         return $this->worker_min_time;
     }
     
+    /**
+      *  Sets the minimum time taken by a worker
+      *
+      *  @access public
+      *  @return integer the time in seconds
+      */
     public function setWorkerMinTime($time)
     {
         $this->worker_min_time = $time;
     }
     
+    /**
+      *  Gets the mean runtime of the workers
+      *
+      *  @access public
+      *  @return integer the mean runtime in seconds
+      */
+    public function getWorkerMeanTime()
+    {
+        return $this->worker_mean_time;
+    }
+    
+    /**
+      *  Sets the mean runtime of the workers
+      *
+      *  @access public
+      *  @param integer $time the mean runtime in seconds
+      */
+    public function setWorkerMeanTime($time)
+    {
+        $this->worker_mean_time = $time;
+    }
+    
+    
+    /**
+      *  Gets the worker throughput for the period, ie the
+      *  mean number of jobs processed by the workers
+      *
+      *  @access public
+      *  @return integer mean number of jobs processed
+      */
     public function getWorkerMeanThroughput()
     {
         return $this->worker_mean_throughput;
     }
     
+    /**
+      *  Sets the worker throughput for the period, ie the
+      *  mean number of jobs processed by the workers
+      *
+      *  @access public
+      *  @param integer $throughput mean number of jobs processed
+      */
     public function setWorkerMeanThroughput($throughput)
     {
         $this->worker_mean_throughput = $throughput;
     }
     
-    
+    /**
+      *  Gets the maximum throughput of workers ie the
+      *  max number of jobs processed by the workers
+      *
+      *  @access public
+      *  @return integer the max jobs processed
+      */
     public function getWorkerMaxThroughput()
     {
         return $this->worker_max_throughput;
     }
     
+    /**
+      *  Sets the maximum throughput of workers ie the
+      *  max number of jobs processed by the workers
+      *
+      *  @access public
+      *  @param integer $max the max jobs processed
+      */
     public function setWorkerMaxThroughput($max)
     {
         $this->worker_max_throughput = $max;
     }
     
+    /**
+      *  Gets the mean utilization of the workers ie the
+      *  mean throughput
+      *
+      *  @access public
+      *  @return integer the mean throughput
+      */
     public function getWorkerMeanUtilization()
     {
         return $this->worker_mean_utilization;
     }
     
+    /**
+      *  Gets the mean utilization of the workers ie the
+      *  mean throughput
+      *
+      *  @access public
+      *  @param integer $util the mean throughput
+      */
     public function setWorkerMeanUtilization($util)
     {
         $this->worker_mean_utilization = $util;

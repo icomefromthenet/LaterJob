@@ -12,6 +12,7 @@ use LaterJob\UUID;
 use DateTime;
 use LaterJob\Model\Transition\JobSubscriber;
 use LaterJob\Util\MersenneRandom;
+use DBALGateway\Feature\StreamQueryLogger;
 
 
 /**
@@ -20,8 +21,27 @@ use LaterJob\Util\MersenneRandom;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class JobEventHandlerTest extends  TestsWithFixture
+class JobEventHandlerTest extends TestsWithFixture
 {
+    
+    protected $streamed_query_logger = null;
+    
+    
+    /**
+    * Creates the application.
+    *
+    */
+    public function createApplication()
+    {
+        if($this->streamed_query_logger === null) {
+            $logger  = new StreamQueryLogger($this->getMonolog());
+            $this->getDoctrineConnection()->getConfiguration()->setSQLLogger($logger);
+            $this->streamed_query_logger = $logger;
+        }
+        
+        return null;
+    }
+    
     
     /**
       *  Fetches a new insance of the gateway
@@ -58,6 +78,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $mock_job  = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         $uuid         = new UUID(new MersenneRandom());   
         $worker_name  = 'test_job_1';
+        $process_handler = '01b89534-cf6e-3a63-b7fe-8e6b5a729483';
         
         # create the transition
         $transition = new Transition();
@@ -65,6 +86,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $transition->setState(QueueConfig::STATE_ADD);
         $transition->setOccured(new DateTime());
         $transition->setMessage('job added');
+        $transition->setProcessHandle($process_handler);
         
         # create the event object
         $transition_event = new JobTransitionEvent($mock_job,$transition);
@@ -83,6 +105,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $mock_job  = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         $uuid         = new UUID(new MersenneRandom());   
         $worker_name  = 'test_job_1';
+        $process_handler = '01b89534-cf6e-3a63-b7fe-8e6b5a729483';
         
         # create the transition
         $transition = new Transition();
@@ -90,6 +113,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $transition->setState(QueueConfig::STATE_START);
         $transition->setOccured(new DateTime());
         $transition->setMessage('job started');
+        $transition->setProcessHandle($process_handler);
         
         # create the event object
         $transition_event = new JobTransitionEvent($mock_job,$transition);
@@ -107,6 +131,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $mock_job  = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         $uuid         = new UUID(new MersenneRandom());   
         $worker_name  = 'test_job_1';
+        $process_handler = '01b89534-cf6e-3a63-b7fe-8e6b5a729483';
         
         # create the transition
         $transition = new Transition();
@@ -114,6 +139,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $transition->setState(QueueConfig::STATE_FINISH);
         $transition->setOccured(new DateTime());
         $transition->setMessage('job finished');
+        $transition->setProcessHandle($process_handler);
         
         # create the event object
         $transition_event = new JobTransitionEvent($mock_job,$transition);
@@ -131,6 +157,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $mock_job  = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         $uuid         = new UUID(new MersenneRandom());   
         $worker_name  = 'test_job_1';
+        $process_handler = '01b89534-cf6e-3a63-b7fe-8e6b5a729483';
         
         # create the transition
         $transition = new Transition();
@@ -138,6 +165,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $transition->setState(QueueConfig::STATE_FAIL);
         $transition->setOccured(new DateTime());
         $transition->setMessage('job has failed');
+        $transition->setProcessHandle($process_handler);
         
         # create the event object
         $transition_event = new JobTransitionEvent($mock_job,$transition);
@@ -155,6 +183,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $mock_job  = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         $uuid         = new UUID(new MersenneRandom());   
         $worker_name  = 'test_job_1';
+        $process_handler = '01b89534-cf6e-3a63-b7fe-8e6b5a729483';
         
         # create the transition
         $transition = new Transition();
@@ -162,6 +191,7 @@ class JobEventHandlerTest extends  TestsWithFixture
         $transition->setState(QueueConfig::STATE_ERROR);
         $transition->setOccured(new DateTime());
         $transition->setMessage('job encountered error');
+        $transition->setProcessHandle($process_handler);
         
         # create the event object
         $transition_event = new JobTransitionEvent($mock_job,$transition);
@@ -174,7 +204,6 @@ class JobEventHandlerTest extends  TestsWithFixture
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage An exception occurred while executing 'INSERT INTO later_job_transition (job_id, state_id, dte_occured, transition_msg) VALUES (?, ?, ?, ?)'
       */
     public function testExceptionStartHandlerMissingDateColumn()
     {
@@ -183,12 +212,14 @@ class JobEventHandlerTest extends  TestsWithFixture
         $mock_job  = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         $uuid         = new UUID(new MersenneRandom());   
         $worker_name  = 'test_job_1';
+        $process_handler = '01b89534-cf6e-3a63-b7fe-8e6b5a729483';
         
         # create the transition
         $transition = new Transition();
         $transition->setJob($uuid->v3($uuid->v4(),$worker_name));
         $transition->setState(QueueConfig::STATE_START);
         $transition->setMessage('job started');
+        $transition->setProcessHandle($process_handler);
         
         # create the event object
         $transition_event = new JobTransitionEvent($mock_job,$transition);

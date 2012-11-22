@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<schema name="later_job">
+ 
+ <writer platform="mysql" format="phpunit" outFileFormat="purgehistory_handler_seed.{ext}" />
+
+ <table name="later_job_transition" generate="100">
+  
+  <column name="transition_id" type="integer">
+   <datatype name="autoincrement" />
+  </column>
+  
+  <column name="worker_id" type="string">
+   <datatype name="nulltype" />
+  </column>
+  
+  <column name="job_id" type="string">
+   <datatype name="job_id" />
+  </column>
+  
+  <column name="state_id" type="integer">
+    <datatype name="constant_number" >
+     <option name="value" value="1" />
+    </datatype>
+  </column>
+  
+  <column name="process_handle" type="string">
+   <datatype name="nulltype" />
+  </column>
+  
+  
+  <column name="dte_occured" type="datetime">
+   <datatype name="date">
+    <option name="start" value="today 13:00:00" />
+    <option name="modify" value="+1 minute" />
+   </datatype>
+  </column>
+  
+  <column name="transition_msg" type="string">
+   <datatype name="regex" format="\w[50,200]" />
+  </column>
+ 
+ </table>
+ 
+</schema>

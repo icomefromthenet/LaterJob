@@ -131,11 +131,12 @@ class Job
       *  Transition a job to starting state
       *
       *  @access public
+      *  @param string $handle The worker's handle
       *  @param DateTime $start
       *  @param string $msg
       *  @throws LaterJob\Exception when starting state fails
       */
-    public function start(DateTime $start,$msg = '')
+    public function start($handle,DateTime $start,$msg = '')
     {
         $current = $this->storage->getState();
         
@@ -152,6 +153,7 @@ class Job
             $trans->setState(QueueConfig::STATE_START);
             $trans->setOccured($start);                
             $trans->setMessage(' Job '.$this->getId(). ' STARTED :: '.$msg);
+            $trans->setProcessHandle($handle);
             
             # raise the start event        
             $this->event->dispatch(JobEventsMap::STATE_START,new JobTransitionEvent($this,$trans));
@@ -170,11 +172,12 @@ class Job
       *  Transition a job to error state
       *
       *  @access public
+      *  @param string $handle The worker's handle
       *  @param DateTime $start
       *  @param string $msg
       *  @throws LaterJob\Exception when starting state fails
       */
-    public function error(DateTime $when,$msg = '')
+    public function error($handle,DateTime $when,$msg = '')
     {
          $current = $this->storage->getState();
         
@@ -209,6 +212,7 @@ class Job
         $trans->setState(QueueConfig::STATE_ERROR);
         $trans->setOccured($when);                
         $trans->setMessage(' Job '.$this->getId(). ' ERROR :: '.$msg);
+        $trans->setProcessHandle($handle);
         
         # raise the error event        
         $this->event->dispatch(JobEventsMap::STATE_ERROR,new JobTransitionEvent($this,$trans));
@@ -219,11 +223,12 @@ class Job
       *  Transition a job to failed state
       *
       *  @access public
+      *  @param string $handle The worker's handle
       *  @param DateTime $start
       *  @param string $msg
       *  @throws LaterJob\Exception when starting state fails
       */
-    public function fail(DateTime $when,$msg = '')
+    public function fail($handle,DateTime $when,$msg = '')
     {
          $current = $this->storage->getState();
         
@@ -239,6 +244,7 @@ class Job
             $trans->setState(QueueConfig::STATE_FAIL);
             $trans->setOccured($when);                
             $trans->setMessage(' Job '.$this->getId(). ' FAIL :: '.$msg);
+            $trans->setProcessHandle($handle);
             
             # raise the fail event        
             $this->event->dispatch(JobEventsMap::STATE_FAIL,new JobTransitionEvent($this,$trans));
@@ -260,11 +266,12 @@ class Job
       *  Transition a job to Finished state
       *
       *  @access public
+      *  @param string $handle The worker's handle
       *  @param DateTime $start
       *  @param string $msg
       *  @throws LaterJob\Exception when starting state fails
       */
-    public function finish(DateTime $finish,$msg = '')
+    public function finish($handle,DateTime $finish,$msg = '')
     {
         $current = $this->storage->getState();
         
@@ -285,6 +292,7 @@ class Job
         $trans->setState(QueueConfig::STATE_FINISH);
         $trans->setOccured($finish);                
         $trans->setMessage(' Job '.$this->getId(). ' FINISHED :: '.$msg);
+        $trans->setProcessHandle($handle);
         
         # raise the finish event        
         $this->event->dispatch(JobEventsMap::STATE_FINISH,new JobTransitionEvent($this,$trans));

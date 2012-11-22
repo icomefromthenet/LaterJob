@@ -44,6 +44,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     
     public function testTransitionFromAddToStart()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -64,7 +65,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         
         $worker = new Job($storage,$mock_def,$mock_event);
         
-        $worker->start(new DateTime,'starting on cron');
+        $worker->start($process_handle,new DateTime,'starting on cron');
         $this->assertEquals('LaterJob\Config\Queue::STATE_START',$worker->getCurrentState());
         
     }
@@ -72,6 +73,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     
     public function testTransitionFromErrorToStart()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -92,7 +94,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         
         $worker = new Job($storage,$mock_def,$mock_event);
         
-        $worker->start(new DateTime,'starting on cron');
+        $worker->start($process_handle,new DateTime,'starting on cron');
         $this->assertEquals('LaterJob\Config\Queue::STATE_START',$worker->getCurrentState());
         
     }
@@ -103,6 +105,7 @@ class JobTest extends PHPUnit_Framework_TestCase
       */
     public function testExceptionTransitionFromStartToStart()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -118,13 +121,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $storage->setState(QueueConfig::STATE_START);
         
         $worker = new Job($storage,$mock_def,$mock_event);
-        $worker->start(new DateTime,'starting on cron');
+        $worker->start($process_handle,new DateTime,'starting on cron');
         
     }
     
     
     public function testTransitionFromStartToFinished()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -145,7 +149,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         
         $worker = new Job($storage,$mock_def,$mock_event);
         
-        $worker->finish(new DateTime,'finishing on cron');
+        $worker->finish($process_handle,new DateTime,'finishing on cron');
         $this->assertEquals('LaterJob\Config\Queue::STATE_FINISH',$worker->getCurrentState());
         
     }
@@ -157,6 +161,7 @@ class JobTest extends PHPUnit_Framework_TestCase
       */
     public function testExceptionTransitionFromFinishToFinish()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -172,13 +177,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $storage->setState(QueueConfig::STATE_FINISH);
         
         $worker = new Job($storage,$mock_def,$mock_event);
-        $worker->finish(new DateTime,'FINISH on cron');
+        $worker->finish($process_handle,new DateTime,'FINISH on cron');
         
     }
     
     
     public function testTransitionStartToError()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -204,7 +210,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $job = new Job($storage,$mock_def,$mock_event);
         $when = new DateTime();
         
-        $job->error($when,'error on cron');
+        $job->error($process_handle,$when,'error on cron');
         
         $this->assertEquals('LaterJob\Config\Queue::STATE_ERROR',$job->getCurrentState());
         
@@ -222,6 +228,7 @@ class JobTest extends PHPUnit_Framework_TestCase
       */
     public function testExceptionTransitionFromErrorToError()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -237,13 +244,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $storage->setState(QueueConfig::STATE_ERROR);
         
         $worker = new Job($storage,$mock_def,$mock_event);
-        $worker->error(new DateTime,'FINISH on cron');
+        $worker->error($process_handle,new DateTime,'FINISH on cron');
     }
     
     
     public function testTransitonFromStartToFail()
     {
-         $id         = 'a job';
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
+        $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_event->expects($this->once())
@@ -263,7 +271,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         
         $worker = new Job($storage,$mock_def,$mock_event);
         
-        $worker->fail(new DateTime,'error on cron');
+        $worker->fail($process_handle,new DateTime,'error on cron');
         $this->assertEquals('LaterJob\Config\Queue::STATE_FAIL',$worker->getCurrentState());
         
     }
@@ -271,7 +279,8 @@ class JobTest extends PHPUnit_Framework_TestCase
     
     public function testTransitonFromErrorToFail()
     {
-         $id         = 'a job';
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
+        $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_event->expects($this->once())
@@ -291,7 +300,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         
         $worker = new Job($storage,$mock_def,$mock_event);
         
-        $worker->fail(new DateTime,'error on cron');
+        $worker->fail($process_handle,new DateTime,'error on cron');
         $this->assertEquals('LaterJob\Config\Queue::STATE_FAIL',$worker->getCurrentState());
         
     }
@@ -303,6 +312,7 @@ class JobTest extends PHPUnit_Framework_TestCase
       */
     public function testExceptionTransitionFromFailToFail()
     {
+        $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
@@ -318,7 +328,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $storage->setState(QueueConfig::STATE_FAIL);
         
         $worker = new Job($storage,$mock_def,$mock_event);
-        $worker->fail(new DateTime,'FAIL on cron');
+        $worker->fail($process_handle,new DateTime,'FAIL on cron');
     }
     
 }

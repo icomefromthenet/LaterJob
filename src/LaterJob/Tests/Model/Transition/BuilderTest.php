@@ -25,6 +25,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $state_id = 1;
         $occured = new DateTime();
         $message = 'a transition msg';
+        $process_handle = 'abcd-efgh-ijkl-mnop';
         
         $transition->setTransitionId($transition_id);
         $transition->setJob($job_id);
@@ -32,6 +33,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $transition->setOccured($occured);
         $transition->setMessage($message);
         $transition->setState($state_id);
+        $transition->setProcessHandle($process_handle);
         
         $this->assertEquals($transition_id,$transition->getTransitionId());
         $this->assertEquals($message,$transition->getMessage());
@@ -39,6 +41,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $this->assertEquals($worker_id,$transition->getWorker());
         $this->assertEquals($job_id,$transition->getJob());
         $this->assertEquals($occured,$transition->getOccured());
+        $this->assertEquals($process_handle,$transition->getProcessHandle());
     }
     
     
@@ -53,6 +56,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $state_id = 1;
         $occured = new DateTime();
         $message = 'a transition msg';
+        $process_handle = 'efgh-ijhg-kjhf-kjjda';
         
         $data = array(
             'transition_id'  => $transition_id,
@@ -60,7 +64,8 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
             'job_id'         => $job_id,
             'state_id'       => $state_id,
             'dte_occured'    => $occured,
-            'transition_msg' => $message
+            'transition_msg' => $message,
+            'process_handle' => $process_handle,
         );
         
         
@@ -72,6 +77,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $this->assertEquals($worker_id,$transition->getWorker());
         $this->assertEquals($job_id,$transition->getJob());
         $this->assertEquals($occured,$transition->getOccured());
+        $this->assertEquals($process_handle,$transition->getProcessHandle());
         
     }
     
@@ -88,13 +94,15 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $state_id = 1;
         $occured = new DateTime();
         $message = 'a transition msg';
-        
+        $process_handle = 'efgh-ijhg-kjhf-kjjda';
+         
         $transition->setTransitionId($transition_id);
         $transition->setJob($job_id);
         $transition->setWorker($worker_id);
         $transition->setOccured($occured);
         $transition->setMessage($message);
         $transition->setState($state_id);
+        $transition->setProcessHandle($process_handle);
         
          $data = array(
             'transition_id'  => $transition_id,
@@ -102,7 +110,8 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
             'job_id'         => $job_id,
             'state_id'       => $state_id,
             'dte_occured'    => $occured,
-            'transition_msg' => $message
+            'transition_msg' => $message,
+            'process_handle' => $process_handle
         );
          
         $converted = $builder->demolish($transition);

@@ -73,7 +73,6 @@ use Faker\Locale\LocaleFactory;
 | TypeFactory::registerExtension('vector','Faker\\Extension\\Faker\\Type\\Vector');
 */
 
-   TypeFactory::registerExtension('null_type','Faker\\Extension\\Faker\\Type\\NullType');
    TypeFactory::registerExtension('job_id','Faker\\Extension\\Faker\\Type\\Job');
    TypeFactory::registerExtension('job_data','Faker\\Extension\\Faker\\Type\\Data');
 

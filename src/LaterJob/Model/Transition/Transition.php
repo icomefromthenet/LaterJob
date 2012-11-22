@@ -41,6 +41,23 @@ class Transition
       */
     protected $message;
     
+    /**
+      *  @var string id of the processer (worker_id) 
+      */
+    protected $process_handle;
+    
+    
+    public function getProcessHandle()
+    {
+        return $this->process_handle;
+    }
+    
+    
+    public function setProcessHandle($handle)
+    {
+        $this->process_handle = $handle;
+    }
+    
     
     public function getMessage()
     {

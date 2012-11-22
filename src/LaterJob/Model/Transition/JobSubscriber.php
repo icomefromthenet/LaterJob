@@ -129,6 +129,7 @@ class JobSubscriber implements EventSubscriberInterface
                                 ->addColumn('state_id',$obj->getState())
                                 ->addColumn('dte_occured',$obj->getOccured())
                                 ->addColumn('transition_msg',$obj->getMessage())
+                                ->addColumn('process_handle',$obj->getProcessHandle())
                             ->end()
                         ->insert();
             

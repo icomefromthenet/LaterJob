@@ -15,14 +15,15 @@
 
     "require-dev" : {
         "icomefromthenet/faker"     : "1.0.3.*",
-        "icomefromthenet/migration" : "dev-master"
+        "icomefromthenet/migration" : "dev-master",
+        "monolog/monolog"              :"1.2.*"
     },
     
     "require" : {
         "icomefromthenet/dbal-gateway" :"dev-master",
         "pimple/pimple"                :"1.0.*",
         "symfony/event-dispatcher"     :"2.1.*",
-        "monolog/monolog"              :"1.2.*"
+        "symfony/console"              :"2.1.*"
         
     },
     

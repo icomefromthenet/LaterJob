@@ -1,9 +1,16 @@
 <?php
 namespace LaterJob;
 
-use Symfony\Components\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Pimple;
 use DateTime;
+use LaterJob\Model\Queue\Storage;
+use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Event\QueueReceiveEvent;
+use LaterJob\Event\QueueListEvent;
+use LaterJob\Event\QueueRemoveEvent;
+use LaterJob\Event\QueuePurgeEvent;
+use LaterJob\Event\QueueEventsMap;
 use LaterJob\Log\LogInterface;
 use LaterJob\Worker;
 use LaterJob\UUID;
@@ -45,6 +52,44 @@ class Queue extends Pimple
         $logger->info('Finished loading LaterJob queue');
     }
     
+    //------------------------------------------------------------------
+    # Properties
+    
+    /**
+      *  Return the Event Dispatcher
+      *
+      *  @access public
+      *  @return Symfony\Component\EventDispatcher\EventDispatcherInterface 
+      */
+    public function getDispatcher()
+    {
+        return $this['dispatcher'];
+    }
+    
+    
+    /**
+      *   Returns the Logger
+      *
+      *   @access public
+      *   @return LaterJob\Log\LogInterface
+      */
+    public function getLogger()
+    {
+        return $this['logger']; 
+    }
+    
+   
+    /**
+      *  Return the UUID Generator
+      *
+      *  @access public
+      *  @return LaterJob\UUID
+      */
+    public function getUUID()
+    {
+        return $this['uuid']; 
+    }
+    
     
     //------------------------------------------------------------------
     # Public Interface
@@ -55,21 +100,27 @@ class Queue extends Pimple
       *   @access public
       *   @return boolean true if job added
       *   @throws LaterJob\Exception
+      *   @param DateTime $now
+      *   @param mixed $job_data
       */
     public function send(DateTime $now,$job_data)
     {
         $uuid          = $this['uuid'];
-        
-        # populate the storage object
-        
+        $event         = $this['dispatcher'];
+        $queue_options = $this['config.queue'];
+        $storage       = new Storage();    
         
         # generate the uuid for job
-        $uuid->v3($uuid->v4(),md5(json_encode($job_data)));
+        $storage->setJobId($uuid->v3($uuid->v4(),md5(json_encode($job_data))));
+        
+        $storage->setDateAdded($now);
+        $storage->setJobData($job_data);
+        $storage->setState(QueueConfig::STATE_ADD);
+        $storage->setRetryLeft($queue_options->getMaxRetry());
         
         # raise the add event
+        $event->dispatch(QueueEventsMap::QUEUE_REC,new QueueReceiveEvent($storage));
         
-        
-        # no exceptions
         return true;            
     }
     
@@ -83,8 +134,8 @@ class Queue extends Pimple
     public function worker()
     {
         $event         = $this['dispatcher'];
-        $worker_config = $this['config']['worker'];
-        $queue_config  = $this['config']['queue'];
+        $worker_config = $this['config.worker'];
+        $queue_config  = $this['config.queue'];
         $uuid          = $this['uuid'];
         
         return new Worker($uuid->v3($uuid->v4(),$worker_config->getWorkerName()),
@@ -108,14 +159,56 @@ class Queue extends Pimple
     /**
       *  Allows a query to be run on the queue
       *
-      *  @return 
+      *  @return Traversable list of jobs
       *  @access public
+      *  @param integer $offset
+      *  @param integer $limit
+      *  @param integer $state
+      *  @param string order 'ASC' | 'DESC'
+      *  @param DateTime $before
+      *  @param DateTime $after 
       */
-    public function query()
+    public function query($offset,$limit,$state = null,$order ='ASC', DateTime $before = null , DateTime $after = null)
     {
+       $event = new QueueListEvent($offset,$limit,$state,strtoupper($order),$before,$after);
        
-       # raise query event
+       $this['dispatcher']->dispatch(QueueEventsMap::QUEUE_LIST,$event);
        
+       return $event->getResult();
+    }
+    
+    /**
+      *  Remove a job from the queue if it has not been
+      *  locked or processed
+      *
+      *  @access public
+      *  @param string $job_id the uuid of the job
+      *  @param DateTime $now
+      *  @return boolean true if removed
+      */
+    public function remove($job_id, DateTime $now)
+    {
+        $event = new QueueRemoveEvent($job_id,$now);
+        $this['dispatcher']->dispatch(QueueEventsMap::QUEUE_REMOVE,$event);
+        
+        return $event->getResult();
+    }
+    
+    
+    /**
+      *  Purge the queue of finished and failed jobs that
+      *  added to the queue before date X
+      *
+      *  @access public
+      *  @param DateTime $before
+      *  @return integer number of jobs purged
+      */
+    public function purge(DateTime $before)
+    {
+        $event = new QueuePurgeEvent($before);
+        $this['dispatcher']->dispatch(QueueEventsMap::QUEUE_PURGE,$event);
+        
+        return $event->getResult();
     }
     
 }

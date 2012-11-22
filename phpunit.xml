@@ -19,7 +19,7 @@
     <testsuites>
         <testsuite name="default">
             <directory suffix="Test.php">src/LaterJob/Tests/</directory>
-            <exclude>src/LaterJob/Tests/Base</exclude>
+            <exclude>src/LaterJob/Tests/Base/TestsWithFixture.php</exclude>
         </testsuite>
   </testsuites>  
     

@@ -1,128 +1,9 @@
 <?xml version="1.0"?>
 <schema name="later_job">
  
- <writer platform="mysql" format="phpunit" />
+ <writer platform="mysql" format="sql" outFileFormat="simulation.{ext}" singleFileMode="true" />
  
- <!--
- <table name="later_job_monitor" generate="0">
-  <column name="monitor_id" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="monitor_dte" type="datetime">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="worker_max_time" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="worker_min_time" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="worker_mean_time" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="worker_mean_throughput" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="worker_max_throughput" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="worker_mean_utilization" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_no_waiting_jobs" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_no_failed_jobs" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_no_error_jobs" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_no_completed_jobs" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_no_processing_jobs" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_mean_service_time" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_min_service_time" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
-  <column name="queue_max_service_time" type="integer">
-   <datatype name="alphanumeric">
-    <option name="format" value="ccccc" />
-    <option name="repeatMin" value="1" />
-    <option name="repeatMax" value="1" />
-   </datatype>
-  </column>
- </table>
- -->
- 
- 
- 
- <table name="later_job_queue" generate="100">
+ <table name="later_job_queue" generate="10000">
   
   <column name="job_id" type="string">
    <datatype name="job_id" />
@@ -150,7 +31,7 @@
   </column>
   
   <column name="retry_last" type="datetime">
-   <datatype name="null_type" />
+   <datatype name="nulltype" />
   </column>
   
   <column name="job_data" type="object">
@@ -158,11 +39,11 @@
   </column>
   
   <column name="handle" type="string">
-   <datatype name="null_type" />
+   <datatype name="nulltype" />
   </column>
   
   <column name="lock_timeout" type="datetime">
-   <datatype name="null_type" />
+   <datatype name="nulltype" />
   </column>
   
  </table>
@@ -176,7 +57,7 @@
   </column>
   
   <column name="worker_id" type="string">
-   <datatype name="null_type" />
+   <datatype name="nulltype" />
   </column>
   
   <column name="job_id" type="string">

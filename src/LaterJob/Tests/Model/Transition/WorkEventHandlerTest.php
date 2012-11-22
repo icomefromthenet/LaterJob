@@ -133,7 +133,6 @@ class WorkEventHandlerTest extends  TestsWithFixture
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage An exception occurred while executing 'INSERT INTO later_job_transition (worker_id, state_id, dte_occured, transition_msg) VALUES (?, ?, ?, ?)'
       */
     public function testStartTranstionExceptionMissingOccuredColumn()
     {

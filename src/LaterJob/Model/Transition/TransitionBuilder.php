@@ -27,6 +27,11 @@ class TransitionBuilder implements BuilderInterface
         $object->setOccured($data['dte_occured']);
         $object->setState($data['state_id']);
         
+        
+        if(!empty($data['process_handle'])) {
+            $object->setProcessHandle($data['process_handle']);        
+        }
+        
         if(isset($data['transition_msg'])) {
             if(!empty($data['transition_msg'])) {
                 $object->setMessage($data['transition_msg']);        
@@ -64,7 +69,8 @@ class TransitionBuilder implements BuilderInterface
             'state_id'      => $entity->getState(),
             'worker_id'     => $entity->getWorker(),
             'job_id'        => $entity->getJob(),
-            'transition_msg'=> $entity->getMessage()
+            'transition_msg'=> $entity->getMessage(),
+            'process_handle'=> $entity->getProcessHandle()
         );
         
     }

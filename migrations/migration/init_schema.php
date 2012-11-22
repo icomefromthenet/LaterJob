@@ -28,6 +28,9 @@ class init_schema implements EntityInterface
         # column for transition state
         $table->addColumn('state_id','integer',array('unsigned'=> true ,'notnull' => true));
         
+        # Job Process Handler
+        $table->addColumn('process_handle','string',array('length'=> 36,'notnull' => false));
+        
         # column dte of transition
         $table->addColumn('dte_occured','datetime',array('notnull' => true));
         

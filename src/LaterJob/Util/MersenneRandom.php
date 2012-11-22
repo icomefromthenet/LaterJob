@@ -29,11 +29,7 @@ class MersenneRandom implements GeneratorInterface
     
     public function __construct($seed = null)
     {
-        if($seed === null) {
-            $this->seed();
-        }
-        
-        $this->seed = $seed;
+        $this->seed($seed);
         $this->index = -1;
         $this->ps = -1;
     }
@@ -51,13 +47,15 @@ class MersenneRandom implements GeneratorInterface
             $max = 1000;
         }
         
-        return abs($this->mt(++$this->index,$min,$max));
+        $v = abs($this->mt(++$this->index,$min,$max));
+        
+        return $v;
     }
     
     
     public function seed($seed = null)
     {
-        if($seed = null){
+        if($seed === null){
             $seed = mt_rand(0,PHP_INT_MAX);    
         }
         
