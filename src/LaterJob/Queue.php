@@ -15,6 +15,8 @@ use LaterJob\Log\LogInterface;
 use LaterJob\Worker;
 use LaterJob\UUID;
 use LaterJob\Loader\LoaderInterface;
+use Cron\CronExpression;
+use LaterJob\Exception as LaterJobException;
 
 /**
   *  This class will Provide API to lookup and fetch
@@ -164,6 +166,25 @@ class Queue extends Pimple
     public function activity()
     {
         return new Activity($this['dispatcher']);
+    }
+    
+    /**
+      *  Return a schedule of cron
+      *
+      *  @access public
+      */
+    public function schedule(DateTime $now , $iterations)
+    {
+        try{
+        
+        $cron = $this['config.worker']->getCronDefinition();
+        $cron_parser = CronExpression::factory($cron);
+        
+        return $cron_parser->getMultipleRunDates($iterations, $now, false, true);
+    
+        } catch(Exception $e) {
+            throw new LaterJobException($e->getMessage(),0,$e);
+        }
     }
     
     

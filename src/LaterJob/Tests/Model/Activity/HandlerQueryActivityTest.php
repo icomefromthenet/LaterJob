@@ -21,7 +21,7 @@ use DBALGateway\Feature\StreamQueryLogger;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class HandlerPurgeActivityTest extends  TestsWithFixture
+class HandlerQueryActivityTest extends  TestsWithFixture
 {
     
     public function getDataSet()

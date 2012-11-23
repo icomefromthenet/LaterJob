@@ -276,5 +276,44 @@ class QueueTest extends PHPUnit_Framework_TestCase
     
     }
     
+    
+    public function testSchedule()
+    {
+        $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
+        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
+        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        
+        $config_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        $model_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        $event_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        
+        
+        $mock_worker_config = $this->getMock('LaterJob\Config\Worker');
+        
+        $mock_worker_config->expects($this->once())
+                            ->method('getCronDefinition')
+                            ->will($this->returnValue('*/20 * * * *'));
+        
+        $options = array();
+        
+        $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
+        
+        $queue['config.worker'] = $mock_worker_config;
+        
+        $next = $queue->schedule(new DateTime(), 20);
+        
+        $this->assertEquals(20,count($next));
+        
+    }
+    
 }
 /* End of File */

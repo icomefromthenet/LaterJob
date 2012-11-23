@@ -23,7 +23,8 @@
         "icomefromthenet/dbal-gateway" :"dev-master",
         "pimple/pimple"                :"1.0.*",
         "symfony/event-dispatcher"     :"2.1.*",
-        "symfony/console"              :"2.1.*"
+        "symfony/console"              :"2.1.*",
+        "mtdowling/cron-expression"    :"1.0.0"
         
     },
     
