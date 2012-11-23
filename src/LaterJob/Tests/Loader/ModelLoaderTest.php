@@ -27,7 +27,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
         
         $gateway = $loader->bootTransitionModel('table',$event,$meta);
         
-        $this->assertInstanceOf('LaterJob\Model\Transition\TransitionGateway',$gateway);
+        $this->assertInstanceOf('LaterJob\Model\Activity\TransitionGateway',$gateway);
     }
     
     public function testStorageModelLoader()
@@ -111,7 +111,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
         
         $loader->boot($pimple);
         
-        $this->assertInstanceOf('LaterJob\Model\Transition\TransitionGateway',$pimple['model.transition']);
+        $this->assertInstanceOf('LaterJob\Model\Activity\TransitionGateway',$pimple['model.transition']);
         $this->assertInstanceOf('LaterJob\Model\Queue\StorageGateway',$pimple['model.queue']);
         $this->assertInstanceOf('LaterJob\Model\Monitor\StatsGateway',$pimple['model.monitor']);
         

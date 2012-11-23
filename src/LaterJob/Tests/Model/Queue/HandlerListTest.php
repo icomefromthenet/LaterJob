@@ -46,7 +46,7 @@ class HandlerListEventTest extends TestsWithFixture
     /**
       *  Fetches a new insance of the gateway
       *
-      *  @return LaterJob\Model\Transition\TransitionGateway
+      *  @return LaterJob\Model\Activity\TransitionGateway
       */   
     protected function getTableGateway()
     {

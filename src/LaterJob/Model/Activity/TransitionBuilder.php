@@ -1,7 +1,7 @@
 <?php
-namespace LaterJob\Model\Transition;
+namespace LaterJob\Model\Activity;
 
-use LaterJob\Model\Transition\Transition;
+use LaterJob\Model\Activity\Transition;
 use DBALGateway\Builder\BuilderInterface;
 
 /**

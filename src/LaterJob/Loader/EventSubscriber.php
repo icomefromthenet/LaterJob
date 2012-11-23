@@ -8,9 +8,9 @@ use LaterJob\Log\LogInterface;
 use LaterJob\Log\LogSubscriber;
 use LaterJob\Model\Queue\QueueSubscriber; 
 use LaterJob\Model\Queue\JobSubscriber;
-use LaterJob\Model\Transition\JobSubscriber    as TransitionJobSubscriber;
-use LaterJob\Model\Transition\WorkerSubscriber as TransitionWorkerSubscriber;
-use LaterJob\Model\Transition\QueueSubscriber  as TransitionQueueSubscriber;
+use LaterJob\Model\Activity\JobSubscriber    as TransitionJobSubscriber;
+use LaterJob\Model\Activity\WorkerSubscriber as TransitionWorkerSubscriber;
+use LaterJob\Model\Activity\QueueSubscriber  as TransitionQueueSubscriber;
 
 /**
   *  Loads the and subscribes the event handlers.

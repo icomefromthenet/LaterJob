@@ -2,7 +2,7 @@
 namespace LaterJob\Event;
 
 use LaterJob\Worker;
-use LaterJob\Model\Transition\Transition;
+use LaterJob\Model\Activity\Transition;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -20,7 +20,7 @@ class WorkerTransitionEvent extends Event
     protected $worker;
     
     /**
-      *  @var LaterJob\Model\Transition\Transition that taken place 
+      *  @var LaterJob\Model\Activity\Transition that taken place 
       */
     protected $transition;
     
@@ -29,7 +29,7 @@ class WorkerTransitionEvent extends Event
       *
       *  @access public
       *  @param LaterJob\Worker $worker
-      *  @param LaterJob\Model\Transition\Transition $trans
+      *  @param LaterJob\Model\Activity\Transition $trans
       */
     public function __construct(Worker $worker, Transition $trans)
     {
@@ -53,7 +53,7 @@ class WorkerTransitionEvent extends Event
       *  Return the transition to take place
       *
       *  @access public
-      *  @return LaterJob\Model\Transition\Transition
+      *  @return LaterJob\Model\Activity\Transition
       */    
     public function getTransition()
     {

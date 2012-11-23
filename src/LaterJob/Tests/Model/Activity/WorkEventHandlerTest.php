@@ -1,16 +1,16 @@
 <?php
-namespace LaterJob\Tests\Model\Transition;
+namespace LaterJob\Tests\Model\Activity;
 
-use LaterJob\Model\Transition\Transition;
-use LaterJob\Model\Transition\TransitionBuilder;
-use LaterJob\Model\Transition\TransitionQuery;
-use LaterJob\Model\Transition\TransitionGateway;
+use LaterJob\Model\Activity\Transition;
+use LaterJob\Model\Activity\TransitionBuilder;
+use LaterJob\Model\Activity\TransitionQuery;
+use LaterJob\Model\Activity\TransitionGateway;
 use LaterJob\Config\Worker as WorkerConfig;
 use LaterJob\Event\WorkerTransitionEvent;
 use LaterJob\Tests\Base\TestsWithFixture;
 use LaterJob\UUID;
 use DateTime;
-use LaterJob\Model\Transition\WorkerSubscriber;
+use LaterJob\Model\Activity\WorkerSubscriber;
 use LaterJob\Util\MersenneRandom;
 
 
@@ -26,7 +26,7 @@ class WorkEventHandlerTest extends  TestsWithFixture
     /**
       *  Fetches a new insance of the gateway
       *
-      *  @return LaterJob\Model\Transition\TransitionGateway
+      *  @return LaterJob\Model\Activity\TransitionGateway
       */   
     protected function getTableGateway()
     {

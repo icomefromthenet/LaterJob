@@ -1,5 +1,5 @@
 <?php
-namespace LaterJob\Model\Transition;
+namespace LaterJob\Model\Activity;
 
 use DateTime;
 

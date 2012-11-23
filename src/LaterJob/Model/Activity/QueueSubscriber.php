@@ -1,10 +1,10 @@
 <?php
-namespace LaterJob\Model\Transition;
+namespace LaterJob\Model\Activity;
 
 use LaterJob\Event\QueueEventsMap;
 use LaterJob\Event\QueuePurgeActivityEvent;
-use LaterJob\Model\Transition\TransitionGateway;
-use LaterJob\Model\Transition\Transition;
+use LaterJob\Model\Activity\TransitionGateway;
+use LaterJob\Model\Activity\Transition;
 use LaterJob\Exception as LaterJobException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use DBALGateway\Exception as DBALGatewayException;

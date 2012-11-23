@@ -1,8 +1,8 @@
 <?php
-namespace LaterJob\Tests\Model\Transition;
+namespace LaterJob\Tests\Model\Activity;
 
-use LaterJob\Model\Transition\Transition;
-use LaterJob\Model\Transition\TransitionBuilder;
+use LaterJob\Model\Activity\Transition;
+use LaterJob\Model\Activity\TransitionBuilder;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 

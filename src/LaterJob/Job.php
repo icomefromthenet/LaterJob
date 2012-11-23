@@ -6,7 +6,7 @@ use LaterJob\Config\Queue as QueueConfig;
 use LaterJob\Event\JobEventsMap;
 use LaterJob\Event\JobTransitionEvent;
 use LaterJob\Model\Queue\Storage;
-use LaterJob\Model\Transition\Transition;
+use LaterJob\Model\Activity\Transition;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DateTime;
 

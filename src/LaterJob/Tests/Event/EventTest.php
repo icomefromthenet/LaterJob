@@ -28,7 +28,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     
     public function testJobTransitionEvent()
     {
-        $mock_transition = $this->getMock('LaterJob\Model\Transition\Transition');
+        $mock_transition = $this->getMock('LaterJob\Model\Activity\Transition');
         $mock_job        = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         
         $event = new JobTransitionEvent($mock_job,$mock_transition);
@@ -50,7 +50,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     
     public function testWorkerTransitionEvent()
     {
-        $mock_transition = $this->getMock('LaterJob\Model\Transition\Transition');
+        $mock_transition = $this->getMock('LaterJob\Model\Activity\Transition');
         $mock_worker =  $this->getMockBuilder('LaterJob\Worker')->disableOriginalConstructor()->getMock();
         
         $event = new WorkerTransitionEvent($mock_worker,$mock_transition);

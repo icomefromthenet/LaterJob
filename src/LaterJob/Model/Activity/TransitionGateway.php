@@ -1,5 +1,5 @@
 <?php
-namespace LaterJob\Model\Transition;
+namespace LaterJob\Model\Activity;
 
 use DBALGateway\Table\AbstractTable;
 
@@ -17,7 +17,7 @@ class TransitionGateway extends AbstractTable
       *  Create a new instance of the querybuilder
       *
       *  @access public
-      *  @return LaterJob\Model\Transition\TransitionQuery
+      *  @return LaterJob\Model\Activity\TransitionQuery
       */
     public function newQueryBuilder()
     {

@@ -58,15 +58,15 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
         
         $event->expects($this->at(0))
               ->method('addSubscriber')
-              ->with($this->isInstanceOf('LaterJob\Model\Transition\JobSubscriber'));
+              ->with($this->isInstanceOf('LaterJob\Model\Activity\JobSubscriber'));
               
         $event->expects($this->at(1))
               ->method('addSubscriber')
-              ->with($this->isInstanceOf('LaterJob\Model\Transition\WorkerSubscriber'));
+              ->with($this->isInstanceOf('LaterJob\Model\Activity\WorkerSubscriber'));
               
          $event->expects($this->at(2))
               ->method('addSubscriber')
-              ->with($this->isInstanceOf('LaterJob\Model\Transition\QueueSubscriber'));
+              ->with($this->isInstanceOf('LaterJob\Model\Activity\QueueSubscriber'));
         
         $table = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();
         

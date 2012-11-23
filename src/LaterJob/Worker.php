@@ -5,7 +5,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use LaterJob\Event\WorkerEventsMap;
 use LaterJob\Event\WorkerTransitionEvent;
 use LaterJob\Config\Worker as WorkerConfig;
-use LaterJob\Model\Transition\Transition;
+use LaterJob\Model\Activity\Transition;
 use LaterJob\Exception as WorkerException;
 use LaterJob\Exception as LaterJobException;
 use DateTime;

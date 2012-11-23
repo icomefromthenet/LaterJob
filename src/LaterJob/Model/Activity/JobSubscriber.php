@@ -1,5 +1,5 @@
 <?php
-namespace LaterJob\Model\Transition;
+namespace LaterJob\Model\Activity;
 
 use LaterJob\Event\JobEventsMap;
 use LaterJob\Event\JobTransitionEvent;
