@@ -103,7 +103,19 @@ final class QueueEventsMap
      * @var string
      */
    
-   const QUEUE_PURGE_HISTORY = 'laterjob.queue.purge.history';
+   const QUEUE_PURGE_ACTIVITY = 'laterjob.queue.purge.activity';
+   
+   
+   /**
+     * The queue.purge.history event is used to old remove transition history. 
+     *
+     * The event listener receives LaterJob\Event\QueuePurgeActivityEvent
+     * instance.
+     *
+     * @var string
+     */
+   
+   const QUEUE_QUERY_ACTIVITY = 'laterjob.queue.query.activity';
    
     
 }

@@ -155,6 +155,17 @@ class Queue extends Pimple
                 
     }
     
+    /**
+      *  Return the Activity API
+      *
+      *  @return LaterJob\Activity
+      *  @access public
+      */
+    public function activity()
+    {
+        return new Activity($this['dispatcher']);
+    }
+    
     
     /**
       *  Allows a query to be run on the queue

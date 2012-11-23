@@ -14,6 +14,7 @@ use LaterJob\Event\QueuePurgeActivityEvent;
 use LaterJob\Event\QueueReceiveEvent;
 use LaterJob\Event\QueueRemoveEvent;
 use LaterJob\Event\QueueSendEvent;
+use LaterJob\Event\QueueQueryActivityEvent;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
@@ -43,9 +44,10 @@ class EventTest extends PHPUnit_Framework_TestCase
         $mock_results = $this->getMock('LaterJob\Model\Monitor\Stats');
         
         $event = new MonitoringEvent($mock_results);
-        
-        //$this->assertEquals($mock_results,$event->getResult());
-        
+        $event->setResult(false);
+    
+        $this->assertEquals($mock_results,$event->getStats());
+        $this->assertEquals(false,$event->getResult());    
     }
     
     public function testWorkerTransitionEvent()
@@ -177,6 +179,25 @@ class EventTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($timeout,$send->getTimeout());
         $this->assertEquals($limit,$send->getLimit());
         $this->assertEquals($result,$send->getResult());
+    }
+    
+    
+    public function testQueueActivtyEvent()
+    {
+        $offset = 3;
+        $limit = 100;
+        $before = new DateTime();
+        $after = new DateTime();
+        $order = 'asc';
+        
+        $event = new QueueQueryActivityEvent($offset,$limit,$order,$before,$after);
+        
+        $this->assertEquals($offset,$event->getOffset());
+        $this->assertEquals($limit,$event->getLimit());
+        $this->assertEquals($before,$event->getBefore());
+        $this->assertEquals($after,$event->getAfter());
+        $this->assertEquals($order,$event->getOrder());
+        
     }
     
 }

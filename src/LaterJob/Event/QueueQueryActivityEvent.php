@@ -23,13 +23,33 @@ class QueueQueryActivityEvent extends Event
     protected $result;
     
     /**
+      *  @var integer a db offset 
+      */
+    protected $offset;
+    
+    /**
+      *  @var limit a db query limit 
+      */
+    protected $limit;
+    
+    /**
+      *  @var string ASC | DESC  to order the transitions by date occured
+      */
+    protected $order;
+    
+    /**
       *  Class Constructor
       *
       *  @access public
       */
-    public function __construct(DateTime $before = null)
+    public function __construct($offset, $limit, $order = 'ASC', DateTime $before = null, DateTime $after = null)
     {
-        $this->before = $before;
+        $this->before  = $before;
+        $this->after   = $after;
+        $this->limit   = $limit;
+        $this->offset  = $offset;
+        $this->order   = $order;
+        
         $this->removed = 0;
     }
 
@@ -39,11 +59,54 @@ class QueueQueryActivityEvent extends Event
       *  @access public
       *  @return DateTime
       */
-    public function getBeforeDate()
+    public function getBefore()
     {
         return $this->before;
     }
     
+    /**
+      *  Return the date after
+      *
+      *  @access public
+      *  @return DateTime
+      */
+    public function getAfter()
+    {
+        return $this->after;
+    }
+    
+    /**
+      *  Return the date order.
+      *
+      *  @access public
+      *  @return string ASC | DESC
+      */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+    
+    /**
+      *  Return the limit
+      *
+      *  @access public
+      *  @return integer the db query limit
+      */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+    
+    /**
+      *  Return the offset
+      *
+      *  @access public
+      *  @return integer the db offset
+      */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
     
     /**
       *  Gets the result of the purge operation
@@ -68,5 +131,4 @@ class QueueQueryActivityEvent extends Event
     }
     
 }
-
 /* End of File */

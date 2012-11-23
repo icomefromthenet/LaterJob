@@ -6,7 +6,7 @@ use LaterJob\Model\Activity\TransitionBuilder;
 use LaterJob\Model\Activity\TransitionQuery;
 use LaterJob\Model\Activity\TransitionGateway;
 use LaterJob\Config\Queue as QueueConfig;
-use LaterJob\Event\QueuePurgeActivityEvent;
+use LaterJob\Event\QueueQueryActivityEvent;
 use LaterJob\Tests\Base\TestsWithFixture;
 use LaterJob\UUID;
 use DateTime;
@@ -21,7 +21,7 @@ use DBALGateway\Feature\StreamQueryLogger;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class HandlerPurgeHistoryTest extends  TestsWithFixture
+class HandlerPurgeActivityTest extends  TestsWithFixture
 {
     
     public function getDataSet()
@@ -77,24 +77,60 @@ class HandlerPurgeHistoryTest extends  TestsWithFixture
    
    
    
-    public function testPurge()
+    public function testQueryNoDate()
     {
         $gateway = $this->getTableGateway();
         $handler = new QueueSubscriber($gateway);
         
-        $before = new DateTime('2012-11-22 13:10:00');
-        $event = new QueuePurgeActivityEvent($before);
+        $event = new QueueQueryActivityEvent(4,5,'DESC',null,null);
         
-        $handler->onPurgeHistory($event);
+        $handler->onQueryActivity($event);
+       
+        $result = $event->getResult();
+       
+        $this->assertEquals(5,count($result));
         
-        #assert the result
-        $this->assertEquals(10,$event->getResult());
+        $expected  = array(
+            96,
+            95,
+            94,
+            93,
+            92
+        );
         
-        # assert datasets match
-        $resulting_table = $this->getConnection()->createQueryTable("later_job_transition","SELECT * FROM later_job_transition ORDER BY dte_occured ASC");        
-        $expected_table = $this->createXmlDataSet(__DIR__ . DIRECTORY_SEPARATOR . 'Fixture'. DIRECTORY_SEPARATOR ."purgehistory_handler_result.xml")->getTable("later_job_transition");
+        foreach($result as $activity) {
+            $this->assertContains($activity->getTransitionId(),$expected);
+        }
+       
+    }
+    
+    public function testQueryWithDate()
+    {
+        $gateway = $this->getTableGateway();
+        $handler = new QueueSubscriber($gateway);
         
-        $this->assertTablesEqual($expected_table,$resulting_table);
+        $before = new DateTime('22-11-2012 14:39:00');
+        $after  = new DateTime('22-11-2012 14:36:00');
+        
+        $event = new QueueQueryActivityEvent(0,100,'DESC',$before,$after);
+        
+        $handler->onQueryActivity($event);
+       
+        $result = $event->getResult();
+       
+        $this->assertEquals(4,count($result));
+        
+        $expected  = array(
+            99,
+            98,
+            97,
+            96
+        );
+        
+        foreach($result as $activity) {
+            $this->assertContains($activity->getTransitionId(),$expected);
+        }
+        
     }
     
 }
