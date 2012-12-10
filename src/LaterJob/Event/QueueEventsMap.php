@@ -107,15 +107,27 @@ final class QueueEventsMap
    
    
    /**
-     * The queue.purge.history event is used to old remove transition history. 
+     * The queue.purge.query.activity event is used to query transition log
      *
-     * The event listener receives LaterJob\Event\QueuePurgeActivityEvent
+     * The event listener receives LaterJob\Event\QueueQueryActivityEvent
      * instance.
      *
      * @var string
      */
    
    const QUEUE_QUERY_ACTIVITY = 'laterjob.queue.query.activity';
+   
+   
+    /**
+     * The queue.lookup event is used to lookup a job
+     *
+     * The event listener receives LaterJob\Event\QueueLookupEvent
+     * instance.
+     *
+     * @var string
+     */
+   
+   const QUEUE_LOOKUP = 'laterjob.queue.lookup';
    
     
 }

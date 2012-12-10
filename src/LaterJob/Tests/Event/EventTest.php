@@ -15,6 +15,8 @@ use LaterJob\Event\QueueReceiveEvent;
 use LaterJob\Event\QueueRemoveEvent;
 use LaterJob\Event\QueueSendEvent;
 use LaterJob\Event\QueueQueryActivityEvent;
+use LaterJob\Event\QueueLookupEvent;
+use LaterJob\Event\MonitoringQueryEvent;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
@@ -197,6 +199,36 @@ class EventTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($before,$event->getBefore());
         $this->assertEquals($after,$event->getAfter());
         $this->assertEquals($order,$event->getOrder());
+        
+    }
+    
+    
+    public function testMonitoringQueryEvent()
+    {
+        $start = new DateTime();
+        $end   = new DateTime();
+        $result = new \ArrayIterator(array());
+        
+        $event = new MonitoringQueryEvent($start,$end);
+        $event->setResult($result);
+        
+        $this->assertEquals($end,$event->getEnd());
+        $this->assertEquals($start,$event->getStart());
+        $this->assertEquals($result,$event->getResult());
+        
+    }
+    
+     
+    public function testQueueLookupEvent()
+    {
+        $job_id = '4b336e15-cac0-3307-8b81-f1de26e6c383';
+        $result = $this->getMock('LaterJob\Model\Queue\Storage');
+        
+        $event = new QueueLookupEvent($job_id);
+        $event->setResult($result);
+        
+        $this->assertEquals($result,$event->getResult());
+        $this->assertEquals($job_id,$event->getJobId());
         
     }
     

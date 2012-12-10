@@ -49,6 +49,39 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $this->assertEquals($worker_mean_throughput,$entity->getWorkerMeanThroughput());
         $this->assertEquals($worker_max_throughput,$entity->getWorkerMaxThroughput());
         $this->assertEquals($worker_mean_utilization,$entity->getWorkerMeanUtilization());
+        
+        # set the queue properties
+        
+        $queue_no_waiting_jobs    = 100;
+        $queue_no_completed_jobs  = 600;
+        $queue_no_error_jobs      = 500;
+        $queue_no_failed_jobs     = 400;
+        $queue_no_processing_jobs = 300; 
+           
+        $entity->setQueueJobsAdded($queue_no_waiting_jobs);
+        $entity->setQueueJobsCompleted($queue_no_completed_jobs);
+        $entity->setQueueJobsError($queue_no_error_jobs);
+        $entity->setQueueJobsFailed($queue_no_failed_jobs);
+        $entity->setQueueJobsProcessing($queue_no_processing_jobs);
+         
+        $this->assertEquals($queue_no_waiting_jobs,$entity->getQueueJobsAdded());
+        $this->assertEquals($queue_no_completed_jobs,$entity->getQueueJobsCompleted());
+        $this->assertEquals($queue_no_error_jobs,$entity->getQueueJobsError());
+        $this->assertEquals($queue_no_failed_jobs,$entity->getQueueJobsFailed());
+        $this->assertEquals($queue_no_processing_jobs,$entity->getQueueJobsProcessing());
+         
+        # set the job runtime   
+        $queue_max_service_time   = 350;
+        $queue_min_service_time   = 375;
+        $queue_mean_service_time  = 677;
+        
+        $entity->setJobMaxServiceTime($queue_max_service_time);
+        $entity->setJobMinServiceTime($queue_min_service_time);
+        $entity->setJobMeanServiceTime($queue_mean_service_time);
+        
+        $this->assertEquals($queue_max_service_time,$entity->getJobMaxServiceTime());
+        $this->assertEquals($queue_min_service_time,$entity->getJobMinServiceTime());
+        $this->assertEquals($queue_mean_service_time,$entity->getJobMeanServiceTime());
     }
     
     
@@ -65,6 +98,17 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $worker_mean_utilization = 50;
         $monitor_complete        = false;
         
+        $queue_no_waiting_jobs    = 100;
+        $queue_no_completed_jobs  = 600;
+        $queue_no_error_jobs      = 500;
+        $queue_no_failed_jobs     = 400;
+        $queue_no_processing_jobs = 300;
+        
+        $queue_max_service_time   = 350;
+        $queue_min_service_time   = 375;
+        $queue_mean_service_time  = 677;
+        
+        
         $data = array (
            'monitor_id'              => $monitor_id,
            'monitor_complete'        => $monitor_complete,
@@ -75,6 +119,14 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
            'worker_max_throughput'   => $worker_max_throughput,
            'worker_mean_throughput'  => $worker_mean_throughput,
            'worker_mean_utilization' => $worker_mean_utilization,
+           'queue_no_waiting_jobs'   => $queue_no_waiting_jobs,
+           'queue_no_completed_jobs' => $queue_no_completed_jobs,
+           'queue_no_error_jobs'     => $queue_no_error_jobs,
+           'queue_no_failed_jobs'    => $queue_no_failed_jobs,
+           'queue_no_processing_jobs'=> $queue_no_processing_jobs,
+           'queue_max_service_time'  => $queue_max_service_time,
+           'queue_min_service_time'  => $queue_min_service_time,
+           'queue_mean_service_time' => $queue_mean_service_time
         );
         
         $builder = new StatsBuilder();
@@ -90,14 +142,20 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $this->assertEquals($worker_max_throughput,$entity->getWorkerMaxThroughput());
         $this->assertEquals($worker_mean_utilization,$entity->getWorkerMeanUtilization());
         $this->assertEquals($monitor_complete,$entity->getComplete());
-        
+        $this->assertEquals($queue_no_waiting_jobs,$entity->getQueueJobsAdded());
+        $this->assertEquals($queue_no_completed_jobs,$entity->getQueueJobsCompleted());
+        $this->assertEquals($queue_no_error_jobs,$entity->getQueueJobsError());
+        $this->assertEquals($queue_no_failed_jobs,$entity->getQueueJobsFailed());
+        $this->assertEquals($queue_no_processing_jobs,$entity->getQueueJobsProcessing());
+        $this->assertEquals($queue_max_service_time,$entity->getJobMaxServiceTime());
+        $this->assertEquals($queue_min_service_time,$entity->getJobMinServiceTime());
+        $this->assertEquals($queue_mean_service_time,$entity->getJobMeanServiceTime());
     }
     
     
     public function testDemolish()
     {
         $entity = new Stats();
-        
         $monitor_id   = 1;
         $monitor_date = new DateTime();
         $worker_max_runtime = (60*5);
@@ -107,6 +165,16 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $worker_max_throughput = 100;
         $worker_mean_utilization = 50;
         $monitor_complete        = false;
+        
+        $queue_no_waiting_jobs    = 100;
+        $queue_no_completed_jobs  = 600;
+        $queue_no_error_jobs      = 500;
+        $queue_no_failed_jobs     = 400;
+        $queue_no_processing_jobs = 300;
+        
+        $queue_max_service_time   = 350;
+        $queue_min_service_time   = 375;
+        $queue_mean_service_time  = 677;
         
         
         $entity->setMonitorId($monitor_id);
@@ -118,6 +186,14 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $entity->setWorkerMaxThroughput($worker_max_throughput);
         $entity->setWorkerMeanUtilization($worker_mean_utilization);
         $entity->setComplete($monitor_complete);
+        $entity->setQueueJobsAdded($queue_no_waiting_jobs);
+        $entity->setQueueJobsCompleted($queue_no_completed_jobs);
+        $entity->setQueueJobsError($queue_no_error_jobs);
+        $entity->setQueueJobsFailed($queue_no_failed_jobs);
+        $entity->setQueueJobsProcessing($queue_no_processing_jobs);
+        $entity->setJobMaxServiceTime($queue_max_service_time);
+        $entity->setJobMinServiceTime($queue_min_service_time);
+        $entity->setJobMeanServiceTime($queue_mean_service_time);
         
         $builder = new StatsBuilder();
         
@@ -133,6 +209,14 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
            'worker_max_throughput'   => $worker_max_throughput,
            'worker_mean_throughput'  => $worker_mean_throughput,
            'worker_mean_utilization' => $worker_mean_utilization,
+           'queue_no_waiting_jobs'   => $queue_no_waiting_jobs,
+           'queue_no_completed_jobs' => $queue_no_completed_jobs,
+           'queue_no_error_jobs'     => $queue_no_error_jobs,
+           'queue_no_failed_jobs'    => $queue_no_failed_jobs,
+           'queue_no_processing_jobs'=> $queue_no_processing_jobs,
+           'queue_max_service_time'  => $queue_max_service_time,
+           'queue_min_service_time'  => $queue_min_service_time,
+           'queue_mean_service_time' => $queue_mean_service_time
         ));
     }
     

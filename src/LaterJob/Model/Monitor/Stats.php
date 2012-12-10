@@ -38,7 +38,7 @@ class Stats
     protected $worker_mean_time;
     
     /**
-      *  @var  integer the average processed jobs this last worker
+      *  @var  integer the average processed jobs
       */
     protected $worker_mean_throughput;
     
@@ -75,7 +75,7 @@ class Stats
     protected $queue_no_completed_jobs;
     
     /**
-      *  @var integer number of jobs in processing in last hour
+      *  @var integer number of jobs in processing ie not finished
       */
     protected $queue_no_processing_jobs;
     
@@ -311,60 +311,183 @@ class Stats
     //------------------------------------------------------------------
     # Queue Accessors
     
-    
+    /**
+      *  Sets the number of jobs added
+      *
+      *  @access public
+      *  @return integer the number of jobs
+      */
     public function getQueueJobsAdded()
     {
-        
+        return $this->queue_no_added_jobs;
     }
     
-    
+    /**
+      *  Sets the number og jobs added
+      *
+      *  @access public
+      *  @param integer $count 
+      */
     public function setQueueJobsAdded($count)
     {
-        
+        $this->queue_no_added_jobs = $count;
     }
     
-    
+    /**
+      *  Gets the number of jobs that failed
+      *
+      *  @access public
+      *  @return integer $count
+      */
     public function getQueueJobsFailed()
     {
-        
+        return $this->queue_no_failed_jobs;
     }
     
+    /**
+      *  Sets the number of jobs failed
+      *
+      *  @access public
+      *  @param integer $count
+      */
     public function setQueueJobsFailed($count)
     {
-        
+        $this->queue_no_failed_jobs = $count;
     }
     
-    
+    /**
+      *  Gets the number of jobs completed
+      *
+      *  @access public
+      *  @return integer
+      */
     public function getQueueJobsCompleted()
     {
-        
+        return $this->queue_no_completed_jobs;
     }
     
+    /**
+      *  Sets the number of jobs completed
+      *
+      *  @access public
+      *  @r
+      */
     public function setQueueJobsCompleted($count)
     {
-        
+        $this->queue_no_completed_jobs = $count;
     }
     
-    
+    /**
+      *   Gets the number of jobs in error
+      *
+      *   @access public
+      *   @return integer
+      */
     public function getQueueJobsError()
     {
-        
+        return $this->queue_no_error_jobs;
     }
     
+    /**
+      *   Sets the number of jobs in error
+      *
+      *   @access public
+      *   @param integer $count
+      */
     public function setQueueJobsError($count)
     {
-        
+        $this->queue_no_error_jobs = $count;
     }
     
-    
+    /**
+      *  Gets the number of jobs started in the period
+      *
+      *  @access public
+      *  @return integer 
+      */
     public function getQueueJobsProcessing()
     {
-        
+        return $this->queue_no_processing_jobs;
     }
     
+    /**
+      *  Sets the number of jobs started in the period
+      *
+      *  @access public
+      *  @param integer
+      */
+    public function setQueueJobsProcessing($count)
+    {
+        $this->queue_no_processing_jobs = $count;
+    }
     
-    //public function setQueue
+     
+    /**
+      *   Gets the mean service time for a job
+      *
+      *   @access public
+      *   @return integer time in seconds
+      */
+    public function getJobMeanServiceTime()
+    {
+        return $this->queue_mean_service_time;
+    }
     
+      /**
+      *  Sets the mean service time for job
+      *
+      *  @access public
+      *  @param integer $count time in seconds
+      */
+    public function setJobMeanServiceTime($count)
+    {
+        $this->queue_mean_service_time = $count;
+    }
+    
+    /**
+      *   Gets the minimum service time for a job
+      *
+      *   @access public
+      *   @return integer time in seconds
+      */
+    public function getJobMinServiceTime()
+    {
+        return $this->queue_min_service_time;
+    }
+    
+    /**
+      *  Sets the minimum service time for job
+      *
+      *  @access public
+      *  @param integer $count time in seconds
+      */
+    public function setJobMinServiceTime($count)
+    {
+        $this->queue_min_service_time = $count;
+    }
+    
+     
+    /**
+      *   Gets the maximum service time for a job
+      *
+      *   @access public
+      *   @return integer time in seconds
+      */
+    public function getJobMaxServiceTime()
+    {
+        return $this->queue_max_service_time;
+    }
+    
+    /**
+      *  Sets the maximum service time for job
+      *
+      *  @access public
+      *  @param integer $count time in seconds
+      */
+    public function setJobMaxServiceTime($count)
+    {
+        $this->queue_max_service_time = $count;
+    }
 }
 
 /* End of File */

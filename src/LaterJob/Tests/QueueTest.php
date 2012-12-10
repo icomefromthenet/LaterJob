@@ -315,5 +315,66 @@ class QueueTest extends PHPUnit_Framework_TestCase
         
     }
     
+    
+    public function testReturnsMonitor()
+    {
+        $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
+        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
+        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        
+        $config_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        $model_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        $event_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        
+        $options = array();
+        
+        $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
+        
+        $this->assertInstanceOf('LaterJob\Monitor',$queue->monitor());
+    
+    }
+    
+    
+    public function testLookup()
+    {
+        $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
+        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
+        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        
+        $config_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        $model_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        $event_loder->expects($this->once())
+                     ->method('boot')
+                     ->with($this->isInstanceOf('Pimple'));
+        
+        $options = array();
+        
+        $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
+        
+        $mock_event->expects($this->once())
+                   ->method('dispatch')
+                   ->with($this->equalTo(QueueEventsMap::QUEUE_LOOKUP),$this->isInstanceOf('LaterJob\Event\QueueLookupEvent'));
+        
+        $queue->lookup(1);
+        
+    
+    }
+    
 }
 /* End of File */

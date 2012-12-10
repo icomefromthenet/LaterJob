@@ -10,25 +10,25 @@ namespace LaterJob\Event;
 final class MonitoringEventsMap
 {
     /**
-     * The monitor.start event is raised when monitoring script starts.
+     * The monitor.run event is raised when monitoring script starts.
      *
      * The event listener receives LaterJob\Event\MonitoringEvent
      * instance.
      *
      * @var string
      */
-   const MONITOR_START   = 'laterjob.monitor.start';
+   const MONITOR_RUN   = 'laterjob.monitor.run';
    
     /**
-     * The monitor.finish event is raised when monitoring is finished and results for
-     * the hour are in.
+     * The monitor.query event is raised when a client wants to find
+     * a monitor result
      *
      * The event listener receives LaterJob\Event\MonitoringEvent
      * instance.
      *
      * @var string
      */
-   const MONITOR_FINISH = 'laterjob.monitor.finish';
+   const MONITOR_QUERY = 'laterjob.monitor.query';
    
    
     

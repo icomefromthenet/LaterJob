@@ -4,6 +4,7 @@ namespace LaterJob\Model\Activity;
 use DBALGateway\Query\AbstractQuery;
 use DateTime;
 use LaterJob\Config\Queue;
+use Doctrine\DBAL\Query\Expression\CompositeExpression;
 
 /**
   *  Query class for Transitions 
@@ -52,6 +53,29 @@ class TransitionQuery extends AbstractQuery
     public function filterByTransition($id)
     {
         $this->where($this->expr()->eq('transition_id',':transition_id'))->setParameter('transition_id',$id,$this->getGateway()->getMetaData()->getColumn('transition_id')->getType());
+        
+        return $this;
+    }
+    
+    
+    /**
+      *  Filter to group of States
+      *
+      *  @access public
+      *  @return TransitionQuery
+      *  @param integer $id of the transition
+      */
+    public function filterByStates($id)
+    {
+        $arguments           = func_get_args();
+        $processed_arguments = array();
+        
+        foreach($arguments as $arg) {
+            $processed_arguments[] = $this->expr()->eq('state_id',':state_id_'.$arg);
+            $this->setParameter('state_id_'.$arg,$arg,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());    
+        }
+        
+        $this->andWhere(new CompositeExpression(CompositeExpression::TYPE_OR, $processed_arguments));
         
         return $this;
     }
@@ -134,7 +158,7 @@ class TransitionQuery extends AbstractQuery
       */
     public function filterOnlyWorkers()
     {
-        $this->where($this->expr()->isNotNull('worker_id'));
+        $this->andWhere($this->expr()->isNotNull('worker_id'));
         
         return $this;
     }
@@ -147,11 +171,27 @@ class TransitionQuery extends AbstractQuery
       */
     public function filterOnlyJobs()
     {
-        $this->where($this->expr()->isNotNull('job_id'));
+        $this->andWhere($this->expr()->isNotNull('job_id'));
         
         return $this;
     }
     
+    
+    
+    //------------------------------------------------------------------
+    # Agg functions
+    
+    /**
+      *  Will added a calculated column that counts number of jobs in the
+      *  result set, recommend use a groupBy to compress resultset
+      */
+    public function calculateStateCount()
+    {
+        $platform = $this->getConnection()->getDatabasePlatform()->getCountExpression('state_id');
+        $this->addSelect($platform .' AS ' . 'state_count');
+        
+        return $this;
+    } 
         
 }
 /* End of File */

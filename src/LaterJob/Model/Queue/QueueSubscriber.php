@@ -8,6 +8,7 @@ use LaterJob\Event\QueuePurgeEvent;
 use LaterJob\Event\QueueReceiveEvent;
 use LaterJob\Event\QueueRemoveEvent;
 use LaterJob\Event\QueueSendEvent;
+use LaterJob\Event\QueueLookupEvent;
 use LaterJob\Model\Queue\StorageGateway;
 use LaterJob\Model\Queue\Storage;
 use LaterJob\Exception as LaterJobException;
@@ -60,9 +61,33 @@ class QueueSubscriber implements EventSubscriberInterface
             QueueEventsMap::QUEUE_REMOVE   => array('onRemove'),
             QueueEventsMap::QUEUE_LIST     => array('onList'),
             QueueEventsMap::QUEUE_PURGE    => array('onPurge'),
+            QueueEventsMap::QUEUE_LOOKUP   => array('onLookup'),
         );
     }
     
+   
+     public function onLookup(QueueLookupEvent $event)
+    {
+        
+        try {
+            $result = $this->gateway->selectQuery()
+                ->start()
+                    ->filterByJob($event->getJobId())    
+                    ->limit(1)
+                ->end()
+            ->findOne();
+            
+            if(count($result) > 0) {
+                $event->setResult($result);    
+            }
+            
+            
+        } catch(DBALGatewayException $e) {
+            throw new LaterJobException($e->getMessage(),0,$e);
+        }
+        
+    }
+   
    
     public function onLock(QueueLockEvent $event)
     {

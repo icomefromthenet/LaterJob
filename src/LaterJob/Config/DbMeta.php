@@ -142,6 +142,10 @@ class DbMeta implements ConfigurationInterface
         # Optional transitional message
         $table->addColumn('transition_msg','string',array('length' => 200,'notnull'=> false));
         
+        
+        # VColumn state_count used in agg count queries of the job state
+        $table->addVirtualColumn('state_count','integer',array("unsigned" => true));
+        
         return $table;
         
     }

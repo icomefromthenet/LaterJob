@@ -10,6 +10,7 @@ use LaterJob\Event\QueueReceiveEvent;
 use LaterJob\Event\QueueListEvent;
 use LaterJob\Event\QueueRemoveEvent;
 use LaterJob\Event\QueuePurgeEvent;
+use LaterJob\Event\QueueLookupEvent;
 use LaterJob\Event\QueueEventsMap;
 use LaterJob\Log\LogInterface;
 use LaterJob\Worker;
@@ -154,7 +155,7 @@ class Queue extends Pimple
       */
     public function monitor()
     {
-                
+        return new Monitor($this['dispatcher']);        
     }
     
     /**
@@ -239,6 +240,21 @@ class Queue extends Pimple
     {
         $event = new QueuePurgeEvent($before);
         $this['dispatcher']->dispatch(QueueEventsMap::QUEUE_PURGE,$event);
+        
+        return $event->getResult();
+    }
+    
+    
+    /**
+      *  Lookup a specify job using its id
+      *
+      *  @access public
+      *  @return LaterJob\Model\Queue\Storage
+      */
+    public function lookup($job_id)
+    {
+        $event = new QueueLookupEvent($job_id);
+        $this['dispatcher']->dispatch(QueueEventsMap::QUEUE_LOOKUP,$event);
         
         return $event->getResult();
     }

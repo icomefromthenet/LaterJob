@@ -16,7 +16,9 @@
     "require-dev" : {
         "icomefromthenet/faker"     : "1.0.3.*",
         "icomefromthenet/migration" : "dev-master",
-        "monolog/monolog"              :"1.2.*"
+        "monolog/monolog"           : "1.2.*",
+        "silex/silex"               : "1.0.*"
+        
     },
     
     "require" : {

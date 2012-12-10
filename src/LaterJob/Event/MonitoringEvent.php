@@ -22,16 +22,23 @@ class MonitoringEvent extends Event
       */
     protected $stats;
     
+    /**
+      *  @var string length of time monitor will observe
+      *  example : '+1 hour' ie strtotime compitable string
+      */
+    protected $interval;
+    
     
     /**
       *  Class constructor
       *
       *  @access public
-      *  @param LaterJob\Model\Monitor\Stats $results
+      *  @param LaterJob\Model\Monitor\Stats $stats
       */
     public function __construct(Stats $stats)
     {
         $this->stats = $stats;
+        $this->interval = '+ 1 hour';
     }
     
     /**
@@ -66,6 +73,28 @@ class MonitoringEvent extends Event
     public function setResult($results)
     {
         $this->results = $results;
+    }
+    
+    /**
+      *  Get the length of time monitor will observe
+      *
+      *  @access public
+      *  @return string 
+      */
+    public function getInterval()
+    {
+        return $this->interval;
+    }
+    
+    /**
+      *  Set interval of time moniitor will observe
+      * 
+      *  @access public
+      *  @param string $period e.g '+1 hour'
+      */
+    public function setInterval($period)
+    {
+        $this->interval = $period;
     }
     
 }

@@ -42,6 +42,16 @@ class StatsBuilder implements BuilderInterface
         $obj->setWorkerMeanUtilization($data['worker_mean_utilization']);
         
         # bind queue stats
+        $obj->setQueueJobsAdded($data['queue_no_waiting_jobs']);
+        $obj->setQueueJobsCompleted($data['queue_no_completed_jobs']);
+        $obj->setQueueJobsError($data['queue_no_error_jobs']);
+        $obj->setQueueJobsFailed($data['queue_no_failed_jobs']);
+        $obj->setQueueJobsProcessing($data['queue_no_processing_jobs']);
+        
+        # set the job runtimes
+        $obj->setJobMaxServiceTime($data['queue_max_service_time']);
+        $obj->setJobMinServiceTime($data['queue_min_service_time']);
+        $obj->setJobMeanServiceTime($data['queue_mean_service_time']);
         
         
         return $obj;
@@ -66,6 +76,14 @@ class StatsBuilder implements BuilderInterface
            'worker_max_throughput'   => $entity->getWorkerMaxThroughput(),
            'worker_mean_throughput'  => $entity->getWorkerMeanThroughput(),
            'worker_mean_utilization' => $entity->getWorkerMeanUtilization(),
+           'queue_no_waiting_jobs'   => $entity->getQueueJobsAdded(),
+           'queue_no_completed_jobs' => $entity->getQueueJobsCompleted(),
+           'queue_no_error_jobs'     => $entity->getQueueJobsError(),
+           'queue_no_failed_jobs'    => $entity->getQueueJobsFailed(),
+           'queue_no_processing_jobs'=> $entity->getQueueJobsProcessing(),
+           'queue_max_service_time'  => $entity->getJobMaxServiceTime(),
+           'queue_min_service_time'  => $entity->getJobMinServiceTime(),
+           'queue_mean_service_time' => $entity->getJobMeanServiceTime()
             
         );
         

@@ -84,6 +84,23 @@ class QueryTest extends  TestsWithFixture
     }
     
     
+    public function testFilterByStates()
+    {
+        $gateway = $this->getTableGateway();
+        
+        $query = $gateway->selectQuery()
+                ->start()
+                    ->filterByTransition(1)
+                    ->filterByStates(1,2);
+                
+        $this->assertRegExp('/WHERE \(transition_id = :transition_id\) AND \(\(state_id = :state_id_1\) OR \(state_id = :state_id_2\)\)/',$query->getSql());
+        $this->assertEquals(1,$query->getParameter('state_id_1'));
+        $this->assertEquals(2,$query->getParameter('state_id_2'));
+        
+        
+    }
+    
+    
     public function testfilterOccuredAfter()
     {
         $gateway = $this->getTableGateway();
