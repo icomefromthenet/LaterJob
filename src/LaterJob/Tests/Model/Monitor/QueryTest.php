@@ -96,28 +96,28 @@ class QueryTest extends  TestsWithFixture
         
     }
     
-    public function testAndWhereLocked()
+    public function testAndWhereCalculated()
     {
         $gateway = $this->getTableGateway();
         
         $query = $gateway->selectQuery()
                 ->start()
                     ->filterByMonitor(1)
-                    ->andWhereLocked();
+                    ->andWhereCalculated();
                     
         $this->assertRegExp('/AND \(monitor_complete = :monitor_complete\)/',$query->getSql());
         $this->assertEquals(true,$query->getParameter('monitor_complete'));   
     }
     
     
-    public function testAndWhereUnlocked()
+    public function testAndWhereCalculating()
     {
         $gateway = $this->getTableGateway();
         
         $query = $gateway->selectQuery()
                 ->start()
                     ->filterByMonitor(1)
-                    ->andWhereUnLocked();
+                    ->andWhereCalculating();
                     
         $this->assertRegExp('/AND \(monitor_complete = :monitor_complete\)/',$query->getSql());
         $this->assertEquals(false,$query->getParameter('monitor_complete'));   

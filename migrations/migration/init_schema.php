@@ -92,7 +92,7 @@ class init_schema implements EntityInterface
         $table->addColumn('worker_mean_time','integer',array("unsigned" => true, 'notnull' => false));
         $table->addColumn('worker_mean_throughput','integer',array("unsigned" => true, 'notnull' => false));
         $table->addColumn('worker_max_throughput','integer',array("unsigned" => true, 'notnull' => false));
-        $table->addColumn('worker_mean_utilization','integer',array("unsigned" => true, 'notnull' => false));
+        $table->addColumn('worker_mean_utilization','float',array("unsigned" => true, 'notnull' => false));
         
         # queue stats
         $table->addColumn('queue_no_waiting_jobs','integer',array("unsigned" => true, 'notnull' => false));

@@ -11,6 +11,7 @@ use LaterJob\Model\Queue\JobSubscriber;
 use LaterJob\Model\Activity\JobSubscriber    as TransitionJobSubscriber;
 use LaterJob\Model\Activity\WorkerSubscriber as TransitionWorkerSubscriber;
 use LaterJob\Model\Activity\QueueSubscriber  as TransitionQueueSubscriber;
+use LaterJob\Model\Monitor\MonitorSubscriber as MonitorSubscriber;
 
 /**
   *  Loads the and subscribes the event handlers.
@@ -49,9 +50,11 @@ class EventSubscriber implements LoaderInterface
         $event->addSubscriber($queue_subscriber);
     }
     
-    public function subscribeMonitorHandlers(EventDispatcherInterface $event,AbstractTable $monitor_gateway)
+    public function subscribeMonitorHandlers(EventDispatcherInterface $event,AbstractTable $monitor_gateway,AbstractTable $transition_gateway)
     {
+        $monitor_sub  = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         
+        $event->addSubscriber($monitor_sub);
     }
     
     public function boot(Pimple $queue)
@@ -61,7 +64,7 @@ class EventSubscriber implements LoaderInterface
         $this->subscribeLogHandlers($event,$queue['logger']);
         $this->subscribeStorageHandlers($event,$queue['model.queue']);
         $this->subscribeTransitionHandlers($event,$queue['model.transition']);
-        $this->subscribeMonitorHandlers($event,$queue['model.monitor']);
+        $this->subscribeMonitorHandlers($event,$queue['model.monitor'],$queue['model.transition']);
         
         return $queue;
     }

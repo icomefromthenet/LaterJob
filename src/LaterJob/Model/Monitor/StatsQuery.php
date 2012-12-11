@@ -79,7 +79,7 @@ class StatsQuery extends AbstractQuery
       *  @access public
       *  @return StatsQuery 
       */
-    public function andWhereLocked()
+    public function andWhereCalculated()
     {
         $this->andWhere($this->expr()->eq('monitor_complete',':monitor_complete'))->setParameter('monitor_complete',true,$this->getGateway()->getMetaData()->getColumn('monitor_complete')->getType());
         
@@ -92,9 +92,24 @@ class StatsQuery extends AbstractQuery
       *  @access public
       *  @return StatsQuery
       */
-    public function andWhereUnlocked()
+    public function andWhereCalculating()
     {
         $this->andWhere($this->expr()->eq('monitor_complete',':monitor_complete'))->setParameter('monitor_complete',false,$this->getGateway()->getMetaData()->getColumn('monitor_complete')->getType());
+        
+        return $this;
+    }
+    
+    
+    /**
+      *  Sort the result by the monitor date
+      *
+      *  @access public
+      *  @param string direction ASC|DESC
+      *  @return StatsQuery
+      */
+    public function orderMonitorDate($dir = 'ASC')
+    {
+        $this->orderBy('monitor_dte',$dir);
         
         return $this;
     }

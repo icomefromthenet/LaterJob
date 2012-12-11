@@ -1,87 +1,7 @@
 <?xml version="1.0"?>
 <schema name="later_job">
- 
- <writer platform="mysql" format="sql" outFileFormat="simulation.{ext}" singleFileMode="true" />
- 
- <table name="later_job_queue" generate="1000">
+  <writer platform="mysql" format="phpunit" outFileFormat="query_handler_seed.{ext}" />
   
-  <column name="job_id" type="string">
-   <datatype name="job_id" />
-  </column>
-  
-  <!-- use the added state 1 -->
-  <column name="state_id" type="integer">
-   <datatype name="constant_number" >
-     <option name="value" value="1" />
-   </datatype>
-  </column>
-  
-  <!-- One job added every minute -->
-  <column name="dte_add" type="datetime">
-   <datatype name="date">
-    <option name="start" value="today 13:00:00" />
-    <option name="modify" value="+1 minute" />
-   </datatype>
-  </column>
-  
-  <column name="retry_count" type="integer">
-  <datatype name="constant_number" >
-     <option name="value" value="3" />
-    </datatype>
-  </column>
-  
-  <column name="retry_last" type="datetime">
-   <datatype name="nulltype" />
-  </column>
-  
-  <column name="job_data" type="object">
-   <datatype name="job_data" />
-  </column>
-  
-  <column name="handle" type="string">
-   <datatype name="nulltype" />
-  </column>
-  
-  <column name="lock_timeout" type="datetime">
-   <datatype name="nulltype" />
-  </column>
-  
- </table>
-
- 
- 
- <table name="later_job_transition" generate="100">
-  
-  <column name="transition_id" type="integer">
-   <datatype name="autoincrement" />
-  </column>
-  
-  <column name="worker_id" type="string">
-   <datatype name="nulltype" />
-  </column>
-  
-  <column name="job_id" type="string">
-   <foreign-key name="later_job_transition.job" foreignColumn="job_id" foreignTable ="later_job_queue" />
-  </column>
-  
-  <column name="state_id" type="integer">
-    <datatype name="constant_number" >
-     <option name="value" value="1" />
-    </datatype>
-  </column>
-  
-  <column name="dte_occured" type="datetime">
-   <datatype name="date">
-    <option name="start" value="today 13:00:00" />
-    <option name="modify" value="+1 minute" />
-   </datatype>
-  </column>
-  
-  <column name="transition_msg" type="string">
-   <datatype name="regex" format="\w[50,200]" />
-  </column>
- 
- </table>
  
  <table name="later_job_monitor" generate="24">
   
@@ -90,7 +10,7 @@
   </column>
   <column name="monitor_dte" type="datetime">
     <datatype name="date">
-       <option name="start"  value="today 13:00:00" />
+       <option name="start"  value="1pm today" />
        <option name="modify" value="+1 hour" />
     </datatype>   
   </column>
@@ -195,4 +115,5 @@
   </column>
   
  </table>
+
 </schema>

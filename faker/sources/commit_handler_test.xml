@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<schema name="later_job">
+  <writer platform="mysql" format="phpunit" outFileFormat="commit_handler_seed.{ext}" />
+  
+ 
+ <table name="later_job_monitor" generate="5">
+  
+  <column name="monitor_id" type="integer">
+   <datatype name="autoincrement" />
+  </column>
+  <column name="monitor_dte" type="datetime">
+    <datatype name="date">
+       <option name="start"  value="1pm today" />
+       <option name="modify" value="+1 hour" />
+    </datatype>   
+  </column>
+  <column name="worker_max_time" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="worker_min_time" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="worker_mean_time" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="worker_mean_throughput" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="worker_max_throughput" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="worker_mean_utilization" type="float">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_no_waiting_jobs" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_no_failed_jobs" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_no_error_jobs" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_no_completed_jobs" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_no_processing_jobs" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_mean_service_time" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_min_service_time" type="integer">
+   <datatype name="nullType" />
+  </column>
+  <column name="queue_max_service_time" type="integer">
+   <datatype name="nullType" />
+  </column>
+  
+  <column name="monitor_complete" type="boolean">
+   <datatype name="boolean">
+    <option name="value" value="false" />
+   </datatype>
+  </column>
+ </table>
+
+</schema>

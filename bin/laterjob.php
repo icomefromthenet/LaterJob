@@ -3,10 +3,17 @@
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Configuration as DoctrineConfiguration;
+
 use LaterJob\Command\Runner;
 use LaterJob\Command\QueueHelper;
+use LaterJob\Command\Cleanup;
+use LaterJob\Command\Monitor;
 use LaterJob\Queue;
 use LaterJob\Log\MonologBridge;
 use LaterJob\UUID;
@@ -14,9 +21,9 @@ use LaterJob\Util\MersenneRandom;
 use LaterJob\Loader\ConfigLoader;
 use LaterJob\Loader\ModelLoader;
 use LaterJob\Loader\EventSubscriber;
-use LaterJob\Command\Cleanup;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Configuration as DoctrineConfiguration;
+
+use DBALGateway\Feature\StreamQueryLogger;
+
 
 # require composer autoloader
 require __DIR__. DIRECTORY_SEPARATOR  .'..'. DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR .'autoload.php';
@@ -34,6 +41,8 @@ $doctrine = DriverManager::getConnection( array(
                 'driver'   => 'pdo_mysql',
             ), new DoctrineConfiguration());
 
+$doctrine->getConfiguration()->setSQLLogger(new StreamQueryLogger($logger));
+            
 # setup the queue
 $queue = new Queue(new EventDispatcher(),
                    new MonologBridge($logger),
@@ -68,6 +77,7 @@ $application = new Application();
 # add the commands
 $application->add(new Runner('app:runner'));
 $application->add(new Cleanup('app:cleanup'));
+$application->add(new Monitor('app:monitor'));
 
 # add the helper
 $application->getHelperSet()->set(new QueueHelper($queue));

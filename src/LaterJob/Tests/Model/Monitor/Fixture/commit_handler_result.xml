@@ -1,0 +1,54 @@
+<!--
+== Migrations Faker Dump
+== version 1.0.3
+== https://github.com/icomefromthenet/Faker
+==
+== Host: localhost
+== Generation Time: 2012-12-10T15:58:39+11:00
+== PHP Version: 5.3.10-1ubuntu3.4
+== Platform: mysql
+
+==
+== Database: later_job
+==
+-->
+<dataset>
+    <table name="later_job_monitor">
+        <column>monitor_id</column>
+        <column>monitor_dte</column>
+        <column>worker_max_time</column>
+        <column>worker_min_time</column>
+        <column>worker_mean_time</column>
+        <column>worker_mean_throughput</column>
+        <column>worker_max_throughput</column>
+        <column>worker_mean_utilization</column>
+        <column>queue_no_waiting_jobs</column>
+        <column>queue_no_failed_jobs</column>
+        <column>queue_no_error_jobs</column>
+        <column>queue_no_completed_jobs</column>
+        <column>queue_no_processing_jobs</column>
+        <column>queue_mean_service_time</column>
+        <column>queue_min_service_time</column>
+        <column>queue_max_service_time</column>
+        <column>monitor_complete</column>
+        <row>
+            <value>1</value>
+            <value>2012-12-10 01:00:00</value>
+            <value>495</value>
+            <value>459</value>
+            <value>482</value>
+            <value>27</value>
+            <value>50</value>
+            <value>0.55</value>
+            <value>100</value>
+            <value>2</value>
+            <value>5</value>
+            <value>53</value>
+            <value>56</value>
+            <value>9244</value>
+            <value>8038</value>
+            <value>10439</value>
+            <value>1</value>
+        </row>
+    </table>
+</dataset>

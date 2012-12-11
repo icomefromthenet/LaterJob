@@ -209,12 +209,21 @@ class EventTest extends PHPUnit_Framework_TestCase
         $end   = new DateTime();
         $result = new \ArrayIterator(array());
         
-        $event = new MonitoringQueryEvent($start,$end);
+        $limit   = 2;
+        $offset  = 0;
+        $order   = 'ASC';
+        $calculating = true;
+        
+        $event = new MonitoringQueryEvent($offset,$limit,$order,$start,$end,$calculating);
         $event->setResult($result);
         
         $this->assertEquals($end,$event->getEnd());
         $this->assertEquals($start,$event->getStart());
         $this->assertEquals($result,$event->getResult());
+        $this->assertEquals($limit,$event->getLimit());
+        $this->assertEquals($offset,$event->getOffset());
+        $this->assertEquals($order,$event->getOrder());
+        $this->assertEquals($calculating,$event->getIncludeCalculating());
         
     }
     

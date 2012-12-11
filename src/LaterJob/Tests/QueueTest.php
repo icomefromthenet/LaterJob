@@ -339,6 +339,8 @@ class QueueTest extends PHPUnit_Framework_TestCase
         
         $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
         
+        $queue['config.worker'] = $this->getMock('LaterJob\Config\Worker');
+        
         $this->assertInstanceOf('LaterJob\Monitor',$queue->monitor());
     
     }

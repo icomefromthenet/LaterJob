@@ -9,8 +9,20 @@ namespace LaterJob\Event;
   */
 final class MonitoringEventsMap
 {
+   
     /**
-     * The monitor.run event is raised when monitoring script starts.
+     * The monitor.lock event is raised when monitoring script starts and needs to lock a period
+     *
+     * The event listener receives LaterJob\Event\MonitoringEvent
+     * instance.
+     *
+     * @var string
+     */
+   const MONITOR_LOCK   = 'laterjob.monitor.lock';
+   
+    /**
+     * The monitor.run event is raised when monitoring script starts and after locked.
+     * Info is gathered in this step
      *
      * The event listener receives LaterJob\Event\MonitoringEvent
      * instance.
@@ -18,6 +30,18 @@ final class MonitoringEventsMap
      * @var string
      */
    const MONITOR_RUN   = 'laterjob.monitor.run';
+   
+   
+   /**
+     * The monitor.commit event is raised when monitoring finished and saved to data store
+     *
+     * The event listener receives LaterJob\Event\MonitoringEvent
+     * instance.
+     *
+     * @var string
+     */
+   const MONITOR_COMMIT   = 'laterjob.monitor.commit';
+   
    
     /**
      * The monitor.query event is raised when a client wants to find

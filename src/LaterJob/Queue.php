@@ -155,7 +155,7 @@ class Queue extends Pimple
       */
     public function monitor()
     {
-        return new Monitor($this['dispatcher']);        
+        return new Monitor($this['dispatcher'],$this['config.worker']);        
     }
     
     /**

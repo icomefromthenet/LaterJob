@@ -105,17 +105,13 @@ class HandlerMonitorTest extends  TestsWithFixture
     {
         $transition_gateway = $this->getTransitionTableGateway();
         $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
-        
-        
-        $result = $handler->countQueueJobStates($date);
         
         $this->assertEquals(array( 0 => array(
             'state_count' => 60,
             'state_id' =>   1
             ))
-        ,$handler->countQueueJobStates($date));
+        ,$transition_gateway->countQueueJobStates($date));
         
         $this->assertEquals(array(
             0 => array(
@@ -135,7 +131,7 @@ class HandlerMonitorTest extends  TestsWithFixture
                 'state_id' =>   5  
             )
             
-        ),$handler->countQueueJobStates($date,'+ 5 hours'));
+        ),$transition_gateway->countQueueJobStates($date,'+5 hours'));
         
     }
    
@@ -143,11 +139,9 @@ class HandlerMonitorTest extends  TestsWithFixture
     public function testMeanServiceTime()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getMeanServiceTime($date,'+ 5 hours');
+        $result = $transition_gateway->getMeanServiceTime($date,'+ 5 hours');
         
         $this->assertEquals($result,9244.7660);
     }
@@ -156,11 +150,9 @@ class HandlerMonitorTest extends  TestsWithFixture
     public function testMaxServiceTime()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getMaxServiceTime($date,'+ 5 hours');
+        $result = $transition_gateway->getMaxServiceTime($date,'+ 5 hours');
         
         $this->assertEquals($result,10439);
         
@@ -169,22 +161,18 @@ class HandlerMonitorTest extends  TestsWithFixture
     public function testMinServiceTime()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getMinServiceTime($date,'+ 5 hours');
+        $result = $transition_gateway->getMinServiceTime($date,'+ 5 hours');
         $this->assertEquals($result,8038);
     }
    
     public function testWorkerMaxRunningTime()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getWorkerMaxRunningTime($date,'+ 5 hours');
+        $result = $transition_gateway->getWorkerMaxRunningTime($date,'+ 5 hours');
         $this->assertEquals($result,495);
     }
     
@@ -192,11 +180,9 @@ class HandlerMonitorTest extends  TestsWithFixture
     public function testWorkerMinRunningTime()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getWorkerMinRunningTime($date,'+ 5 hours');
+        $result = $transition_gateway->getWorkerMinRunningTime($date,'+ 5 hours');
         $this->assertEquals($result,459);
     }
     
@@ -204,11 +190,9 @@ class HandlerMonitorTest extends  TestsWithFixture
     public function testWorkerMeanRunningTime()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getWorkerMeanRunningTime($date,'+ 5 hours');
+        $result = $transition_gateway->getWorkerMeanRunningTime($date,'+ 5 hours');
         $this->assertEquals($result,482.3333);
     }
    
@@ -216,11 +200,9 @@ class HandlerMonitorTest extends  TestsWithFixture
     public function testWorkerMeanThroughput()
     {
         $transition_gateway = $this->getTransitionTableGateway();
-        $monitor_gateway    = $this->getMonitorTableGateway();
-        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
         $date               = new DateTime('27-11-2012 13:00:00');
         
-        $result = $handler->getWorkerMeanThroughput($date,'+ 5 hours');
+        $result = $transition_gateway->getWorkerMeanThroughput($date,'+ 5 hours');
         $this->assertEquals($result,27.5);
     }
    
@@ -260,6 +242,68 @@ class HandlerMonitorTest extends  TestsWithFixture
         $this->assertEquals(0.55,$event->getStats()->getWorkerMeanUtilization());
     } 
    
+   
+    public function testOnMonitorLock()
+    {
+        $date               = new DateTime('27-11-2012 13:00:00');
+        $transition_gateway = $this->getTransitionTableGateway();
+        $monitor_gateway    = $this->getMonitorTableGateway();
+        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
+        
+        # create stats container for results of the monitoring event
+        $stats              = new Stats();
+        $stats->setMonitorDate($date);
+        $stats->setWorkerMaxThroughput(50);
+        
+        # create event object to pass to handle
+        $event              = new MonitoringEvent($stats);
+        $event->setInterval('+ 5 hours');
+        
+        
+        $handler->onMonitorLock($event);
+        
+        $this->assertTrue($event->getResult());
+        $this->assertEquals(1,$event->getStats()->getMonitorId(1));
+    }
     
+    /**
+      *  @expectedException LaterJob\Exception
+      *  @expectedExceptionMessage SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '2012-11-27 13:00:00' for key
+      */
+    public function testOnMonitorLockAlreadyHasException()
+    {
+        $date               = new DateTime('27-11-2012 13:00:00');
+        $transition_gateway = $this->getTransitionTableGateway();
+        $monitor_gateway    = $this->getMonitorTableGateway();
+        $handler            = new MonitorSubscriber($monitor_gateway,$transition_gateway);
+        
+        # create stats container for results of the monitoring event
+        $stats              = new Stats();
+        $stats->setMonitorDate($date);
+        $stats->setWorkerMaxThroughput(50);
+        
+        $stats_repeat              = new Stats();
+        $stats_repeat->setMonitorDate($date);
+        $stats_repeat->setWorkerMaxThroughput(50);
+        
+        # create event object to pass to handle
+        $event              = new MonitoringEvent($stats);
+        $event->setInterval('+ 5 hours');
+        
+        $event_repeat              = new MonitoringEvent($stats_repeat);
+        $event_repeat->setInterval('+ 5 hours');
+        
+        # first call work as normal
+        $handler->onMonitorLock($event);
+        $this->assertTrue($event->getResult());
+        $this->assertEquals(1,$event->getStats()->getMonitorId(1));
+        
+        # lock in place should FAIL
+        $handler->onMonitorLock($event_repeat);
+        
+    }
+    
+    
+   
 }
 /* End of File */

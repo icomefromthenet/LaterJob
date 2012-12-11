@@ -20,30 +20,51 @@ class MonitorTest extends PHPUnit_Framework_TestCase
         $before = new DateTime();
         $after = new DateTime();
         
+        $mock_config    = $this->getMock('LaterJob\Config\Worker');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         
-        $activity = new Monitor($mock_event);
+        $activity = new Monitor($mock_event,$mock_config);
         
         $mock_event->expects($this->once())
                    ->method('dispatch')
                    ->with($this->equalTo(MonitoringEventsMap::MONITOR_QUERY),$this->isInstanceOf('LaterJob\Event\MonitoringQueryEvent'));
         
-        $activity->query($before,$after);
+        $activity->query(0,1,'ASC',$before,$after,true);
+        
     }
     
     
     public function testMonitor()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $mock_config    = $this->getMock('LaterJob\Config\Worker');
         $before = new DateTime();
         
-        $activity = new Monitor($mock_event);
+        $activity = new Monitor($mock_event,$mock_config);
         
-        $mock_event->expects($this->once())
+        $mock_event->expects($this->at(0))
+                   ->method('dispatch')
+                   ->with($this->equalTo(MonitoringEventsMap::MONITOR_LOCK),$this->isInstanceOf('LaterJob\Event\MonitoringEvent'));
+
+        $mock_event->expects($this->at(1))
                    ->method('dispatch')
                    ->with($this->equalTo(MonitoringEventsMap::MONITOR_RUN),$this->isInstanceOf('LaterJob\Event\MonitoringEvent'));
                    
-        $activity->monitor($before);
+        
+        $mock_event->expects($this->at(2))
+                   ->method('dispatch')
+                   ->with($this->equalTo(MonitoringEventsMap::MONITOR_COMMIT),$this->isInstanceOf('LaterJob\Event\MonitoringEvent'));
+
+        $mock_config->expects($this->once())
+                    ->method('getJobsToProcess')
+                    ->will($this->returnValue(5));
+                   
+        $stats = $activity->monitor($before);
+        
+        $this->assertInstanceOf('LaterJob\Model\Monitor\Stats',$stats);
+        $this->assertEquals(5,$stats->getWorkerMaxThroughput());
+        $this->assertEquals($before,$stats->getMonitorDate());
+        
     }
     
     

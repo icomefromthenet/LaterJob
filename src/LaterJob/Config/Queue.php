@@ -162,29 +162,7 @@ class Queue implements ConfigurationInterface
     //------------------------------------------------------------------
     # Properties
     
-    /**
-      *  Return the assigned job_builder
-      *
-      *  @access public
-      *  @return string 
-      */
-    public function getJobEntityBuilder()
-    {
-        
-        return $this->job_builder;
-    }
-    
-    /**
-      *  Return the assigned JobCollection class
-      *
-      *  @access public
-      *  @return string
-      */
-    public function getJobCollectionClass()
-    {
-        return $this->job_collection;    
-    }
-    
+       
     /**
       *  Return the maxium number of retrys for a error job
       *
