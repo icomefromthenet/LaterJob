@@ -20,7 +20,7 @@ class MonitorTest extends PHPUnit_Framework_TestCase
         $before = new DateTime();
         $after = new DateTime();
         
-        $mock_config    = $this->getMock('LaterJob\Config\Worker');
+        $mock_config    = $this->getMock('LaterJob\Config\WorkerConfig');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         
         $activity = new Monitor($mock_event,$mock_config);
@@ -37,7 +37,7 @@ class MonitorTest extends PHPUnit_Framework_TestCase
     public function testMonitor()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $mock_config    = $this->getMock('LaterJob\Config\Worker');
+        $mock_config    = $this->getMock('LaterJob\Config\WorkerConfig');
         $before = new DateTime();
         
         $activity = new Monitor($mock_event,$mock_config);

@@ -5,7 +5,7 @@ use Symfony\Component\Console\Helper\Helper;
 use LaterJob\Queue;
 
 /**
-  *  Helps inject a queue into console commands
+  *  Injects a Queue API into console commands
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1

@@ -1,38 +1,65 @@
 #!/usr/bin/env php
 <?php
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Helper\HelperSet;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Console\Application,
+    Symfony\Component\Console\Helper\HelperSet,
+    Symfony\Component\EventDispatcher\EventDispatcher;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
+use Monolog\Logger,
+    Monolog\Handler\StreamHandler;
 
-use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Configuration as DoctrineConfiguration;
-
-use LaterJob\Command\Runner;
-use LaterJob\Command\QueueHelper;
-use LaterJob\Command\Cleanup;
-use LaterJob\Command\Monitor;
-use LaterJob\Queue;
-use LaterJob\Log\MonologBridge;
-use LaterJob\UUID;
-use LaterJob\Util\MersenneRandom;
-use LaterJob\Loader\ConfigLoader;
-use LaterJob\Loader\ModelLoader;
-use LaterJob\Loader\EventSubscriber;
+use Doctrine\DBAL\DriverManager,
+    Doctrine\DBAL\Configuration as DoctrineConfiguration;
 
 use DBALGateway\Feature\StreamQueryLogger;
 
+use LaterJob\Command\RunnerCommand,
+    LaterJob\Command\QueueHelper,
+    LaterJob\Command\CleanupCommand,
+    LaterJob\Command\MonitorCommand,
+    LaterJob\Command\PurgeCommand,
+    LaterJob\Queue,
+    LaterJob\Log\MonologBridge,
+    LaterJob\UUID,
+    LaterJob\Util\MersenneRandom,
+    LaterJob\Loader\ConfigLoader,
+    LaterJob\Loader\ModelLoader,
+    LaterJob\Loader\EventSubscriber;
 
-# require composer autoloader
+/*
+|--------------------------------------------------------------------------
+| Require Autoloader
+|--------------------------------------------------------------------------
+|
+| Using Composer as out autoloader. 
+|
+*/
 require __DIR__. DIRECTORY_SEPARATOR  .'..'. DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR .'autoload.php';
 
-# setup monolog
-$logger = new Logger('mysql');
-$logger->pushHandler(new StreamHandler('/var/tmp/laterjob.log'));
+/*
+|--------------------------------------------------------------------------
+| Monolog
+|--------------------------------------------------------------------------
+|
+| Using Monolog and StreamHandler to log events to a file under /var/tmp/laterjob.log
+|
+*/
 
-# setup doctrine
+$logger_stream = new StreamHandler('/var/tmp/laterjob.log');
+$logger_mysql = new Logger('mysql');
+$logger_app   = new Logger('app');
+$logger_mysql->pushHandler($logger_stream);
+$logger_app->pushHandler($logger_stream);
+/*
+|--------------------------------------------------------------------------
+| Doctrine and Query Logger
+|--------------------------------------------------------------------------
+|
+| Setup doctrine access and bind a custom logging class (StreamQueryLogger)  
+| which use monolog to push queries to the log file.
+|
+| Would advise NOT to use the query log in production setting.
+|
+*/
 $doctrine = DriverManager::getConnection( array(
                 'dbname'   => 'later_job',
                 'user'     => 'root',
@@ -41,11 +68,23 @@ $doctrine = DriverManager::getConnection( array(
                 'driver'   => 'pdo_mysql',
             ), new DoctrineConfiguration());
 
-$doctrine->getConfiguration()->setSQLLogger(new StreamQueryLogger($logger));
+$doctrine->getConfiguration()->setSQLLogger(new StreamQueryLogger($logger_mysql));
             
-# setup the queue
+/*
+|--------------------------------------------------------------------------
+| Setup LaterJob Queue
+|--------------------------------------------------------------------------
+|
+| The Queue is configured here, If you have customized the queue you
+| will need to replace the default loaders:
+|
+| 1. ConfigLoader - Parse the config and provides the Database Meta Data.
+| 2. ModelLoader($doctrine) - Loads the models.
+| 3. EventSubscriber() - Binds events that model need to respond to ie events from the API Classes.
+|
+*/
 $queue = new Queue(new EventDispatcher(),
-                   new MonologBridge($logger),
+                   new MonologBridge($logger_app),
                    array(
                         'worker' => array(
                             'jobs_process'      => 300,
@@ -69,17 +108,24 @@ $queue = new Queue(new EventDispatcher(),
                     new ConfigLoader(),
                     new ModelLoader($doctrine),
                     new EventSubscriber()
-                );
+    );
 
-# create new console application
+/*
+|--------------------------------------------------------------------------
+| Setup Symfony2 Console Application
+|--------------------------------------------------------------------------
+|
+| Using Symfony2 console and provides a helper (QueueHelper) 
+| allowing the commands to access the above instanced Queue API
+|
+*/
 $application = new Application();
 
-# add the commands
-$application->add(new Runner('app:runner'));
-$application->add(new Cleanup('app:cleanup'));
-$application->add(new Monitor('app:monitor'));
+$application->add(new RunnerCommand('app:runner'));
+$application->add(new CleanupCommand('app:cleanup'));
+$application->add(new MonitorCommand('app:monitor'));
+$application->add(new PurgeCommand('app:purge'));
 
-# add the helper
 $application->getHelperSet()->set(new QueueHelper($queue));
 
 # run the console

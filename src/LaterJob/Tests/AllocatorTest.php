@@ -21,7 +21,7 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     {
         
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\Queue');
+        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
         
         $allocator     = new  Allocator($mock_def,$mock_event);
         
@@ -33,7 +33,7 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     public function testReceieve()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\Queue');
+        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
         
         $mock_event->expects($this->once())
                    ->method('dispatch')
@@ -61,7 +61,7 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     public function testExceptionEarlyCallIntervalTimer()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\Queue');
+        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
         $allocator      = new  Allocator($mock_def,$mock_event);
         $allocator->getRunningInterval();
         
@@ -70,7 +70,7 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     public function testIntervalTimer()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\Queue');
+        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
         
         $mock_event->expects($this->once())
                    ->method('dispatch')
@@ -92,7 +92,7 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     public function testWhenNoJobsReturned()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\Queue');
+        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
         
         $mock_event->expects($this->at(0))
                    ->method('dispatch')
@@ -121,7 +121,7 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     public function testJobReturnedSetupCorrectly()
     {
         $mock_event      = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def        = $this->getMock('LaterJob\Config\Queue');
+        $mock_def        = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_collection = new ArrayCollection();
         $mock_result     = $this->getMockBuilder('LaterJob\Event\QueueSendEvent')->disableOriginalConstructor()->getMock();
         $mock_storage    = $this->getMock('LaterJob\Model\Queue\Storage');

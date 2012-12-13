@@ -1,9 +1,9 @@
 <?php
 namespace LaterJob\Loader;
 
-use LaterJob\Config\DbMeta;
-use LaterJob\Config\Queue;
-use LaterJob\Config\Worker;
+use LaterJob\Config\DbMetaConfig;
+use LaterJob\Config\QueueConfig;
+use LaterJob\Config\WorkerConfig;
 use Pimple;
 
 /**
@@ -15,19 +15,19 @@ use Pimple;
 class ConfigLoader implements LoaderInterface
 {
     
-    public function parseDatabaseOptions(array $options,DbMeta $meta)
+    public function parseDatabaseOptions(array $options,DbMetaConfig $meta)
     {
         return $meta->parse($options);
     }
     
     
-    public function parseQueueOptions(array $options,Queue $queue)
+    public function parseQueueOptions(array $options,QueueConfig $queue)
     {
         return $queue->parse($options);
     }
     
     
-    public function parseWorkerOptions(array $options,Worker $worker)
+    public function parseWorkerOptions(array $options,WorkerConfig $worker)
     {
         return $worker->parse($options);
     }
@@ -35,9 +35,9 @@ class ConfigLoader implements LoaderInterface
     
     public function boot(Pimple $queue)
     {
-        $queue['config.database'] = $this->parseDatabaseOptions($queue['options'],new DbMeta());
-        $queue['config.queue']    = $this->parseQueueOptions($queue['options'],new Queue());
-        $queue['config.worker']   = $this->parseWorkerOptions($queue['options'],new Worker());
+        $queue['config.database'] = $this->parseDatabaseOptions($queue['options'],new DbMetaConfig());
+        $queue['config.queue']    = $this->parseQueueOptions($queue['options'],new QueueConfig());
+        $queue['config.worker']   = $this->parseWorkerOptions($queue['options'],new WorkerConfig());
         
         return $queue;
     }

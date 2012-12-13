@@ -3,8 +3,8 @@ namespace LaterJob\Model\Activity;
 
 use DBALGateway\Table\AbstractTable;
 use DateTime;
-use LaterJob\Config\Queue as QueueConfig;
-use LaterJob\Config\Worker as WorkerConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
+use LaterJob\Config\WorkerConfig as WorkerConfig;
 use DBALGateway\Exception as DBALGatewayException;
 use LaterJob\Exception as LaterJobException;
 

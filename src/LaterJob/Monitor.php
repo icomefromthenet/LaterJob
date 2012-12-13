@@ -2,12 +2,12 @@
 namespace LaterJob;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use LaterJob\Event\MonitoringEvent;
-use LaterJob\Event\MonitoringQueryEvent;
-use LaterJob\Event\MonitoringEventsMap;
-use LaterJob\Model\Monitor\Stats;
 use DateTime;
-use LaterJob\Config\Worker as WorkerConfig;
+use LaterJob\Event\MonitoringEvent,
+    LaterJob\Event\MonitoringQueryEvent,
+    LaterJob\Event\MonitoringEventsMap,
+    LaterJob\Model\Monitor\Stats,
+    LaterJob\Config\WorkerConfig;
 
 /**
   *  Monitor API 
@@ -23,7 +23,7 @@ class Monitor
     protected $event;    
         
     /**
-      *  @var LaterJob\Config\Worker 
+      *  @var LaterJob\Config\WorkerConfig 
       */
     protected $worker_config;
         

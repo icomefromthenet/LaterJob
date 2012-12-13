@@ -12,7 +12,7 @@ use LaterJob\Model\Monitor\Stats;
 use LaterJob\Event\MonitoringQueryEvent;
 use LaterJob\Event\MonitoringEventsMap;
 use LaterJob\Event\QueuePurgeActivityEvent;
-use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
 use LaterJob\Tests\Base\TestsWithFixture;
 use LaterJob\Util\MersenneRandom;
 use LaterJob\UUID;

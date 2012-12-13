@@ -5,7 +5,7 @@ use LaterJob\Event\JobEventsMap;
 use LaterJob\Event\JobTransitionEvent;
 use LaterJob\Model\Queue\Storage;
 use LaterJob\Job;
-use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
@@ -23,7 +23,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $id             = 'a job';
         $data           = new \stdClass();
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\Queue');
+        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
         $storage        = new Storage();
         $storage->setJobId($id);
         $storage->setJobData($data);
@@ -52,11 +52,11 @@ class JobTest extends PHPUnit_Framework_TestCase
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_START),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_START))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_START'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_START'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -66,7 +66,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $worker = new Job($storage,$mock_def,$mock_event);
         
         $worker->start($process_handle,new DateTime,'starting on cron');
-        $this->assertEquals('LaterJob\Config\Queue::STATE_START',$worker->getCurrentState());
+        $this->assertEquals('LaterJob\Config\QueueConfig::STATE_START',$worker->getCurrentState());
         
     }
     
@@ -81,11 +81,11 @@ class JobTest extends PHPUnit_Framework_TestCase
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_START),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_START))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_START'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_START'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -95,13 +95,13 @@ class JobTest extends PHPUnit_Framework_TestCase
         $worker = new Job($storage,$mock_def,$mock_event);
         
         $worker->start($process_handle,new DateTime,'starting on cron');
-        $this->assertEquals('LaterJob\Config\Queue::STATE_START',$worker->getCurrentState());
+        $this->assertEquals('LaterJob\Config\QueueConfig::STATE_START',$worker->getCurrentState());
         
     }
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Queue::STATE_START to LaterJob\Config\Queue::STATE_START
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\QueueConfig::STATE_START to LaterJob\Config\QueueConfig::STATE_START
       */
     public function testExceptionTransitionFromStartToStart()
     {
@@ -109,11 +109,11 @@ class JobTest extends PHPUnit_Framework_TestCase
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_START))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_START'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_START'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -136,11 +136,11 @@ class JobTest extends PHPUnit_Framework_TestCase
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_FINISH),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FINISH))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_FINISH'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_FINISH'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -150,14 +150,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $worker = new Job($storage,$mock_def,$mock_event);
         
         $worker->finish($process_handle,new DateTime,'finishing on cron');
-        $this->assertEquals('LaterJob\Config\Queue::STATE_FINISH',$worker->getCurrentState());
+        $this->assertEquals('LaterJob\Config\QueueConfig::STATE_FINISH',$worker->getCurrentState());
         
     }
     
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Queue::STATE_FINSH to LaterJob\Config\Queue::STATE_FINSH
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\QueueConfig::STATE_FINSH to LaterJob\Config\QueueConfig::STATE_FINSH
       */
     public function testExceptionTransitionFromFinishToFinish()
     {
@@ -165,11 +165,11 @@ class JobTest extends PHPUnit_Framework_TestCase
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FINISH))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_FINSH'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_FINSH'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -192,11 +192,11 @@ class JobTest extends PHPUnit_Framework_TestCase
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_ERROR),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_ERROR))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_ERROR'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_ERROR'));
                 
         $mock_def->expects($this->once())
                 ->method('getRetryTimer')
@@ -212,7 +212,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         
         $job->error($process_handle,$when,'error on cron');
         
-        $this->assertEquals('LaterJob\Config\Queue::STATE_ERROR',$job->getCurrentState());
+        $this->assertEquals('LaterJob\Config\QueueConfig::STATE_ERROR',$job->getCurrentState());
         
         $timer_result = $job->getStorage()->getRetryLast()->getTimestamp();
         
@@ -224,7 +224,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Queue::STATE_ERROR to LaterJob\Config\Queue::STATE_ERROR
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\QueueConfig::STATE_ERROR to LaterJob\Config\QueueConfig::STATE_ERROR
       */
     public function testExceptionTransitionFromErrorToError()
     {
@@ -232,11 +232,11 @@ class JobTest extends PHPUnit_Framework_TestCase
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_ERROR))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_ERROR'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_ERROR'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -258,11 +258,11 @@ class JobTest extends PHPUnit_Framework_TestCase
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_FAIL),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FAIL))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_FAIL'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_FAIL'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -272,7 +272,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $worker = new Job($storage,$mock_def,$mock_event);
         
         $worker->fail($process_handle,new DateTime,'error on cron');
-        $this->assertEquals('LaterJob\Config\Queue::STATE_FAIL',$worker->getCurrentState());
+        $this->assertEquals('LaterJob\Config\QueueConfig::STATE_FAIL',$worker->getCurrentState());
         
     }
     
@@ -287,11 +287,11 @@ class JobTest extends PHPUnit_Framework_TestCase
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_FAIL),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FAIL))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_FAIL'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_FAIL'));
         
         $storage = new Storage();
         $storage->setJobId($id);
@@ -301,14 +301,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $worker = new Job($storage,$mock_def,$mock_event);
         
         $worker->fail($process_handle,new DateTime,'error on cron');
-        $this->assertEquals('LaterJob\Config\Queue::STATE_FAIL',$worker->getCurrentState());
+        $this->assertEquals('LaterJob\Config\QueueConfig::STATE_FAIL',$worker->getCurrentState());
         
     }
     
     
      /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Queue::STATE_FAIL to LaterJob\Config\Queue::STATE_FAIL
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\QueueConfig::STATE_FAIL to LaterJob\Config\QueueConfig::STATE_FAIL
       */
     public function testExceptionTransitionFromFailToFail()
     {
@@ -316,11 +316,11 @@ class JobTest extends PHPUnit_Framework_TestCase
         $id         = 'a job';
         $data       = new \stdClass();
         $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\Queue');
+        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FAIL))
-                ->will($this->returnValue('LaterJob\Config\Queue::STATE_FAIL'));
+                ->will($this->returnValue('LaterJob\Config\QueueConfig::STATE_FAIL'));
         
         $storage = new Storage();
         $storage->setJobId($id);

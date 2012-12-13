@@ -24,7 +24,7 @@ class QueueListEvent extends Event
     protected $after;
     
     /**
-      *  @var string LaterJob\Config\Queue::STATE_*
+      *  @var string LaterJob\Config\QueueConfig::STATE_*
       */
     protected $state;
     

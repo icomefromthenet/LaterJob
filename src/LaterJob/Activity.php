@@ -2,11 +2,10 @@
 namespace LaterJob;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use LaterJob\Event\QueueEventsMap;
-use LaterJob\Event\QueuePurgeActivityEvent;
-use LaterJob\Event\QueueQueryActivityEvent;
-use DateTime;
-use Traversable;
+use DateTime, Traversable;
+use LaterJob\Event\QueueEventsMap,
+    LaterJob\Event\QueuePurgeActivityEvent,
+    LaterJob\Event\QueueQueryActivityEvent;
 
 /**
   *  Activity API used to access the transiton history of jobs and workers

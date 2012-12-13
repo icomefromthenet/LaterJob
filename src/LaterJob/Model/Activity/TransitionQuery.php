@@ -3,7 +3,7 @@ namespace LaterJob\Model\Activity;
 
 use DBALGateway\Query\AbstractQuery;
 use DateTime;
-use LaterJob\Config\Queue;
+use LaterJob\Config\QueueConfig;
 use Doctrine\DBAL\Query\Expression\CompositeExpression;
 
 /**

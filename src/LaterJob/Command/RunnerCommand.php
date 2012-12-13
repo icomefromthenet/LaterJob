@@ -1,21 +1,25 @@
 <?php
 namespace LaterJob\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\DialogHelper;
-use LaterJob\Exception as LaterJobException;
-use LaterJob\Log\ConsoleSubscriber;
+use Symfony\Component\Console\Command\Command,
+    Symfony\Component\Console\Input\InputInterface,
+    Symfony\Component\Console\Output\OutputInterface,
+    Symfony\Component\Console\Helper\DialogHelper;
+
+use LaterJob\Exception as LaterJobException,
+    LaterJob\Log\ConsoleSubscriber;
+
 use DateTime;
 
 /**
-  *  Base 
+  *  Example of a console command that run a Worker.
+  *
+  *  This class is used duing development to run simulations.
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class Runner extends Command
+class RunnerCommand extends Command
 {
     
     public function floatRand($min, $max, $round=0)
@@ -43,7 +47,6 @@ class Runner extends Command
     * @param InputInterface $input An InputInterface instance
     * @param OutputInterface $output An OutputInterface instance
     * @return null|integer null or 0 if everything went fine, or an error code
-    * @throws \LogicException When this abstract method is not implemented
     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -102,6 +105,7 @@ class Runner extends Command
             throw $e;            
         }
         
+	return 0;
     }
         
 }

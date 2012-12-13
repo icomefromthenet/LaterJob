@@ -1,21 +1,24 @@
 <?php
 namespace LaterJob\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\DialogHelper;
-use Symfony\Component\Console\Input\InputArgument;
-use LaterJob\Exception as LaterJobException;
+use Symfony\Component\Console\Command\Command,
+    Symfony\Component\Console\Input\InputInterface,
+    Symfony\Component\Console\Output\OutputInterface,
+    Symfony\Component\Console\Helper\DialogHelper,
+    Symfony\Component\Console\Input\InputArgument;
+
+use LaterJob\Exception as LaterJobException,
+    LaterJob\Log\ConsoleSubscriber;
+    
 use DateTime;
 
 /**
-  *  Runs the Monitor
+  *  Runs the Monitor, for a given period
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class Monitor extends Command
+class MonitorCommand extends Command
 {
     
     /**
@@ -48,6 +51,8 @@ class Monitor extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('app:monitor is <info>starting</info>');
+        $this->getHelper('queue')->getQueue()->getDispatcher()->addSubscriber(new ConsoleSubscriber($output));
+        
         
         $monitor               = $this->getHelper('queue')->getQueue()->monitor();
         $last_monitor_results  = $monitor->query(0,1,'DESC',null,null);
@@ -57,7 +62,7 @@ class Monitor extends Command
 
             if($last_monitor_results[0]->getMonitorDate()->getTimestamp() >= $date->getTimestamp()) {
                 $output->writeln('app:monitor already run for the period <info>'.$date->format('Y-m-d H:i:s').'</info> exiting');
-                return false;
+                return 1;
             }
         }
         
@@ -66,7 +71,7 @@ class Monitor extends Command
         # execute API Method         
         $monitor->monitor($date);
         
-        return true;
+        return 0;
     }
     
     protected function configure()

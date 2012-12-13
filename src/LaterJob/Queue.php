@@ -2,22 +2,21 @@
 namespace LaterJob;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Pimple;
-use DateTime;
-use LaterJob\Model\Queue\Storage;
-use LaterJob\Config\Queue as QueueConfig;
-use LaterJob\Event\QueueReceiveEvent;
-use LaterJob\Event\QueueListEvent;
-use LaterJob\Event\QueueRemoveEvent;
-use LaterJob\Event\QueuePurgeEvent;
-use LaterJob\Event\QueueLookupEvent;
-use LaterJob\Event\QueueEventsMap;
-use LaterJob\Log\LogInterface;
-use LaterJob\Worker;
-use LaterJob\UUID;
-use LaterJob\Loader\LoaderInterface;
 use Cron\CronExpression;
-use LaterJob\Exception as LaterJobException;
+use Pimple, DateTime;
+use LaterJob\Model\Queue\Storage,
+    LaterJob\Config\QueueConfig,
+    LaterJob\Event\QueueReceiveEvent,
+    LaterJob\Event\QueueListEvent,
+    LaterJob\Event\QueueRemoveEvent,
+    LaterJob\Event\QueuePurgeEvent,
+    LaterJob\Event\QueueLookupEvent,
+    LaterJob\Event\QueueEventsMap,
+    LaterJob\Log\LogInterface,
+    LaterJob\Worker,
+    LaterJob\UUID,
+    LaterJob\Loader\LoaderInterface,
+    LaterJob\Exception as LaterJobException;
 
 /**
   *  This class will Provide API to lookup and fetch
@@ -46,13 +45,16 @@ class Queue extends Pimple
         $this['uuid']       = $uuid;
         $this['options']    = $options;
         
-        $logger->info('Starting loading LaterJob queue');
+        $logger->info('Starting loading LaterJob Queue API with options',$options);
         
         $config_loader->boot($this);
+        $logger->info('Finished loading and parsing Config');
         $model_loader->boot($this);
+        $logger->info('Finish loading queue models');
         $event_loader->boot($this);
+        $logger->info('Finished registering queue events subscribers');
         
-        $logger->info('Finished loading LaterJob queue');
+        
     }
     
     //------------------------------------------------------------------

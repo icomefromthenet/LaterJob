@@ -5,7 +5,7 @@ use LaterJob\Model\Activity\Transition;
 use LaterJob\Model\Activity\TransitionBuilder;
 use LaterJob\Model\Activity\TransitionQuery;
 use LaterJob\Model\Activity\TransitionGateway;
-use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
 use LaterJob\Event\QueueQueryActivityEvent;
 use LaterJob\Tests\Base\TestsWithFixture;
 use LaterJob\UUID;

@@ -2,13 +2,14 @@
 namespace LaterJob;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use LaterJob\Event\WorkerEventsMap;
-use LaterJob\Event\WorkerTransitionEvent;
-use LaterJob\Config\Worker as WorkerConfig;
-use LaterJob\Model\Activity\Transition;
-use LaterJob\Exception as WorkerException;
-use LaterJob\Exception as LaterJobException;
 use DateTime;
+use LaterJob\Event\WorkerEventsMap,
+    LaterJob\Event\WorkerTransitionEvent,
+    LaterJob\Config\WorkerConfig,
+    LaterJob\Model\Activity\Transition,
+    LaterJob\Exception as WorkerException,
+    LaterJob\Exception as LaterJobException;
+
 /**
   *  Provide an API to manage the lifecycle of a work instance. 
   *
@@ -33,7 +34,7 @@ class Worker
     protected $event;
     
     /**
-      *  @var  LaterJob\Config\Worker
+      *  @var  LaterJob\Config\WorkerConfig
       */
     protected $definition;
     
@@ -43,7 +44,7 @@ class Worker
     protected $allocator;
 
     /**
-      *  @var integer  LaterJob\Config\Worker::STATE_*
+      *  @var integer  LaterJob\Config\WorkerConfig::STATE_*
       */
     protected $current_state;
 

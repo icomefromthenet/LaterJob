@@ -13,7 +13,7 @@ use LaterJob\Exception as LaterJobException;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class Worker implements ConfigurationInterface
+class WorkerConfig implements ConfigurationInterface
 {
     
     /**

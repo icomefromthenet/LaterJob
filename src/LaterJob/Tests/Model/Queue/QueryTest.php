@@ -4,7 +4,7 @@ namespace LaterJob\Tests\Model\Queue;
 use LaterJob\Model\Queue\StorageQuery;
 use LaterJob\Model\Queue\StorageGateway;
 use LaterJob\Model\Queue\StorageBuilder;
-use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
 use LaterJob\Tests\Base\TestsWithFixture;
 use DateTime;
 

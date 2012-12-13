@@ -8,7 +8,7 @@ use LaterJob\Event\QueueEventsMap;
 use LaterJob\Event\QueueLockEvent;
 use LaterJob\Event\QueueSendEvent;
 use LaterJob\Pool\Storage;
-use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
 use LaterJob\Exception as LaterJobException;
 use LaterJob\Job;
 
@@ -39,7 +39,7 @@ class Allocator implements Iterator
     protected $event;
     
     /**
-      *  @var LaterJob\Config\Queue
+      *  @var LaterJob\Config\QueueConfig
       */
     protected $config;
     

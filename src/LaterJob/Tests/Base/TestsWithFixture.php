@@ -5,7 +5,7 @@ use PDO;
 use PHPUnit_Extensions_Database_Operation_Composite;
 use PHPUnit_Extensions_Database_TestCase;
 use DBALGateway\Tests\Base\DBOperationSetEnv;
-use LaterJob\Config\DbMeta;
+use LaterJob\Config\DbMetaConfig;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -100,7 +100,7 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
     protected function getTableMetaData()
     {
         if($this->db_meta_data === null) {
-            $this->db_meta_data = new DbMeta();
+            $this->db_meta_data = new DbMetaConfig();
             $this->db_meta_data->parse(array('db'=>array()));
         }
         

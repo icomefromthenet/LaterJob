@@ -1,20 +1,21 @@
 <?php
 namespace LaterJob\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Command\Command,
+    Symfony\Component\Console\Input\InputInterface,
+    Symfony\Component\Console\Output\OutputInterface,
+    Symfony\Component\Console\Helper\DialogHelper;
+
 use LaterJob\Exception as LaterJobException;
 use DateTime;
 
 /**
-  *  Clean's up for simulation
+  *  Clean's up for simulation will truncate the main data tables
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class Cleanup extends Command
+class CleanupCommand extends Command
 {
     
     /**

@@ -5,7 +5,7 @@ use LaterJob\Event\WorkerTransitionEvent;
 use LaterJob\Event\WorkerEventsMap;
 
 use LaterJob\Worker;
-use LaterJob\Config\Worker as WorkerConfig;
+use LaterJob\Config\WorkerConfig as WorkerConfig;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
@@ -23,7 +23,7 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         
         $id             = 'a worker';
         
@@ -45,11 +45,11 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
         
-        $mock_def = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->once())
                  ->method('getLiteral')
                  ->with($this->equalTo(1))
-                 ->will($this->returnValue('LaterJob\Config\Worker::STATE_START'));
+                 ->will($this->returnValue('LaterJob\Config\WorkerConfig::STATE_START'));
         
         $id = 'a worker';
         $start = new DateTime();
@@ -57,24 +57,24 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $worker->start($start,'starting from cron');
         
-        $this->assertEquals('LaterJob\Config\Worker::STATE_START',$worker->getState());
+        $this->assertEquals('LaterJob\Config\WorkerConfig::STATE_START',$worker->getState());
         $this->assertEquals($start,$worker->getStartTime());
         
     }
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Worker::STATE_START to LaterJob\Config\Worker::STATE_START
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\WorkerConfig::STATE_START to LaterJob\Config\WorkerConfig::STATE_START
       */    
     public function testExceptionTransitionStartFromStart()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->equalTo(1))
-                 ->will($this->returnValue('LaterJob\Config\Worker::STATE_START'));
+                 ->will($this->returnValue('LaterJob\Config\WorkerConfig::STATE_START'));
                    
         
         $id             = 'a worker';
@@ -85,17 +85,17 @@ class WorkerTest extends PHPUnit_Framework_TestCase
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Worker::STATE_FINISH to LaterJob\Config\Worker::STATE_START
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\WorkerConfig::STATE_FINISH to LaterJob\Config\WorkerConfig::STATE_START
       */    
     public function testExceptionTransitionStartFromFinish()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->anything(1))
-                 ->will($this->onConsecutiveCalls('LaterJob\Config\Worker::STATE_FINISH', 'LaterJob\Config\Worker::STATE_START'));
+                 ->will($this->onConsecutiveCalls('LaterJob\Config\WorkerConfig::STATE_FINISH', 'LaterJob\Config\WorkerConfig::STATE_START'));
                    
         
         $id             = 'a worker';
@@ -107,17 +107,17 @@ class WorkerTest extends PHPUnit_Framework_TestCase
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Worker::STATE_ERROR to LaterJob\Config\Worker::STATE_START
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\WorkerConfig::STATE_ERROR to LaterJob\Config\WorkerConfig::STATE_START
       */    
     public function testExceptionTransitionStartFromError()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->anything(1))
-                 ->will($this->onConsecutiveCalls('LaterJob\Config\Worker::STATE_ERROR', 'LaterJob\Config\Worker::STATE_START'));
+                 ->will($this->onConsecutiveCalls('LaterJob\Config\WorkerConfig::STATE_ERROR', 'LaterJob\Config\WorkerConfig::STATE_START'));
                    
         
         $id             = 'a worker';
@@ -135,11 +135,11 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
         
-        $mock_def = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->once())
                  ->method('getLiteral')
                  ->with($this->equalTo(2))
-                 ->will($this->returnValue('LaterJob\Config\Worker::STATE_FINISH'));
+                 ->will($this->returnValue('LaterJob\Config\WorkerConfig::STATE_FINISH'));
         
         $id = 'a worker';
         
@@ -147,7 +147,7 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $worker->finish(new DateTime(),'finish from cron');
         
-        $this->assertEquals('LaterJob\Config\Worker::STATE_FINISH',$worker->getState());
+        $this->assertEquals('LaterJob\Config\WorkerConfig::STATE_FINISH',$worker->getState());
         
     }
     
@@ -160,11 +160,11 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
         
-        $mock_def = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->once())
                  ->method('getLiteral')
                  ->with($this->equalTo(3))
-                 ->will($this->returnValue('LaterJob\Config\Worker::STATE_ERROR'));
+                 ->will($this->returnValue('LaterJob\Config\WorkerConfig::STATE_ERROR'));
         
         $id = 'a worker';
         
@@ -172,24 +172,24 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         
         $worker->error(new DateTime(),'error from cron');
         
-        $this->assertEquals('LaterJob\Config\Worker::STATE_ERROR',$worker->getState());
+        $this->assertEquals('LaterJob\Config\WorkerConfig::STATE_ERROR',$worker->getState());
         
     }
     
     
     /**
       *  @expectedException LaterJob\Exception
-      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\Worker::STATE_ERROR to LaterJob\Config\Worker::STATE_FINISH
+      *  @expectedExceptionMessage Can not transiton from LaterJob\Config\WorkerConfig::STATE_ERROR to LaterJob\Config\WorkerConfig::STATE_FINISH
       */ 
     public function testExceptionTransitionFinishFromError()
     {
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
         $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\Worker',array('getLiteral'));
+        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->anything())
-                 ->will($this->onConsecutiveCalls('LaterJob\Config\Worker::STATE_ERROR', 'LaterJob\Config\Worker::STATE_FINISH'));
+                 ->will($this->onConsecutiveCalls('LaterJob\Config\WorkerConfig::STATE_ERROR', 'LaterJob\Config\WorkerConfig::STATE_FINISH'));
                    
         
         $id             = 'a worker';
@@ -214,7 +214,7 @@ class WorkerTest extends PHPUnit_Framework_TestCase
                        ->method('receive')
                        ->with($this->equalTo($total_jobs),$this->equalTo($id),$this->isInstanceOf('\DateTime'),$this->equalTo($now));
         
-        $mock_def      = $this->getMock('LaterJob\Config\Worker',array('getJobsToProcess','getJobLockoutTime'));
+        $mock_def      = $this->getMock('LaterJob\Config\WorkerConfig',array('getJobsToProcess','getJobLockoutTime'));
         $mock_def->expects($this->once())
                  ->method('getJobsToProcess')
                  ->will($this->returnValue($total_jobs));

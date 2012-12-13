@@ -89,7 +89,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
         $retry_count = 5;
         
         # setup queue options
-        $queue_options = $this->getMock('LaterJob\Config\Queue');
+        $queue_options = $this->getMock('LaterJob\Config\QueueConfig');
         $queue_options->expects($this->once())
                       ->method('getMaxRetry')
                       ->will($this->returnValue($retry_count));
@@ -235,12 +235,12 @@ class QueueTest extends PHPUnit_Framework_TestCase
         
         $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
         
-        $queue['config.worker'] = $this->getMock('LaterJob\Config\Worker');
+        $queue['config.worker'] = $this->getMock('LaterJob\Config\WorkerConfig');
         $queue['config.worker']->expects($this->once())
                                ->method('getWorkerName')
                                ->will($this->returnValue('myworker'));
         
-        $queue['config.queue']  = $this->getMock('LaterJob\Config\Queue');
+        $queue['config.queue']  = $this->getMock('LaterJob\Config\QueueConfig');
         
         $worker = $queue->worker();
         
@@ -297,7 +297,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
                      ->with($this->isInstanceOf('Pimple'));
         
         
-        $mock_worker_config = $this->getMock('LaterJob\Config\Worker');
+        $mock_worker_config = $this->getMock('LaterJob\Config\WorkerConfig');
         
         $mock_worker_config->expects($this->once())
                             ->method('getCronDefinition')
@@ -339,7 +339,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
         
         $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
         
-        $queue['config.worker'] = $this->getMock('LaterJob\Config\Worker');
+        $queue['config.worker'] = $this->getMock('LaterJob\Config\WorkerConfig');
         
         $this->assertInstanceOf('LaterJob\Monitor',$queue->monitor());
     

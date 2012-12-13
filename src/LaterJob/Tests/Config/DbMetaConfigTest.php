@@ -1,17 +1,17 @@
 <?php
 namespace LaterJob\Tests\Config;
 
-use LaterJob\Config\DbMeta;
+use LaterJob\Config\DbMetaConfig;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
 /**
-  *  Unit Tests for DbMeta Config Component
+  *  Unit Tests for DbMetaConfig Component
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class DbMetaTest extends  PHPUnit_Framework_TestCase
+class DbMetaConfigTest extends  PHPUnit_Framework_TestCase
 {
     
     public function testMetaConfigParse()
@@ -21,7 +21,7 @@ class DbMetaTest extends  PHPUnit_Framework_TestCase
         $queue_table      = 'q_table';
         $monitor_table    = 'm_table';
         
-        $config = new DbMeta();
+        $config = new DbMetaConfig();
         $names = array('db' => array(
             'transition_table' => $transition_table,
             'queue_table'      => $queue_table,
@@ -36,7 +36,7 @@ class DbMetaTest extends  PHPUnit_Framework_TestCase
         
         
         # test for default values
-        $config = new DbMeta();
+        $config = new DbMetaConfig();
         $config->parse(array('db' => array())); 
          
         $this->assertEquals('later_job_transition',$config->getTransitionTableName());

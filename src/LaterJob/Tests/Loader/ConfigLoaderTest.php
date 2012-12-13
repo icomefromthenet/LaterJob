@@ -3,9 +3,9 @@ namespace LaterJob\Tests\Loader;
 
 use Pimple;
 use LaterJob\Loader\ConfigLoader;
-use LaterJob\Config\DbMeta;
-use LaterJob\Config\Queue;
-use LaterJob\Config\Worker;
+use LaterJob\Config\DbMetaConfig;
+use LaterJob\Config\QueueConfig;
+use LaterJob\Config\WorkerConfig;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -27,7 +27,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         ));
     
         $loader = new ConfigLoader(); 
-        $this->assertInstanceOf('LaterJob\Config\DbMeta',$loader->parseDatabaseOptions($options,new DBMeta()));
+        $this->assertInstanceOf('LaterJob\Config\DbMetaConfig',$loader->parseDatabaseOptions($options,new DBMetaConfig()));
     }
     
     public function testQueueConfigLoading()
@@ -40,7 +40,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         ));
         
         $loader = new ConfigLoader(); 
-        $this->assertInstanceOf('LaterJob\Config\Queue',$loader->parseQueueOptions($options,new Queue()));
+        $this->assertInstanceOf('LaterJob\Config\QueueConfig',$loader->parseQueueOptions($options,new QueueConfig()));
         
     }
     
@@ -56,7 +56,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         ));
         
         $loader = new ConfigLoader(); 
-        $this->assertInstanceOf('LaterJob\Config\Worker',$loader->parseWorkerOptions($options,new Worker()));
+        $this->assertInstanceOf('LaterJob\Config\WorkerConfig',$loader->parseWorkerOptions($options,new WorkerConfig()));
     }
     
     
@@ -87,9 +87,9 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         
         $loader->boot($pimple);
         
-        $this->assertInstanceOf('LaterJob\Config\DbMeta',$pimple['config.database']);
-        $this->assertInstanceOf('LaterJob\Config\Queue',$pimple['config.queue']);
-        $this->assertInstanceOf('LaterJob\Config\Worker',$pimple['config.worker']);
+        $this->assertInstanceOf('LaterJob\Config\DbMetaConfig',$pimple['config.database']);
+        $this->assertInstanceOf('LaterJob\Config\QueueConfig',$pimple['config.queue']);
+        $this->assertInstanceOf('LaterJob\Config\WorkerConfig',$pimple['config.worker']);
         
     }
     

@@ -1,22 +1,22 @@
 <?php
 namespace LaterJob\Tests\Config;
 
-use LaterJob\Config\Worker;
+use LaterJob\Config\WorkerConfig;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
 /**
-  *  Unit Tests for Worker Config Component
+  *  Unit Tests for WorkerConfig Config Component
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class WorkerTest extends  PHPUnit_Framework_TestCase
+class WorkerConfigTest extends  PHPUnit_Framework_TestCase
 {
     
     public function testQueueConfigParse()
     {
-        $config = new Worker();
+        $config = new WorkerConfig();
 
         $data = array('worker' => array(
             'jobs_process'      => 4,
@@ -44,7 +44,7 @@ class WorkerTest extends  PHPUnit_Framework_TestCase
       */
     public function testQueueConfigBadCron()
     {
-        $config = new Worker();
+        $config = new WorkerConfig();
 
         $data = array('worker' => array(
             'jobs_process'      => 4,
@@ -65,7 +65,7 @@ class WorkerTest extends  PHPUnit_Framework_TestCase
       */
     public function testQueueConfigJobProcessNotInteger()
     {
-        $config = new Worker();
+        $config = new WorkerConfig();
 
         $data = array('worker' => array(
             'jobs_process'      => 'aaaa',
@@ -87,7 +87,7 @@ class WorkerTest extends  PHPUnit_Framework_TestCase
       */
     public function testQueueConfigMeanRuntimeNotInteger()
     {
-        $config = new Worker();
+        $config = new WorkerConfig();
 
         $data = array('worker' => array(
             'jobs_process'      => 5,
@@ -108,7 +108,7 @@ class WorkerTest extends  PHPUnit_Framework_TestCase
       */
     public function testQueueConfigLockoutTimerNotInteger()
     {
-        $config = new Worker();
+        $config = new WorkerConfig();
 
         $data = array('worker' => array(
             'jobs_process'      => 5,
@@ -127,9 +127,9 @@ class WorkerTest extends  PHPUnit_Framework_TestCase
       *  @expectedException LaterJob\Exception
       *  @expectedExpectionMessage The path "worker.worker_name" cannot contain an empty value, but got ""
       */
-    public function testQueueConfigEmptyWorkerName()
+    public function testQueueConfigEmptyWorkerConfigName()
     {
-        $config = new Worker();
+        $config = new WorkerConfig();
 
         $data = array('worker' => array(
             'jobs_process'      => 5,
@@ -146,10 +146,10 @@ class WorkerTest extends  PHPUnit_Framework_TestCase
     
     public function testgetLiternal()
     {
-       $config = new Worker();
-       $this->assertEquals('LaterJob\Config\Worker::STATE_START',$config->getLiteral(1));
-       $this->assertEquals('LaterJob\Config\Worker::STATE_FINISH',$config->getLiteral(2));
-       $this->assertEquals('LaterJob\Config\Worker::STATE_ERROR',$config->getLiteral(3));
+       $config = new WorkerConfig();
+       $this->assertEquals('LaterJob\Config\WorkerConfig::STATE_START',$config->getLiteral(1));
+       $this->assertEquals('LaterJob\Config\WorkerConfig::STATE_FINISH',$config->getLiteral(2));
+       $this->assertEquals('LaterJob\Config\WorkerConfig::STATE_ERROR',$config->getLiteral(3));
     }
     
     

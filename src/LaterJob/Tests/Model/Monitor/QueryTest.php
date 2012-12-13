@@ -5,7 +5,7 @@ use LaterJob\Model\Monitor\Stats;
 use LaterJob\Model\Monitor\StatsBuilder;
 use LaterJob\Model\Monitor\StatsQuery;
 use LaterJob\Model\Monitor\StatsGateway;
-use LaterJob\Config\Worker as WorkerConfig;
+use LaterJob\Config\WorkerConfig as WorkerConfig;
 use LaterJob\Tests\Base\TestsWithFixture;
 use DateTime;
 

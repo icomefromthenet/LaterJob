@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Tests\Model\Queue;
 
-use LaterJob\Config\Queue as QueueConfig;
+use LaterJob\Config\QueueConfig as QueueConfig;
 use LaterJob\Model\Queue\QueueSubscriber;
 use LaterJob\Model\Queue\StorageGateway;
 use LaterJob\Model\Queue\StorageBuilder;

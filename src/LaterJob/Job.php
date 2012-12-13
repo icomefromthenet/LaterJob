@@ -1,12 +1,12 @@
 <?php
 namespace LaterJob;
 
-use LaterJob\Exception as LaterJobException;
-use LaterJob\Config\Queue as QueueConfig;
-use LaterJob\Event\JobEventsMap;
-use LaterJob\Event\JobTransitionEvent;
-use LaterJob\Model\Queue\Storage;
-use LaterJob\Model\Activity\Transition;
+use LaterJob\Exception as LaterJobException,
+    LaterJob\Config\QueueConfig as QueueConfig,
+    LaterJob\Event\JobEventsMap,
+    LaterJob\Event\JobTransitionEvent,
+    LaterJob\Model\Queue\Storage,
+    LaterJob\Model\Activity\Transition;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DateTime;
 
@@ -25,7 +25,7 @@ class Job
     protected $storage; 
  
     /**
-      *  @var  LaterJob\Config\Queue
+      *  @var  LaterJob\Config\QueueConfig
       */
     protected $config;
     
@@ -44,7 +44,7 @@ class Job
       *
       *  @access public
       *  @param LaterJob\Model\Queue\Storage  $store
-      *  @param LaterJob\Config\Queue $config
+      *  @param LaterJob\Config\QueueConfig $config
       */
     public function __construct(Storage $store, QueueConfig $config, EventDispatcherInterface $event)
     {
@@ -61,7 +61,7 @@ class Job
       * Return the queue config which each job shares
       *
       * @access public
-      * @return LaterJob\Config\Queue
+      * @return LaterJob\Config\QueueConfig
       */
     public function getConfig()
     {

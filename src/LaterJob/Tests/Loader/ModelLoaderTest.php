@@ -80,7 +80,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
              ->method('getName')
              ->will($this->returnValue('table'));
                 
-        $mocked_config             = $this->getMock('LaterJob\Config\DbMeta');
+        $mocked_config             = $this->getMock('LaterJob\Config\DbMetaConfig');
         
         $mocked_config->expects($this->once())
                       ->method('getTransitionTableName')

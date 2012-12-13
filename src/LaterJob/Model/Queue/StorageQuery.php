@@ -3,7 +3,7 @@ namespace LaterJob\Model\Queue;
 
 use DBALGateway\Query\AbstractQuery;
 use DateTime;
-use LaterJob\Config\Queue;
+use LaterJob\Config\QueueConfig;
 
 /**
   *  Query class for Stored Jobs 
@@ -50,7 +50,7 @@ class StorageQuery extends AbstractQuery
       */
     public function filterByStateAdd()
     {
-        $this->orWhere($this->expr()->eq('state_id',':state_id_added'))->setParameter('state_id_added',Queue::STATE_ADD,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
+        $this->orWhere($this->expr()->eq('state_id',':state_id_added'))->setParameter('state_id_added',QueueConfig::STATE_ADD,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
         
         return $this;
     }
@@ -63,7 +63,7 @@ class StorageQuery extends AbstractQuery
       */
     public function filterByStateStart()
     {
-        $this->orWhere($this->expr()->eq('state_id',':state_id_started'))->setParameter('state_id_started',Queue::STATE_START,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
+        $this->orWhere($this->expr()->eq('state_id',':state_id_started'))->setParameter('state_id_started',QueueConfig::STATE_START,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
         
         return $this;
     }
@@ -76,7 +76,7 @@ class StorageQuery extends AbstractQuery
       */
     public function filterByStateFinish()
     {
-        $this->orWhere($this->expr()->eq('state_id',':state_id_finished'))->setParameter('state_id_finished',Queue::STATE_FINISH,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
+        $this->orWhere($this->expr()->eq('state_id',':state_id_finished'))->setParameter('state_id_finished',QueueConfig::STATE_FINISH,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
         
         return $this;
     }
@@ -89,7 +89,7 @@ class StorageQuery extends AbstractQuery
       */
     public function filterByStateError()
     {
-        $this->orWhere($this->expr()->eq('state_id',':state_id_error'))->setParameter('state_id_error',Queue::STATE_ERROR,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
+        $this->orWhere($this->expr()->eq('state_id',':state_id_error'))->setParameter('state_id_error',QueueConfig::STATE_ERROR,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
         
         return $this;
     }
@@ -104,7 +104,7 @@ class StorageQuery extends AbstractQuery
     public function filterByStateErrorPassedRetryWait(DateTime $now)
     {
         $this->orWhere($this->expr()->andX($this->expr()->eq('state_id',':state_id_error'),$this->expr()->lte('retry_last',':retry_last_ltenow')))
-             ->setParameter('state_id_error',Queue::STATE_ERROR,$this->getGateway()->getMetaData()->getColumn('state_id')->getType())
+             ->setParameter('state_id_error',QueueConfig::STATE_ERROR,$this->getGateway()->getMetaData()->getColumn('state_id')->getType())
              ->setParameter('retry_last_ltenow',$now,$this->getGateway()->getMetaData()->getColumn('retry_last')->getType());
         
         return $this;
@@ -118,7 +118,7 @@ class StorageQuery extends AbstractQuery
       */
     public function filterByStateFail()
     {
-        $this->orWhere($this->expr()->eq('state_id',':state_id_failed'))->setParameter('state_id_failed',Queue::STATE_FAIL,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
+        $this->orWhere($this->expr()->eq('state_id',':state_id_failed'))->setParameter('state_id_failed',QueueConfig::STATE_FAIL,$this->getGateway()->getMetaData()->getColumn('state_id')->getType());
         
         return $this;
     }

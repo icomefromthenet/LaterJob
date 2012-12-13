@@ -1,22 +1,22 @@
 <?php
 namespace LaterJob\Tests\Config;
 
-use LaterJob\Config\Queue;
+use LaterJob\Config\QueueConfig;
 use PHPUnit_Framework_TestCase;
 use DateTime;
 
 /**
-  *  Unit Tests for Queue Config Component
+  *  Unit Tests for QueueConfig Config Component
   *
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class QueueTest extends  PHPUnit_Framework_TestCase
+class QueueConfigTest extends  PHPUnit_Framework_TestCase
 {
     
-    public function testQueueConfigParse()
+    public function testQueueConfigConfigParse()
     {
-        $config = new Queue();
+        $config = new QueueConfig();
 
         $data = array('queue' => array(
             'mean_service_time' => (60*60*1),
@@ -35,9 +35,9 @@ class QueueTest extends  PHPUnit_Framework_TestCase
     }
     
     
-    public function testQueueDefaults()
+    public function testQueueConfigDefaults()
     {
-        $config = new Queue();
+        $config = new QueueConfig();
 
         $data = array('queue' => array(
             'mean_service_time' => (60*60*1),
@@ -60,7 +60,7 @@ class QueueTest extends  PHPUnit_Framework_TestCase
       */
     public function testMaxRetryNotInteger()
     {
-        $config = new Queue();
+        $config = new QueueConfig();
 
         $data = array('queue' => array(
             'mean_service_time' => (60*60*1),
@@ -80,7 +80,7 @@ class QueueTest extends  PHPUnit_Framework_TestCase
       */
     public function testMaxServiceTimeNotInteger()
     {
-        $config = new Queue();
+        $config = new QueueConfig();
 
         $data = array('queue' => array(
             'mean_service_time' => 'sdsds',
@@ -99,7 +99,7 @@ class QueueTest extends  PHPUnit_Framework_TestCase
       */
     public function testRetryTimerNotSet()
     {
-        $config = new Queue();
+        $config = new QueueConfig();
 
         $data = array('queue' => array(
             'mean_service_time' => 60,
@@ -118,7 +118,7 @@ class QueueTest extends  PHPUnit_Framework_TestCase
       */
     public function testRetryTimerNotInteger()
     {
-        $config = new Queue();
+        $config = new QueueConfig();
 
         $data = array('queue' => array(
             'mean_service_time' => 60,
@@ -135,13 +135,13 @@ class QueueTest extends  PHPUnit_Framework_TestCase
     
     public function testgetLiternal()
     {
-       $config = new Queue();
+       $config = new QueueConfig();
  
-       $this->assertEquals('LaterJob\Config\Queue::STATE_ADD',$config->getLiteral(1));
-       $this->assertEquals('LaterJob\Config\Queue::STATE_START',$config->getLiteral(2));
-       $this->assertEquals('LaterJob\Config\Queue::STATE_FINISH',$config->getLiteral(3));
-       $this->assertEquals('LaterJob\Config\Queue::STATE_ERROR',$config->getLiteral(4));
-       $this->assertEquals('LaterJob\Config\Queue::STATE_FAIL',$config->getLiteral(5));
+       $this->assertEquals('LaterJob\Config\QueueConfig::STATE_ADD',$config->getLiteral(1));
+       $this->assertEquals('LaterJob\Config\QueueConfig::STATE_START',$config->getLiteral(2));
+       $this->assertEquals('LaterJob\Config\QueueConfig::STATE_FINISH',$config->getLiteral(3));
+       $this->assertEquals('LaterJob\Config\QueueConfig::STATE_ERROR',$config->getLiteral(4));
+       $this->assertEquals('LaterJob\Config\QueueConfig::STATE_FAIL',$config->getLiteral(5));
     }
     
     
