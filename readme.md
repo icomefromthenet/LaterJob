@@ -29,3 +29,9 @@ Install via composer
         "icomefromthenet/laterjob" :"dev-master"
  }
 ```
+
+#Learn More
+
+I would start at the [docs](https://github.com/icomefromthenet/LaterJob/tree/master/doc).
+
+

@@ -14,20 +14,17 @@
     ],
 
     "require-dev" : {
-        "icomefromthenet/faker"     : "1.0.3.*",
+        "icomefromthenet/faker"     : "dev-master",
         "icomefromthenet/migration" : "dev-master",
-        "monolog/monolog"           : "1.2.*",
-        "silex/silex"               : "1.0.*"
-        
+        "monolog/monolog"           : "1.2.*"
     },
     
     "require" : {
-        "icomefromthenet/dbal-gateway" :"dev-master",
-        "pimple/pimple"                :"1.0.*",
-        "symfony/event-dispatcher"     :"2.1.*",
-        "symfony/console"              :"2.1.*",
-        "mtdowling/cron-expression"    :"1.0.0"
-        
+        "icomefromthenet/dbal-gateway" : "dev-master",
+        "pimple/pimple"                : "1.0.*",
+        "symfony/event-dispatcher"     : "2.1.*",
+        "symfony/console"              : "2.1.*",
+        "mtdowling/cron-expression"    : "1.0.0"
     },
     
     "autoload": {

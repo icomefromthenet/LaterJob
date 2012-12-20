@@ -22,21 +22,22 @@ class PurgeCommand extends Command
 {
     
     /**
-    * Truncate the Queue and Transition and Monitor Tables
+    * Truncate the Queue and Transition table
     *
     * @param InputInterface $input An InputInterface instance
     * @param OutputInterface $output An OutputInterface instance
     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $date  = new DateTime($input->getArgument('date'));
+        
         $output->writeln('app:purge is <info>starting</info>');
+        
         $this->getHelper('queue')->getQueue()->getDispatcher()->addSubscriber(new ConsoleSubscriber($output));
         
-        $monitor               = $this->getHelper('queue')->getQueue()->monitor();
-        $date                  = new DateTime($input->getArgument('date'));
         
         $output->writeln('app:purge running for period <info>'.$date->format('Y-m-d H:i:s') .'</info>');
-       
+           
         $this->getHelper('queue')->getQueue()->activity()->purge($date);      
         
         $output->writeln('app:purge finished running purge');
