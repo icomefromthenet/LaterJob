@@ -1,5 +1,5 @@
 {
-    "name": "icomefromthenet/later-job",
+    "name": "icomefromthenet/laterjob",
     "description": "Database job queue library",
     "keywords": [ "job","queue" ],
     "homepage": "http://github.com/icomefromthenet/LaterJob",
