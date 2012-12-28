@@ -108,32 +108,6 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
     }
     
     
-    
-    protected $app;
-
-    /**
-    * PHPUnit setUp for setting up the application.
-    *
-    * Note: Child classes that define a setUp method must call
-    * parent::setUp().
-    */
-    public function setUp()
-    {
-        $this->app = $this->createApplication();
-        
-        parent::setUp();
-    }
-
-    /**
-    * Creates the application.
-    *
-    */
-    public function createApplication()
-    {
-        return null;
-    }
-    
-    
     //------------------------------------------------------------------
     # MonoLog
     
@@ -157,7 +131,6 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
         
         return $this->monolog_logger;
     }
-
-      
+    
 }
 /* End of File */

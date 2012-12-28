@@ -21,6 +21,10 @@
             <directory suffix="Test.php">src/LaterJob/Tests/</directory>
             <exclude>src/LaterJob/Tests/Base/TestsWithFixture.php</exclude>
         </testsuite>
+        <testsuite name="api">
+            <directory suffix="Test.php">src/LaterJobApi/Tests/</directory>
+            <exclude>src/LaterJobApi/Tests/TestsWithFixture.php</exclude>
+        </testsuite>
   </testsuites>  
     
 </phpunit>

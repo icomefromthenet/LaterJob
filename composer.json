@@ -16,7 +16,10 @@
     "require-dev" : {
         "icomefromthenet/faker"     : "dev-master",
         "icomefromthenet/migration" : "dev-master",
-        "monolog/monolog"           : "1.2.*"
+        "monolog/monolog"           : "1.2.*",
+        "silex/silex"               : "dev-master",
+        "symfony/dom-crawler"       : "dev-master",
+        "symfony/browser-kit"       : "dev-master"
     },
     
     "require" : {
@@ -25,12 +28,14 @@
         "symfony/event-dispatcher"     : "2.1.*",
         "symfony/console"              : "2.1.*",
         "symfony/config"               : "2.1.*",
+        "symfony/validator"            : "2.1.*",
         "mtdowling/cron-expression"    : "1.0.0"
     },
     
     "autoload": {
         "psr-0": {
-            "LaterJob": "src/"
+            "LaterJob": "src/",
+            "LaterJobAPI": "src/"
         }
     }
     

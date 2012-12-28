@@ -6,7 +6,7 @@ return array (
   'type' => 'pdo_mysql',
   'schema' => 'later_job',
   'user' => 'root',
-  'password' => NULL,
+  'password' => 'vagrant',
   'host' => 'localhost',
   'port' => 3306,
   'migration_table' => 'migrations_data',
