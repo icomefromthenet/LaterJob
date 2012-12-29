@@ -111,7 +111,7 @@ class TransitionGateway extends AbstractTable
                     FROM(
                         SELECT 
                             COUNT(process_handle) as num_processed
-                        FROM later_job_transition
+                        FROM '.$this->meta->getName().'
                         WHERE state_id IN (:state_finish,:state_fail)
                             AND (process_handle IS NOT NULL)
                             AND (dte_occured >= :dte_occured_after) 
@@ -168,8 +168,8 @@ class TransitionGateway extends AbstractTable
                             f.dte_occured as start_date, 
                             DATEDIFF(o.dte_occured,f.dte_occured) as date_between,
                             TIMEDIFF(o.dte_occured,f.dte_occured) as time_between
-                        FROM later_job_transition AS o
-                        INNER JOIN later_job_transition AS f ON o.worker_id = f.worker_id AND f.state_id = :state_start
+                        FROM '.$this->meta->getName().' AS o
+                        INNER JOIN '.$this->meta->getName().' AS f ON o.worker_id = f.worker_id AND f.state_id = :state_start
                         WHERE o.state_id IN (:state_finish,:state_error)
                             AND (o.dte_occured >= :dte_occured_after) 
                             AND (o.dte_occured <= :dte_occured_before)
@@ -226,8 +226,8 @@ class TransitionGateway extends AbstractTable
                             f.dte_occured as start_date, 
                             DATEDIFF(o.dte_occured,f.dte_occured) as date_between,
                             TIMEDIFF(o.dte_occured,f.dte_occured) as time_between
-                        FROM later_job_transition AS o
-                        INNER JOIN later_job_transition AS f ON o.worker_id = f.worker_id AND f.state_id = :state_start
+                        FROM '.$this->meta->getName().' AS o
+                        INNER JOIN '.$this->meta->getName().' AS f ON o.worker_id = f.worker_id AND f.state_id = :state_start
                         WHERE o.state_id IN (:state_finish,:state_error)
                             AND (o.dte_occured >= :dte_occured_after) 
                             AND (o.dte_occured <= :dte_occured_before)
@@ -285,8 +285,8 @@ class TransitionGateway extends AbstractTable
                             f.dte_occured as start_date, 
                             DATEDIFF(o.dte_occured,f.dte_occured) as date_between,
                             TIMEDIFF(o.dte_occured,f.dte_occured) as time_between
-                        FROM later_job_transition AS o
-                        INNER JOIN later_job_transition AS f ON o.worker_id = f.worker_id AND f.state_id = :state_start
+                        FROM '.$this->meta->getName().' AS o
+                        INNER JOIN '.$this->meta->getName().' AS f ON o.worker_id = f.worker_id AND f.state_id = :state_start
                         WHERE o.state_id IN (:state_finish,:state_error)
                             AND (o.dte_occured >= :dte_occured_after) 
                             AND (o.dte_occured <= :dte_occured_before)
@@ -344,8 +344,8 @@ class TransitionGateway extends AbstractTable
                             f.dte_occured as start_date, 
                             DATEDIFF(o.dte_occured,f.dte_occured) as date_between,
                             TIMEDIFF(o.dte_occured,f.dte_occured) as time_between
-                        FROM later_job_transition AS o
-                        INNER JOIN later_job_transition AS f ON o.job_id = f.job_id AND f.state_id = :state_start
+                        FROM '.$this->meta->getName().' AS o
+                        INNER JOIN '.$this->meta->getName().' AS f ON o.job_id = f.job_id AND f.state_id = :state_start
                         WHERE o.state_id IN (:state_finish,:state_fail)
                             AND (o.dte_occured >= :dte_occured_after) 
                             AND (o.dte_occured <= :dte_occured_before)
@@ -403,8 +403,8 @@ class TransitionGateway extends AbstractTable
                             f.dte_occured as start_date, 
                             DATEDIFF(o.dte_occured,f.dte_occured) as date_between,
                             TIMEDIFF(o.dte_occured,f.dte_occured) as time_between
-                        FROM later_job_transition AS o
-                        INNER JOIN later_job_transition AS f ON o.job_id = f.job_id AND f.state_id = :state_start
+                        FROM '.$this->meta->getName().' AS o
+                        INNER JOIN '.$this->meta->getName().' AS f ON o.job_id = f.job_id AND f.state_id = :state_start
                         WHERE o.state_id IN (:state_finish,:state_fail)
                             AND (o.dte_occured >= :dte_occured_after) 
                             AND (o.dte_occured <= :dte_occured_before)
@@ -461,8 +461,8 @@ class TransitionGateway extends AbstractTable
                             f.dte_occured as start_date, 
                             DATEDIFF(o.dte_occured,f.dte_occured) as date_between,
                             TIMEDIFF(o.dte_occured,f.dte_occured) as time_between
-                        FROM later_job_transition AS o
-                        INNER JOIN later_job_transition AS f ON o.job_id = f.job_id AND f.state_id = :state_start
+                        FROM '.$this->meta->getName().' AS o
+                        INNER JOIN '.$this->meta->getName().' AS f ON o.job_id = f.job_id AND f.state_id = :state_start
                         WHERE o.state_id IN (:state_finish,:state_fail)
                             AND (o.dte_occured >= :dte_occured_after) 
                             AND (o.dte_occured <= :dte_occured_before)
