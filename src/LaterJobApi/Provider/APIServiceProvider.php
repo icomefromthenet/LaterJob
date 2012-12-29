@@ -34,17 +34,29 @@ class APIServiceProvider implements ServiceProviderInterface
         #
         #------------------------------------------------------------------
         
-        $app['laterjob.api.formatters.job'] = $app->share(function() {
-            return new  \LaterJobApi\Formatter\JobFormatter();
-        });
+        if(isset($app['laterjob.api.formatters.job']) === false) {
+            
+            $app['laterjob.api.formatters.job'] = $app->share(function() {
+                return new  \LaterJobApi\Formatter\JobFormatter();
+            });
+                
+        }
         
-        $app['laterjob.api.formatters.activity'] = $app->share(function() {
-            return new \LaterJobApi\Formatter\ActivityFormatter();
-        });
+        if(isset($app['laterjob.api.formatters.activity']) === false) {
+            
+            $app['laterjob.api.formatters.activity'] = $app->share(function() {
+                return new \LaterJobApi\Formatter\ActivityFormatter();
+            });
+            
+        }
         
-        $app['laterjob.api.formatters.monitor'] = $app->share(function(){
-            return new \LaterJobApi\Formatter\MonitorFormatter();
-        });
+        if(isset($app['laterjob.api.formatters.monitor']) === false) {
+            
+            $app['laterjob.api.formatters.monitor'] = $app->share(function(){
+                return new \LaterJobApi\Formatter\MonitorFormatter();
+            });
+        }
+        
         
         #------------------------------------------------------------------
         # Setup Routes / Controllers
