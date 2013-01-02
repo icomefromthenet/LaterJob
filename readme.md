@@ -1,4 +1,5 @@
 #LaterJob - Database Queue with Metrics.
+[![Build Status](https://travis-ci.org/icomefromthenet/LaterJob.png?branch=master)](https://travis-ci.org/icomefromthenet/LaterJob)
 
 ###I have in the past needed a simple queue for applications hosted on 'sharded host' or other limited php environments. 
 1. no access to the cli, 
