@@ -8,7 +8,6 @@ class ScheduleControllerTest extends WebTestCase
     
     public function createApplication()
     {
-        $_SERVER["APP_ENVIRONMENT"] = "development";
         $app = require __DIR__.'/../app.php';
         $app['exception_handler']->disable();
         $app['session.test'] = true;
@@ -44,7 +43,7 @@ class ScheduleControllerTest extends WebTestCase
         
         
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
 
@@ -63,7 +62,7 @@ class ScheduleControllerTest extends WebTestCase
         $this->assertEquals(array(),$result->result);
         
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
 
@@ -81,7 +80,7 @@ class ScheduleControllerTest extends WebTestCase
         $this->assertEquals(array(),$result->result);
         
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         

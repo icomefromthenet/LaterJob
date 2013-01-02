@@ -8,3 +8,4 @@ faker\dump\*.sql
 .komodotools
 composer.lock
 LaterJob.komodoproject
+src\LaterJobAPI\resources\cache\logs\*.log

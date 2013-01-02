@@ -7,7 +7,6 @@ class ActivityControllerTest extends TestsWithFixture
     
     public function createApplication()
     {
-        $_SERVER["APP_ENVIRONMENT"] = "development";
         $app = require __DIR__.'/../app.php';
         $app['exception_handler']->disable();
         $app['session.test'] = true;
@@ -49,7 +48,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -67,7 +66,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -84,7 +83,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -101,7 +100,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -119,7 +118,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -137,7 +136,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -154,7 +153,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -229,7 +228,7 @@ class ActivityControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         

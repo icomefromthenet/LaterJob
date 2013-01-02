@@ -19,18 +19,38 @@ class QueueProvider extends BaseProvider implements ControllerProviderInterface
     
     public function connect(Application $app)
     {
+        parent::connect($app);
+        
         // creates a new controller based on the default route
         $controllers = $app['controllers_factory'];
         
-        $controllers->get('/jobs/{job_id}', array($this,'getJobAction'))->assert('job_id', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}');
+        $controllers->get('/jobs/{job}', array($this,'getJobAction'))
+                    ->assert('job', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')
+                    ->convert('job',array($this,'lookupJob'));
+                    
         $controllers->get('/jobs', array($this,'getJobsAction'));
 
-        $controllers->delete('/jobs/{job_id}', array($this,'deleteJobAction'))->assert('job_id', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}');
+        $controllers->delete('/jobs/{job}', array($this,'deleteJobAction'))
+                    ->assert('job', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')
+                    ->convert('job',array($this,'lookupJob'));
+                    
         $controllers->delete('/jobs', array($this,'deleteJobsAction'));
+                   
         
         return $controllers;
     }
     
+    
+    public function lookupJob($job)
+    {
+        $result = $this->getQueue()->lookup($job);
+            
+        if(!$result instanceof Storage) {
+            $this->getContainer()->abort(404,'Job not found at id '.$job);
+        }
+        
+        return $result;
+    }
     
     
     /**
@@ -39,48 +59,17 @@ class QueueProvider extends BaseProvider implements ControllerProviderInterface
       *  @access public
       *  @return Response
       */
-    public function getJobAction(Application $app, Request $req, $job_id)
+    public function getJobAction(Application $app, Request $req, Storage $job)
     {
-        $format = $app['laterjob.api.formatters.job'];
         $data = array(
             'result' => array(),
             'msg' => null
         );  
-        $code = 200;
         
-         
-        try {
-            
-            # run against api
-            $result = $app[$this->index]->lookup($job_id);
-            $data['msg']    = '';
-            
-            # convert using formatter if known type.
-            if($result instanceof Collection) {
-                $data['result'] = $format->toArrayCollection($result);
-            } elseif($result instanceof Storage) {
-                $data['result'] = array($format->toArray($result));
-            } elseif($result === null || $result === false) {
-                $data['result'] = array();
-            } else {
-                throw new LaterJobException('return data is in an unknown type : ' . gettype($result));
-            }
-            
-            if($result === false) {
-                $code = 404;
-            }
-            
-        } catch(LaterJobException $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
-        } catch (\Exception $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
-        }
+        $data['result'] = array($this->getJobFormatter()->toArray($job));
+        $data['msg']    = true;
         
-        return $this->response($data,$code);
+        return $this->response($data,200);
     }
 
     /**
@@ -89,38 +78,18 @@ class QueueProvider extends BaseProvider implements ControllerProviderInterface
       *  @access public
       *  @return Response
       */
-    public function deleteJobAction(Application $app, Request $req , $job_id)
+    public function deleteJobAction(Application $app, Request $req , Storage $job)
     {
          $data = array(
             'result' => array(),
             'msg' => null
         );  
-
-        $code = 200;
+            
+        # run against api
+        $data['result'] = $this->getQueue()->remove($job->getJobId(), new DateTime());
+        $data['msg']    = true;    
         
-        try {
-            
-            if(($result = $app[$this->index]->lookup($job_id)) === false) {
-                $data['result'] = false;
-                $code = 404;
-            } else {
-                # run against api
-                $data['result'] = $app[$this->index]->remove($job_id, new DateTime());
-                $data['msg']    = true;    
-            }
-            
-            
-        } catch(LaterJobException $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
-        } catch (\Exception $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
-        }
-        
-        return $this->response($data,$code);
+        return $this->response($data,200);
         
     }
     
@@ -136,36 +105,23 @@ class QueueProvider extends BaseProvider implements ControllerProviderInterface
             'result' => array(),
             'msg' => null
         );  
-        $code = 200;
+            
+        $before     = $req->get('before');
         
-        try {
+        $constraint = new Assert\Collection(array('before' => new Assert\DateTime()));
             
-            $validator  = $app['validator'];
-            $before     = $req->get('before');
-            $constraint = new Assert\Collection(array('before' => new Assert\DateTime(),));
+        $errors     = $this->getValidator()->validateValue(array('before' => $before), $constraint);
             
-            $errors     = $app['validator']->validateValue(array('before' =>$before), $constraint);
-            
-            if (count($errors) > 0) {
-                throw new LaterJobException($this->serializeValidationErrors($errors));
-            }
-            
-            # run against api
-            $data['result'] = $app[$this->index]->purge(new DateTime($before));
-            $data['msg']    = true;
-            
-        } catch(LaterJobException $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
-        } catch (\Exception $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
+        if (count($errors) > 0) {
+            $this->getContainer()->abort(400,$this->serializeValidationErrors($errors));
         }
+            
+        # run against api
+        $data['result'] = $this->getQueue()->purge(new DateTime($before));
+        $data['msg']    = true;
+            
         
-        
-        return $this->response($data,$code);
+        return $this->response($data,200);
     }
     
     /**
@@ -174,96 +130,78 @@ class QueueProvider extends BaseProvider implements ControllerProviderInterface
       *  @access public
       *  @return Response
       */
-    public function getJobsAction(Application $app, Request $req )
+    public function getJobsAction(Application $app, Request $req)
     {
-        $format = $app['laterjob.api.formatters.job'];
         $data = array(
             'result' => array(),
             'msg' => null
         );  
 
-        $code = 200;
-       
-        try {
-            
-            $validator = $app['validator'];
         
-            # gater query params
+        # gater query params
             
-            $offset = $req->get('offset',0);
-            $limit  = $req->get('limit',self::QUERY_LIMIT);
-            $order  = $req->get('order','asc');
-            $state  = $req->get('state');
-            $before = $req->get('before');
-            $after  = $req->get('after');
+        $offset = $req->get('offset',0);
+        $limit  = $req->get('limit',self::QUERY_LIMIT);
+        $order  = $req->get('order','asc');
+        $state  = $req->get('state');
+        $before = $req->get('before');
+        $after  = $req->get('after');
         
-            # filter query params and assign default values
-            $constraint = new Assert\Collection(array(
-                                'offset' => new Assert\Range(array('min' =>0 ,'max' => PHP_INT_MAX)),
-                                'state'  => new Assert\Choice(array('choices' => array(
-                                                                                       null,
-                                                                                       QueueConfig::STATE_ADD,
-                                                                                       QueueConfig::STATE_ERROR,
-                                                                                       QueueConfig::STATE_FAIL,
-                                                                                       QueueConfig::STATE_FINISH,
-                                                                                       QueueConfig::STATE_START
-                                                                                       ))),
-                                'limit'  => new Assert\Range(array('min' =>1 ,'max' =>self::QUERY_LIMIT)),
-                                'order'  => new Assert\Choice(array( 'choices' => array('desc','asc') )),
-                                'before' => new Assert\DateTime(),
-                                'after'  => new Assert\DateTime()
-                        ));
+        # filter query params and assign default values
+        $constraint = new Assert\Collection(array(
+                            'offset' => new Assert\Range(array('min' =>0 ,'max' => PHP_INT_MAX)),
+                            'state'  => new Assert\Choice(array('choices' => array(
+                                                                                null,
+                                                                                QueueConfig::STATE_ADD,
+                                                                                QueueConfig::STATE_ERROR,
+                                                                                QueueConfig::STATE_FAIL,
+                                                                                QueueConfig::STATE_FINISH,
+                                                                                QueueConfig::STATE_START
+                                                                                ))),
+                            'limit'  => new Assert\Range(array('min' =>1 ,'max' =>self::QUERY_LIMIT)),
+                            'order'  => new Assert\Choice(array( 'choices' => array('desc','asc') )),
+                            'before' => new Assert\DateTime(),
+                            'after'  => new Assert\DateTime()
+                    ));
             
             
-            $errors = $app['validator']->validateValue(array(
-                                                 'state'  => $state,
-                                                 'offset' => $offset,
-                                                 'limit'  => $limit,
-                                                 'order'  => $order,
-                                                 'before' => $before,
-                                                 'after'  => $after
-                                                  ), $constraint);
+        $errors = $this->getValidator()->validateValue(array(
+                                            'state'  => $state,
+                                            'offset' => $offset,
+                                            'limit'  => $limit,
+                                            'order'  => $order,
+                                            'before' => $before,
+                                            'after'  => $after
+                                        ), $constraint);
             
-            if (count($errors) > 0) {
-                throw new LaterJobException($this->serializeValidationErrors($errors));
-            }
-            
-            
-            
-            if($before !== null) {
-                $before = new DateTime($before);    
-            }
-            
-            if($after !== null) {
-                $after = new DateTime($after);
-            }
-            
-            # run against api
-            $result      = $app[$this->index]->query((int)$offset,(int)$limit,$state,$order,$before,$after);
-            $data['msg'] = true;
-            
-           # convert using formatter if known type.
-            if($result instanceof Collection) {
-                $data['result'] = $format->toArrayCollection($result);
-            } elseif($result instanceof Storage) {
-                $data['result'] = array($format->toArray($result));
-            } elseif($result === null || $result === false) {
-                $data['result'] = array();
-            } else {
-                throw new LaterJobException('return data is in an unknown type : ' . gettype($result));
-            }            
-            
-        } catch(LaterJobException $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
-        } catch (\Exception $e) {
-            $data['msg'] = $e->getMessage();
-            $code = 500;
-            $app['monolog']->notice($e->getMessage());
+        if (count($errors) > 0) {
+            $this->getContainer()->abort(400,$this->serializeValidationErrors($errors));
         }
-        
-        return $this->response($data,$code);
+            
+        if($before !== null) {
+            $before = new DateTime($before);    
+        }
+            
+        if($after !== null) {
+            $after = new DateTime($after);
+        }
+            
+        # run against api
+        $result      = $this->getQueue()->query((int)$offset,(int)$limit,$state,$order,$before,$after);
+        $data['msg'] = true;
+            
+        # convert using formatter if known type.
+        if($result instanceof Collection) {
+            $data['result'] = $this->getJobFormatter()->toArrayCollection($result);
+        } elseif($result instanceof Storage) {
+            $data['result'] = array($this->getJobFormatter()->toArray($result));
+        } elseif($result === null || $result === false) {
+            $data['result'] = array();
+        } else {
+            $this->getContainer()->abort(500,'return data is in an unknown type : ' . gettype($result));
+        }            
+
+        return $this->response($data,200);
     }
     
     

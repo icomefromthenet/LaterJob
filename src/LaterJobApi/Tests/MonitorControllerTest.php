@@ -8,7 +8,6 @@ class MonitorControllerTest extends TestsWithFixture
     
     public function createApplication()
     {
-        $_SERVER["APP_ENVIRONMENT"] = "development";
         $app = require __DIR__.'/../app.php';
         $app['exception_handler']->disable();
         $app['session.test'] = true;
@@ -48,7 +47,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -66,7 +65,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -83,7 +82,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -100,7 +99,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -118,7 +117,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -136,7 +135,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
@@ -153,7 +152,7 @@ class MonitorControllerTest extends TestsWithFixture
 
         # request returned 200 ok
         $this->assertEquals(
-            500,
+            400,
             $client->getResponse()->getStatusCode()
         );
         

@@ -78,6 +78,29 @@ $app->register(new LaterJobApi\Provider\QueueServiceProvider('mailqueue'), array
 # 
 # ---------------------------------------------------
 
-$app->register(new LaterJobApi\Provider\APIServiceProvider('mailqueue'.LaterJobApi\Provider\QueueServiceProvider::QUEUE), array());
+$app['laterjob.api.formatters.job'] = $app->share(function() {
+    return new \LaterJobApi\Formatter\JobFormatter();
+});
+                
+        
+            
+$app['laterjob.api.formatters.activity'] = $app->share(function() {
+    return new \LaterJobApi\Formatter\ActivityFormatter();
+});
+        
+            
+$app['laterjob.api.formatters.monitor'] = $app->share(function(){
+    return new \LaterJobApi\Formatter\MonitorFormatter();
+});
+
+#------------------------------------------------------------------
+# Setup Routes / Controllers
+#
+#------------------------------------------------------------------
+
+$app->mount('/queue',  new \LaterJobApi\Controllers\QueueProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Controllers\ActivityProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Controllers\MonitorProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Controllers\ScheduleProvider('mailqueue.queue'));
 
 return $app;

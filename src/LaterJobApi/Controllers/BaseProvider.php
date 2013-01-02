@@ -14,6 +14,11 @@ class BaseProvider implements ControllerProviderInterface
     protected $index;
     
     /**
+      *  @var Silex\Application 
+      */
+    protected $app;
+    
+    /**
       *  Class Constructor
       *
       *  @access public
@@ -30,7 +35,11 @@ class BaseProvider implements ControllerProviderInterface
     
     public function connect(Application $app)
     {
-        throw new LaterJobException('Method not implemented');
+       # bind app to his controller
+        $this->app = $app;
+        
+        # bind errro handler
+        $app->error(array($this,'handleError'));
     }
     
     
@@ -76,6 +85,98 @@ class BaseProvider implements ControllerProviderInterface
         }
         
         return new JsonResponse($data, $status, $headers);
+    }
+    
+    
+     /**
+    * Error handler for exceptions if app default not been sent.
+    * This handler will not be called if a app handler returns response.
+    *
+    * @access public
+    * @return JsonResponse
+    */
+    public function handleError(\Exception $e, $code)
+    {
+        switch ($code) {
+        case 404:
+            $message = 'The requested page could not be found.';
+            break;
+        case 400:
+            $message = $e->getMessage();
+            break;
+        default:
+            $message = 'We are sorry, but something went terribly wrong.';
+        }
+
+        # record error to app log.
+        $this->app['monolog']->notice($e->getMessage());
+        
+        return $this->response(array('msg'=> $message,'result' => array()),$code);
+    }
+    
+    
+     /**
+    * Fetch the dependency container
+    *
+    * @access public
+    * @return Silex\Application
+    */
+    public function getContainer()
+    {
+        return $this->app;
+    }
+    
+    
+    /**
+    * Fetch the symfony2 validator
+    *
+    * @access public
+    * @return Symfony\Component\Validator\Validator
+    */
+    public function getValidator()
+    {
+        return $this->app['validator'];
+    }
+    
+    /**
+     * Fetch the queue
+     * 
+     *  @return LaterJob\Queue
+     *  @access public
+     */
+    public function getQueue()
+    {
+       return $this->app[$this->index]; 
+    }
+    
+    /**
+      * Return the activity formatter
+      *
+      *  @return LaterJobApi\Formatter\ActivityFormatter
+      */
+    public function getActivityFormatter()
+    {
+         return $this->app['laterjob.api.formatters.activity']; 
+    }
+    
+    /**
+      * Return the job formatter
+      *
+      *  @return LaterJobApi\Formatter\JobFormatter
+      */
+    public function getJobFormatter()
+    {
+         return $this->app['laterjob.api.formatters.job']; 
+    }
+    
+   /**
+      * Return the monitor formatter
+      *
+      *  @return LaterJobApi\Formatter\MonitorFormatter
+      */  
+    public function getMonitorFormatter()
+    {
+        return $this->app['laterjob.api.formatters.monitor']; 
     }
     
 }
