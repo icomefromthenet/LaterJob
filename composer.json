@@ -15,7 +15,7 @@
 
     "require-dev" : {
         "icomefromthenet/migration" : "dev-master",
-        "monolog/monolog"           : ">=1.3.*",
+        "monolog/monolog"           : "1.3.*",
         "silex/silex"               : "dev-master",
         "symfony/dom-crawler"       : "dev-master",
         "symfony/browser-kit"       : "dev-master"
