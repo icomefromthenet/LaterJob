@@ -4,7 +4,7 @@ namespace LaterJob\Loader;
 use Pimple;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DBALGateway\Table\AbstractTable;
-use LaterJob\Log\LogInterface;
+use Psr\Log\LoggerInterface;
 use LaterJob\Log\LogSubscriber;
 use LaterJob\Model\Queue\QueueSubscriber; 
 use LaterJob\Model\Queue\JobSubscriber;
@@ -23,7 +23,7 @@ class EventSubscriber implements LoaderInterface
 {
     
     
-    public function subscribeLogHandlers(EventDispatcherInterface $event,LogInterface $log)
+    public function subscribeLogHandlers(EventDispatcherInterface $event,LoggerInterface $log)
     {
         $log_subscriber = new LogSubscriber($log);
         $event->addSubscriber($log_subscriber);

@@ -24,7 +24,7 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
               ->method('addSubscriber')
               ->with($this->isInstanceOf('LaterJob\Log\LogSubscriber'));
         
-        $logger = $this->getMock('LaterJob\Log\LogInterface');
+        $logger = $this->getMock('Psr\Log\LoggerInterface');
         
         $loader->subscribeLogHandlers($event,$logger);
         
@@ -86,7 +86,7 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
     {
         $pimple                     = new Pimple();
         $pimple['dispatcher']       = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $pimple['logger']           = $this->getMock('LaterJob\Log\LogInterface');
+        $pimple['logger']           = $this->getMock('Psr\Log\LoggerInterface');
         $pimple['model.queue']      = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();
         $pimple['model.transition'] = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();
         $pimple['model.monitor']    = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();

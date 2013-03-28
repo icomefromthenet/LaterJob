@@ -18,7 +18,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testQueueBootStrap()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -58,7 +58,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
              ->will($this->returnValue('85acf452-4e61-3a2f-b1b9-4486f24edeb6'));     
         
         
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -103,7 +103,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testQuery()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -142,7 +142,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testRemove()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -174,7 +174,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testPurge()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -206,7 +206,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testWorker()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -252,7 +252,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testReturnsActivityInterface()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -280,7 +280,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testSchedule()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -319,7 +319,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testReturnsMonitor()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
@@ -349,7 +349,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testLookup()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('LaterJob\Log\LogInterface');
+        $logger         = $this->getMock('Psr\Log\LoggerInterface');
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
         $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
         $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');

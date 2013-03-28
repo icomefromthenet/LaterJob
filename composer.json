@@ -28,7 +28,8 @@
         "symfony/console"              : "2.1.*",
         "symfony/config"               : "2.1.*",
         "symfony/validator"            : "2.1.*",
-        "mtdowling/cron-expression"    : "1.0.0"
+        "mtdowling/cron-expression"    : "1.0.0",
+        "psr/log"                      : "~1.0"
     },
     
     "autoload": {

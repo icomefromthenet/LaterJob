@@ -22,6 +22,8 @@ use LaterJob\Event\JobEventsMap,
     LaterJob\Event\MonitoringEvent,
     LaterJob\Exception as LaterJobException;
  
+use Psr\Log\LoggerInterface;
+ 
 /**
   *  Base 
   *
@@ -31,7 +33,7 @@ use LaterJob\Event\JobEventsMap,
 class LogSubscriber implements EventSubscriberInterface
 {
     /**
-      *  @var LogInterface
+      *  @var LoggerInterface
       */
     protected $log;
 
@@ -81,9 +83,9 @@ class LogSubscriber implements EventSubscriberInterface
       *  Class Constructor
       *
       *  @access public
-      *  @param LogInterface $log
+      *  @param LoggerInterface $log
       */
-    public function __construct(LogInterface $log)
+    public function __construct(LoggerInterface $log)
     {
         $this->log = $log;
     }

@@ -74,7 +74,7 @@ class QueueServiceProvider implements ServiceProviderInterface
         });
         
         $app[$this->index.self::LOG_BRIDGE] = $app->share(function() use ($app) {
-           return new MonologBridge($app['monolog']);
+           return $app['monolog'];
         });
         
         $app[$this->index.self::LOADER_CONFIG] = $app->share(function() use ($app){

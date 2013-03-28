@@ -4,6 +4,7 @@ namespace LaterJob;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Cron\CronExpression;
 use Pimple, DateTime;
+use Psr\Log\LoggerInterface;
 use LaterJob\Model\Queue\Storage,
     LaterJob\Config\QueueConfig,
     LaterJob\Event\QueueReceiveEvent,
@@ -12,7 +13,6 @@ use LaterJob\Model\Queue\Storage,
     LaterJob\Event\QueuePurgeEvent,
     LaterJob\Event\QueueLookupEvent,
     LaterJob\Event\QueueEventsMap,
-    LaterJob\Log\LogInterface,
     LaterJob\Worker,
     LaterJob\UUID,
     LaterJob\Loader\LoaderInterface,
@@ -37,7 +37,7 @@ class Queue extends Pimple
       *  @access public
       *  @return \LaterJob\Queue;
       */    
-    public function __construct(EventDispatcherInterface $dispatcher, LogInterface $logger, array $options, UUID $uuid, LoaderInterface $config_loader, LoaderInterface $model_loader,LoaderInterface $event_loader)
+    public function __construct(EventDispatcherInterface $dispatcher, LoggerInterface $logger, array $options, UUID $uuid, LoaderInterface $config_loader, LoaderInterface $model_loader,LoaderInterface $event_loader)
     {
         
         $this['dispatcher'] = $dispatcher;
@@ -76,7 +76,7 @@ class Queue extends Pimple
       *   Returns the Logger
       *
       *   @access public
-      *   @return LaterJob\Log\LogInterface
+      *   @return Psr\Log\LoggerInterface
       */
     public function getLogger()
     {

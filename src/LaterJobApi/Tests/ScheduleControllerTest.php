@@ -23,7 +23,7 @@ class ScheduleControllerTest extends WebTestCase
 
         # request returned 200 ok
         $this->assertEquals(
-            200,
+            400,
             $client->getResponse()->getStatusCode()
         );
         
