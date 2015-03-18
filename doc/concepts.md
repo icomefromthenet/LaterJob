@@ -2,7 +2,7 @@
 
 ## Workers.
 
-A Worker requires the cron and not a daemon.  You may have overlapping executions, as each worker will obtain a lock first on a set of jobs. The lock is temporal and can expire, if a script exists due to unforeseen circumstances the lock will eventually expire and the jobs will be picked up by a later worker execution.
+A Worker requires the cron and not a daemon and  you may have overlapping executions as each worker will  obtain a lock jobs it will process. The lock is temporal and does expire and if a script exits due to unforeseen circumstances the jobs will be picked up by a later worker execution.
 
 I would advise not too run more than one cron job for the same worker. Single cron job with quick execution time (every minute) should be sufficent for a database backed queue. If your looking for more capacity might be time to switch away from a database queue.
 
