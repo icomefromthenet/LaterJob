@@ -28,9 +28,9 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'    => 'pdo_mysql',
-        'host'      => 'localhost',
-        'dbname'    => 'later_job',
-        'user'      => 'root',
-        'password'  => 'vagrant',
+        'host'      => $_SERVER['IP'],
+        'dbname'    => 'c9',
+        'user'      => $_SERVER['C9_USER'],
+        'password'  => '',
     )
 ));

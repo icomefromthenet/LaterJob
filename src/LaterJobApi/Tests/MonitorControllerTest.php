@@ -105,7 +105,7 @@ class MonitorControllerTest extends TestsWithFixture
         
         $results = json_decode($client->getResponse()->getContent());
         $this->assertEquals(0,count($results->result));
-        $this->assertEquals('[offset] This value should be 2147483647 or less.',$results->msg);
+        $this->assertEquals('[offset] This value should be '.PHP_INT_MAX.' or less.',$results->msg);
         
     }
     

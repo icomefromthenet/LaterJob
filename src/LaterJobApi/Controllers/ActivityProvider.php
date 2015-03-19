@@ -52,7 +52,7 @@ class ActivityProvider extends BaseProvider implements ControllerProviderInterfa
         
         # filter query params and assign default values
         $constraint = new Assert\Collection(array(
-                            'offset' => new Assert\Range(array('min' =>0 ,'max' => PHP_INT_MAX)),
+                            'offset' => new Assert\Range(array('min' =>0 ,'max' => PHP_INT_MAX,)),
                             'limit'  => new Assert\Range(array('min' =>1 ,'max' =>self::QUERY_LIMIT)),
                             'order'  => new Assert\Choice(array( 'choices' => array('desc','asc') )),
                             'before' => new Assert\DateTime(),
