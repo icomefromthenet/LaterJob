@@ -143,7 +143,8 @@ class Allocator implements Iterator
                 return false;
             }
             
-            $store = reset($event->getResult()->getIterator());
+            $iterator= $event->getResult()->getIterator();
+            $store   = reset($iterator);
             
             $this->jobs[$this->current] = new Job($store,$this->config,$this->event);
         }        

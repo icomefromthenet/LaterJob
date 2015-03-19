@@ -16,8 +16,7 @@ $app['web_root']        = realpath(__DIR__  . "/../../web") . DIRECTORY_SEPARATO
 
 
 
-$app['environment'] = (false === isset($_SERVER["APP_ENVIRONMENT"])) ? "development" :$_SERVER["APP_ENVIRONMENT"];
-
+$app['environment'] = (false === isset($GLOBALS["APP_ENVIRONMENT"])) ? "development" :$GLOBALS["APP_ENVIRONMENT"];
 
 # Load a environment specific configuration file
 if (file_exists(__DIR__ . '/environments/'.$app['environment'].'.php')) {
