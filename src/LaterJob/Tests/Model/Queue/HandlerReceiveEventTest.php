@@ -94,13 +94,15 @@ class HandlerReceiveEventTest extends  TestsWithFixture
         $handler      = new QueueSubscriber($gateway);
         
         $uuid         = new UUID(new MersenneRandom(10000));   
+        
         $job_name     = 'test_job_1';
         $added        = new DateTime('01-01-2014 00:00:00');
         
         
         # create the transition
         $storage = new Storage();
-        $storage->setJobId($uuid->v3($uuid->v4(),$job_name));
+        $jobID = $uuid->v3($uuid->v4(),$job_name);
+        $storage->setJobId($jobID);
         $storage->setDateAdded($added);
         $storage->setJobData(new \stdClass());
         $storage->setState(QueueConfig::STATE_ADD);
@@ -116,6 +118,7 @@ class HandlerReceiveEventTest extends  TestsWithFixture
                                 ->getTable("later_job_queue");
         
         $this->assertTablesEqual($expected_table,$resulting_table); 
+        
         
     }
  

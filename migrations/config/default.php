@@ -4,10 +4,10 @@
 
 return array (
   'type' => 'pdo_mysql',
-  'schema' => 'later_job',
-  'user' => 'root',
-  'password' => 'vagrant',
-  'host' => 'localhost',
+  'schema' => 'c9',
+  'user' => $_SERVER['C9_USER'],
+  'password' => '',
+  'host' => $_SERVER['IP'],
   'port' => 3306,
   'migration_table' => 'migrations_data',
   'socket' => false,

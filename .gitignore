@@ -9,3 +9,4 @@ faker\dump\*.sql
 composer.lock
 LaterJob.komodoproject
 src\LaterJobAPI\resources\cache\logs\*.log
+.c9

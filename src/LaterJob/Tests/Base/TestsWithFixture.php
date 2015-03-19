@@ -78,7 +78,7 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
                 'dbname' => $GLOBALS['DB_DBNAME'],
                 'user' => $GLOBALS['DB_USER'],
                 'password' => $GLOBALS['DB_PASSWD'],
-                'host' => 'localhost',
+                'host' => $GLOBALS['DB_HOST'],
                 'driver' => 'pdo_mysql',
             );
         

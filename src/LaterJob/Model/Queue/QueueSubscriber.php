@@ -131,7 +131,7 @@ class QueueSubscriber implements EventSubscriberInterface
             $event->setResult($this->gateway->rowsAffected());
         
         } catch(DBALGatewayException $e) {
-            $event->setLocked(0);
+            $event->setResult(0);
             throw new LaterJobException($e->getMessage(),0,$e);
         }
         
