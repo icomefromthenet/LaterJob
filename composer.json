@@ -14,7 +14,8 @@
     ],
 
     "require-dev" : {
-        "silex/silex"               : "~1.2",
+       "icomefromthenet/migration"  : "dev-master",
+       "silex/silex"                : "~1.2",
         "monolog/monolog"           : "~1.4",
         "symfony/dom-crawler"       : "~2.2",
         "symfony/browser-kit"       : "~2.2",
