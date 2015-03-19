@@ -8,7 +8,7 @@ class QueueControllerTest extends TestsWithFixture
     
     public function createApplication()
     {
-        $app = require __DIR__.'/../app.php';
+        GLOBAL $app;
         $app['exception_handler']->disable();
         $app['session.test'] = true;
         
