@@ -8,7 +8,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          syntaxCheck="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="../vendor/autoload.php"
 >
     <php>
         <var name="DB_DSN" value="mysql:dbname=c9;host=172.17.1.244" />
@@ -22,10 +22,6 @@
         <testsuite name="default">
             <directory suffix="Test.php">src/LaterJob/Tests/</directory>
             <exclude>src/LaterJob/Tests/Base/TestsWithFixture.php</exclude>
-        </testsuite>
-        <testsuite name="api">
-            <directory suffix="Test.php">src/LaterJobApi/Tests/</directory>
-            <exclude>src/LaterJobApi/Tests/TestsWithFixture.php</exclude>
         </testsuite>
   </testsuites>  
     

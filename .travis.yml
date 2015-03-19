@@ -9,4 +9,6 @@ before_script:
   - ./vendor/bin/migrate.php app:install --path migrations --dsn mysql://root:@127.0.0.1/later_job?migration_table=migrations_data
   - ./vendor/bin/migrate.php app:build --path migrations --force --dsn mysql://root:@127.0.0.1/later_job?migration_table=migrations_data
   
-script: vendor/bin/phpunit --configuration travis.xml
+script: 
+ - vendor/bin/phpunit --configuration ../config/travis.lib.xml
+ - vendor/bin/phpunit --configuration ../config/travis.api.xml
