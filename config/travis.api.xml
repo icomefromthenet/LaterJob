@@ -20,8 +20,8 @@
     </php>
     <testsuites>
         <testsuite name="api">
-            <directory suffix="Test.php">src/LaterJobApi/Tests/</directory>
-            <exclude>src/LaterJobApi/Tests/TestsWithFixture.php</exclude>
+            <directory suffix="Test.php">../src/LaterJobApi/Tests/</directory>
+            <exclude>../src/LaterJobApi/Tests/TestsWithFixture.php</exclude>
         </testsuite>
   </testsuites>  
     
