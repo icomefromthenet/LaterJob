@@ -18,6 +18,7 @@ $app["debug"] = true;
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => $app['cache_path'].'logs/laterjob.log',
+    'monolog.level'  => \Monolog\Logger::DEBUG
 ));
 
 # ----------------------------------------------------
@@ -34,3 +35,5 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'password'  => '',
     )
 ));
+
+

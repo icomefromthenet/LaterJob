@@ -42,11 +42,13 @@ class Activity
       *  @param string $order 'ASC | DESC'
       *  @param DateTime $before
       *  @param DateTime $after
+      *  @param string a job UUID
+      *  @param string a worker UUID
       *  @return Traversable 
       */
-    public function query($offset, $limit, $order = 'ASC', DateTime $before = null, DateTime $after = null)
+    public function query($offset, $limit, $order = 'ASC', DateTime $before = null, DateTime $after = null,$job_id = null, $worker_id = null)
     {
-        $event = new QueueQueryActivityEvent($offset,$limit,$order,$before,$after);
+        $event = new QueueQueryActivityEvent($offset,$limit,$order,$before,$after,$job_id,$worker_id);
         
         $this->event->dispatch(QueueEventsMap::QUEUE_QUERY_ACTIVITY,$event);
         

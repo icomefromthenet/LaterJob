@@ -100,6 +100,14 @@ class QueueSubscriber implements EventSubscriberInterface
                 $query->offset($event->getOffset());
             }
             
+            if($event->getWorkerID() !== null) {
+                $query->filterByWorker($event->getWorkerID());    
+            }   
+            
+            if($event->getJobID() !== null) {
+                $query->filterByJob($event->getJobID());
+            }
+            
             # set the order by the date added
             $query->orderByOccured($event->getOrder());
             

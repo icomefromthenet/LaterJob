@@ -15,7 +15,7 @@
 use Faker\PlatformFactory;
 use Faker\ColumnTypeFactory;
 use Faker\Components\Faker\Formatter\FormatterFactory;
-use Faker\Components\Faker\TypeFactory;
+use Faker\Components\Engine\Common\TypeRepository;
 use Faker\Locale\LocaleFactory;
 
 /*
@@ -70,11 +70,12 @@ use Faker\Locale\LocaleFactory;
 |
 | Example:
 |
-| TypeFactory::registerExtension('vector','Faker\\Extension\\Faker\\Type\\Vector');
+| TypeRepository::registerExtension('vector','Faker\\Extension\\Faker\\Type\\Vector');
 */
 
-   TypeFactory::registerExtension('job_id','Faker\\Extension\\Faker\\Type\\Job');
-   TypeFactory::registerExtension('job_data','Faker\\Extension\\Faker\\Type\\Data');
+   TypeRepository::registerExtension('job_id','Faker\\Extension\\Faker\\Type\\Job');
+   TypeRepository::registerExtension('worker','Faker\\Extension\\Faker\\Type\\Worker');
+   TypeRepository::registerExtension('job_data','Faker\\Extension\\Faker\\Type\\Data');
 
 /*
 |--------------------------------------------------------------------------
@@ -102,5 +103,21 @@ use Faker\Locale\LocaleFactory;
 */ 
 
   //LocaleFactory::registerExtension('french','Faker\\Components\\Extension\\Locale\\FrenchLocale');
+
+
+/*
+|--------------------------------------------------------------------------
+| Load Later Job UUID CLASS
+|--------------------------------------------------------------------------
+|
+| Needed for extension types
+| 
+*/ 
+
+
+require_once(__DIR__.'/../../src/LaterJob/UUID.php');
+require_once(__DIR__.'/../../src/LaterJob/Util/GeneratorInterface.php');
+require_once(__DIR__.'/../../src/LaterJob/Util/MersenneRandom.php');
+
 
 /* End of File */

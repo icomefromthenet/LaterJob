@@ -60,6 +60,8 @@ class QueueServiceProvider implements ServiceProviderInterface
     
     const OPTIONS           = '.options';
     
+    const QUERY_LOG         = '.query_log'; 
+    
     public function register(Application $app)
     {
         
@@ -103,12 +105,16 @@ class QueueServiceProvider implements ServiceProviderInterface
              return new Queue($event,$log,$option,$uuid,$config,$model,$events);
             
         });
+        
+        $app[$this->index.self::QUERY_LOG] = $app->share(function() use ($app){
+            return new StreamQueryLogger($app['monolog']);
+        });
        
     }
 
     public function boot(Application $app)
     {
-        
+       $app[$this->index.self::EVENT_DISPATCHER]->addSubscriber($app[$this->index.self::QUERY_LOG]); 
     }
 }
 /* End of File */

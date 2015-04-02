@@ -219,8 +219,79 @@ class ActivityControllerTest extends TestsWithFixture
         $this->assertEquals(80,$results->result[0]->transitionId);
         $this->assertEquals(74,$results->result[6]->transitionId);
         
+    } 
+    
+    public function testQueryWithWorker() 
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/queue/activities',array('offset' =>0, 'limit' => 100,'order' => 'desc', 'worker_id' =>'8c195538-2d1b-3bae-a372-3bdf2cb6d9d3'));
+
+        # request returned 200 ok
+        $this->assertEquals(
+            200,
+            $client->getResponse()->getStatusCode()
+        );
+        
+        $results = json_decode($client->getResponse()->getContent());
+        
+        $this->assertEquals(1,count($results->result));
+        
     }
     
+    public function testQueryWithWorkerBadUUID() 
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/queue/activities',array('offset' =>0, 'limit' => 100,'order' => 'desc', 'worker_id' =>'8c195538-2d1b-3bae-a372-3bdf2cb6d9d37667676766776'));
+
+        # request returned 200 ok
+        $this->assertEquals(
+            400,
+            $client->getResponse()->getStatusCode()
+        );
+        
+        
+        $results = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(0,count($results->result));
+        $this->assertEquals('[worker_id] This is not a valid UUID.',$results->msg);
+        
+    }
+    
+    
+    public function testQueryWithJob() 
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/queue/activities',array('offset' =>0,'limit' => 100,'order' => 'desc','job_id' =>'14a0f5a8-876d-3d9d-be97-92dfa8525bcc'));
+
+        # request returned 200 ok
+        $this->assertEquals(
+            200,
+            $client->getResponse()->getStatusCode()
+        );
+        
+        $results = json_decode($client->getResponse()->getContent());
+        
+
+        $this->assertEquals(1,count($results->result));
+        
+    }
+    
+    public function testQueryWithJobBadUUID() 
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/queue/activities',array('offset' =>0, 'limit' => 100,'order' => 'desc', 'job_id' =>'8c195538-2d1b-3bae-a372-3bdf2cb6d9d37667676766776'));
+
+        # request returned 200 ok
+        $this->assertEquals(
+            400,
+            $client->getResponse()->getStatusCode()
+        );
+        
+        
+        $results = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(0,count($results->result));
+        $this->assertEquals('[job_id] This is not a valid UUID.',$results->msg);
+        
+    }
     
     public function testDeleteWithBadStamp()
     {
@@ -254,7 +325,7 @@ class ActivityControllerTest extends TestsWithFixture
         $results = json_decode($client->getResponse()->getContent());
         $this->assertEquals(88,$results->result);
                 
-    }
+    } 
 }
 
 /* End of File */

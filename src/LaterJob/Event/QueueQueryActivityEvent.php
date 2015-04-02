@@ -38,19 +38,53 @@ class QueueQueryActivityEvent extends Event
     protected $order;
     
     /**
+     * @var string the UUID of a worker to filter on 
+     */ 
+    protected $worker_id;
+    
+    /**
+     * @var string the UUID of a job to filter on 
+     */ 
+    protected $job_id;
+    
+    /**
       *  Class Constructor
       *
       *  @access public
       */
-    public function __construct($offset, $limit, $order = 'ASC', DateTime $before = null, DateTime $after = null)
+    public function __construct($offset, $limit, $order = 'ASC', DateTime $before = null, DateTime $after = null, $job_id = null, $worker_id = null)
     {
-        $this->before  = $before;
-        $this->after   = $after;
-        $this->limit   = $limit;
-        $this->offset  = $offset;
-        $this->order   = $order;
+        $this->before    = $before;
+        $this->after     = $after;
+        $this->limit     = $limit;
+        $this->offset    = $offset;
+        $this->order     = $order;
+        $this->worker_id = $worker_id;
+        $this->job_id    = $job_id;
         
         $this->removed = 0;
+    }
+    
+    /**
+     *  fetch a job UUID
+     * 
+     * @access public
+     * @return string
+     */ 
+    public function getJobID()
+    {
+        return $this->job_id;
+    }
+    
+    /**
+     *  Fetch a worker UUID
+     * 
+     * @return string
+     * @access public
+     */ 
+    public function getWorkerID()
+    {
+        return $this->worker_id;
     }
 
     /**

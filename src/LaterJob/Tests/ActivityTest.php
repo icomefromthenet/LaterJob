@@ -22,6 +22,8 @@ class ActivityTest extends PHPUnit_Framework_TestCase
         $before = new DateTime();
         $after = new DateTime();
         $order = 'asc';
+        $job_id =  '8c195538-2d1b-3bae-a372-3bdf2cb6d9d4';
+        $worker_id = '8c195538-2d1b-3bae-a372-3bdf2cb6d9d3';
         
         $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         
@@ -31,7 +33,7 @@ class ActivityTest extends PHPUnit_Framework_TestCase
                    ->method('dispatch')
                    ->with($this->equalTo(QueueEventsMap::QUEUE_QUERY_ACTIVITY),$this->isInstanceOf('LaterJob\Event\QueueQueryActivityEvent'));
         
-        $activity->query($offset,$limit,$order,$before,$after);
+        $activity->query($offset,$limit,$order,$before,$after,$job_id,$worker_id);
     }
     
     

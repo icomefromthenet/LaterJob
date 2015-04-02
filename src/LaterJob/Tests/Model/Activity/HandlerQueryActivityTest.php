@@ -109,8 +109,8 @@ class HandlerQueryActivityTest extends  TestsWithFixture
         $gateway = $this->getTableGateway();
         $handler = new QueueSubscriber($gateway);
         
-        $before = new DateTime('22-11-2012 14:39:00');
-        $after  = new DateTime('22-11-2012 14:36:00');
+        $before = new DateTime('2015-04-01 14:39:00');
+        $after  = new DateTime('2015-04-01 14:36:00');
         
         $event = new QueueQueryActivityEvent(0,100,'DESC',$before,$after);
         
@@ -130,6 +130,61 @@ class HandlerQueryActivityTest extends  TestsWithFixture
         foreach($result as $activity) {
             $this->assertContains($activity->getTransitionId(),$expected);
         }
+        
+    }
+    
+    
+    public function testQueryWithWorker() 
+    {
+        $this->createApplication();
+        
+        $gateway = $this->getTableGateway();
+        $handler = new QueueSubscriber($gateway);
+      
+        
+        $worker_id = '2bbb01c1-b394-34ae-8c74-e3ab7dd4a17a';
+        
+        $event = new QueueQueryActivityEvent(0,100,'DESC',null,null,null,$worker_id);
+        
+        $handler->onQueryActivity($event);
+       
+        $result = $event->getResult();
+       
+        $this->assertEquals(1,count($result));
+        
+        $expected  = array(95);
+        
+        foreach($result as $activity) {
+            $this->assertContains($activity->getTransitionId(),$expected);
+        }
+    }
+    
+    
+    public function testQueryWithJob() 
+    {
+        $this->createApplication();
+        
+        $gateway = $this->getTableGateway();
+        $handler = new QueueSubscriber($gateway);
+      
+        
+        $job_id = '4f5bdee5-3812-34cc-8031-245dcec8787e';
+        
+        $event = new QueueQueryActivityEvent(0,100,'DESC',null,null,$job_id,null);
+        
+        $handler->onQueryActivity($event);
+       
+        $result = $event->getResult();
+       
+        $this->assertEquals(1,count($result));
+        
+        
+        $expected  = array(95);
+        
+        foreach($result as $activity) {
+            $this->assertContains($activity->getTransitionId(),$expected);
+        }
+        
         
     }
     

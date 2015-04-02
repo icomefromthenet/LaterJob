@@ -10,7 +10,7 @@
   </column>
   
   <column name="worker_id" type="string">
-   <datatype name="nulltype" />
+   <datatype name="worker" />
   </column>
   
   <column name="job_id" type="string">

@@ -222,7 +222,9 @@ class LogSubscriber implements EventSubscriberInterface
             'limit'  => $event->getLimit(),
             'order'  => $event->getOrder(),
             'before' => $event->getBefore(),
-            'after'  => $event->getAfter()
+            'after'  => $event->getAfter(),
+            'job_id' => $event->getJobID(),
+            'worker_id' => $event->getWorkerID()
         ));
     }
     

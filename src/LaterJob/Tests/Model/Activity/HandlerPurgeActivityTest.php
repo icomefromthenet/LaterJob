@@ -82,13 +82,13 @@ class HandlerPurgeActivityTest extends  TestsWithFixture
         $gateway = $this->getTableGateway();
         $handler = new QueueSubscriber($gateway);
         
-        $before = new DateTime('2012-11-22 13:10:00');
+        $before = new DateTime('2015-04-01 14:29:00');
         $event = new QueuePurgeActivityEvent($before);
         
         $handler->onPurgeActivity($event);
         
         #assert the result
-        $this->assertEquals(10,$event->getResult());
+        $this->assertEquals(89,$event->getResult());
         
         # assert datasets match
         $resulting_table = $this->getConnection()->createQueryTable("later_job_transition","SELECT * FROM later_job_transition ORDER BY dte_occured ASC");        

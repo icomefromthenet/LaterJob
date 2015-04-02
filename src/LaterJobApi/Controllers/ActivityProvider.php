@@ -49,6 +49,8 @@ class ActivityProvider extends BaseProvider implements ControllerProviderInterfa
         $order  = $request->get('order','asc');
         $before = $request->get('before');
         $after  = $request->get('after');
+        $job_id = $request->get('job_id');
+        $worker_id = $request->get('worker_id');
         
         # filter query params and assign default values
         $constraint = new Assert\Collection(array(
@@ -56,17 +58,23 @@ class ActivityProvider extends BaseProvider implements ControllerProviderInterfa
                             'limit'  => new Assert\Range(array('min' =>1 ,'max' =>self::QUERY_LIMIT)),
                             'order'  => new Assert\Choice(array( 'choices' => array('desc','asc') )),
                             'before' => new Assert\DateTime(),
-                            'after'  => new Assert\DateTime()
-                    ));
+                            'after'  => new Assert\DateTime(),
+                            'job_id' => new Assert\Uuid(array('versions' => array('3'))),
+                            'worker_id' => new Assert\Uuid(array('versions' => array('3'))),
+        )); 
+        
+        $values = array(
+            'offset' => $offset,
+            'limit'  => $limit,
+            'order'  => $order,
+            'before' => $before,
+            'after'  => $after,
+            'job_id' => $job_id,
+            'worker_id' => $worker_id
+        );
+        
             
-            
-        $errors = $this->getValidator()->validateValue(array(
-                                            'offset' => $offset,
-                                            'limit'  => $limit,
-                                            'order'  => $order,
-                                            'before' => $before,
-                                            'after'  => $after
-                                        ), $constraint);
+        $errors = $this->getValidator()->validateValue($values, $constraint);
             
         if (count($errors) > 0) {
             $this->getContainer()->abort(400,$this->serializeValidationErrors($errors));
@@ -79,9 +87,10 @@ class ActivityProvider extends BaseProvider implements ControllerProviderInterfa
         if($after !== null) {
             $after = new DateTime($after);
         }
+        
             
         # run against api
-        $result = $this->getQueue()->activity()->query((int)$offset,(int)$limit,$order,$before,$after);
+        $result = $this->getQueue()->activity()->query((int)$offset,(int)$limit,$order,$before,$after,$job_id,$worker_id);
         $data['msg']    = true;
             
         # convert using formatter if known type.
