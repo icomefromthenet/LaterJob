@@ -11,11 +11,11 @@
          bootstrap="../src/LaterJobApi/app.php"
 >
     <php>
-        <var name="DB_DSN" value="mysql:dbname=c9;host=172.17.26.172" />
+        <var name="DB_DSN" value="mysql:dbname=c9;host=172.17.163.18" />
         <var name="DB_USER" value="icomefromthenet" />
         <var name="DB_PASSWD" value="" />
         <var name="DB_DBNAME" value="c9" />
-        <var name="DB_HOST"    value ="172.17.26.172" />
+        <var name="DB_HOST"    value ="172.17.163.18" />
         <var name="APP_ENVIRONMENT" value="development" />
     </php>
     <testsuites>
