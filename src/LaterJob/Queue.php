@@ -1,9 +1,10 @@
 <?php
 namespace LaterJob;
 
+use DateTime;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Cron\CronExpression;
-use Pimple, DateTime;
+use Pimple\Container;
 use Psr\Log\LoggerInterface;
 use LaterJob\Model\Queue\Storage,
     LaterJob\Config\QueueConfig,
@@ -27,7 +28,7 @@ use LaterJob\Model\Queue\Storage,
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class Queue extends Pimple
+class Queue extends Container
 {
     
     /**

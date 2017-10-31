@@ -22,8 +22,8 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $id             = 'a job';
         $data           = new \stdClass();
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         $storage        = new Storage();
         $storage->setJobId($id);
         $storage->setJobData($data);
@@ -47,12 +47,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_START),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_START))
@@ -76,12 +78,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_START),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_START))
@@ -108,8 +112,9 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_START))
@@ -131,12 +136,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_FINISH),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FINISH))
@@ -164,8 +171,9 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FINISH))
@@ -187,12 +195,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock(); 
+        
         $mock_event->expects($this->once())
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_ERROR),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_ERROR))
@@ -231,8 +241,9 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_ERROR))
@@ -253,12 +264,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_FAIL),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FAIL))
@@ -282,12 +295,14 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                  ->method('dispatch')
                  ->with($this->equalTo(JobEventsMap::STATE_FAIL),$this->isInstanceOf('LaterJob\Event\JobTransitionEvent'));
         
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->once())
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FAIL))
@@ -315,8 +330,9 @@ class JobTest extends PHPUnit_Framework_TestCase
         $process_handle     = 'a73491a6-ed50-3c17-8e0f-d7279e7a00d9';
         $id         = 'a job';
         $data       = new \stdClass();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def   = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def   = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
+        
         $mock_def->expects($this->exactly(2))
                 ->method('getLiteral')
                 ->with($this->equalTo(QueueConfig::STATE_FAIL))

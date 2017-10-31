@@ -31,7 +31,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     
     public function testJobTransitionEvent()
     {
-        $mock_transition = $this->getMock('LaterJob\Model\Activity\Transition');
+        $mock_transition = $this->getMockBuilder('LaterJob\Model\Activity\Transition')->getMock();
         $mock_job        = $this->getMockBuilder('LaterJob\Job')->disableOriginalConstructor()->getMock();
         
         $event = new JobTransitionEvent($mock_job,$mock_transition);
@@ -43,7 +43,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     
     public function testMonitoringEvent()
     {
-        $mock_results = $this->getMock('LaterJob\Model\Monitor\Stats');
+        $mock_results = $this->getMockBuilder('LaterJob\Model\Monitor\Stats')->getMock();
         
         $event = new MonitoringEvent($mock_results);
         $event->setResult(false);
@@ -54,7 +54,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     
     public function testWorkerTransitionEvent()
     {
-        $mock_transition = $this->getMock('LaterJob\Model\Activity\Transition');
+        $mock_transition = $this->getMockBuilder('LaterJob\Model\Activity\Transition')->getMock();
         $mock_worker =  $this->getMockBuilder('LaterJob\Worker')->disableOriginalConstructor()->getMock();
         
         $event = new WorkerTransitionEvent($mock_worker,$mock_transition);
@@ -141,7 +141,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     
     public function testQueueReceiveEvent()
     {
-        $storage = $this->getMock('LaterJob\Model\Queue\Storage');
+        $storage = $this->getMockBuilder('LaterJob\Model\Queue\Storage')->getMock();
         $result  = true;
         
         $receive = new QueueReceiveEvent($storage);
@@ -231,7 +231,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     public function testQueueLookupEvent()
     {
         $job_id = '4b336e15-cac0-3307-8b81-f1de26e6c383';
-        $result = $this->getMock('LaterJob\Model\Queue\Storage');
+        $result = $this->getMockBuilder('LaterJob\Model\Queue\Storage')->getMock();
         
         $event = new QueueLookupEvent($job_id);
         $event->setResult($result);

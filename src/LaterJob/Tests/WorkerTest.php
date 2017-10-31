@@ -21,9 +21,15 @@ class WorkerTest extends PHPUnit_Framework_TestCase
     public function testWorkerProperties()
     {
         
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+       
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                               ->disableOriginalConstructor()
+                               ->getMock();
+                               
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                               ->setMethods(array('getLiteral'))
+                               ->getMock();
         
         $id             = 'a worker';
         
@@ -38,14 +44,20 @@ class WorkerTest extends PHPUnit_Framework_TestCase
 
     public function testTransitionStart()
     {
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                    ->method('dispatch')
                    ->with($this->equalto(WorkerEventsMap::WORKER_START),$this->isInstanceOf('\LaterJob\Event\WorkerTransitionEvent'));
         
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                               ->disableOriginalConstructor()
+                               ->getMock();
         
-        $mock_def = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_def = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                         ->setMethods(array('getLiteral'))
+                         ->getMock();
+        
         $mock_def->expects($this->once())
                  ->method('getLiteral')
                  ->with($this->equalTo(1))
@@ -68,9 +80,16 @@ class WorkerTest extends PHPUnit_Framework_TestCase
       */    
     public function testExceptionTransitionStartFromStart()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock(); 
+        
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                                ->disableOriginalConstructor()
+                                ->getMock();
+                                
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                                ->setMethods(array('getLiteral'))
+                                ->getMock();
+        
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->equalTo(1))
@@ -89,9 +108,16 @@ class WorkerTest extends PHPUnit_Framework_TestCase
       */    
     public function testExceptionTransitionStartFromFinish()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                                ->disableOriginalConstructor()
+                                ->getMock();
+                                
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                                ->setMethods(array('getLiteral'))
+                                ->getMock();
+                                
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->anything(1))
@@ -111,9 +137,16 @@ class WorkerTest extends PHPUnit_Framework_TestCase
       */    
     public function testExceptionTransitionStartFromError()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                               ->disableOriginalConstructor()
+                               ->getMock();
+                               
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                               ->setMethods(array('getLiteral'))
+                               ->getMock();
+                               
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->anything(1))
@@ -128,14 +161,20 @@ class WorkerTest extends PHPUnit_Framework_TestCase
     
     public function testTransitionFinish()
     {
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                    ->method('dispatch')
                    ->with($this->equalto(WorkerEventsMap::WORKER_FINISH),$this->isInstanceOf('\LaterJob\Event\WorkerTransitionEvent'));
         
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                               ->disableOriginalConstructor()
+                               ->getMock();
         
-        $mock_def = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_def = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                          ->setMethods(array('getLiteral'))
+                          ->getMock();
+                          
         $mock_def->expects($this->once())
                  ->method('getLiteral')
                  ->with($this->equalTo(2))
@@ -153,14 +192,20 @@ class WorkerTest extends PHPUnit_Framework_TestCase
     
     public function testTransitionError()
     {
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        
         $mock_event->expects($this->once())
                    ->method('dispatch')
                    ->with($this->equalto(WorkerEventsMap::WORKER_ERROR),$this->isInstanceOf('\LaterJob\Event\WorkerTransitionEvent'));
         
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                              ->disableOriginalConstructor()
+                              ->getMock();
         
-        $mock_def = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_def = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                         ->setMethods(array('getLiteral'))
+                         ->getMock();
+                         
         $mock_def->expects($this->once())
                  ->method('getLiteral')
                  ->with($this->equalTo(3))
@@ -183,9 +228,16 @@ class WorkerTest extends PHPUnit_Framework_TestCase
       */ 
     public function testExceptionTransitionFinishFromError()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
-        $mock_def       = $this->getMock('LaterJob\Config\WorkerConfig',array('getLiteral'));
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();     
+        
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                               ->disableOriginalConstructor()
+                               ->getMock();
+                               
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                               ->setMethods(array('getLiteral'))
+                               ->getMock();
+        
         $mock_def->expects($this->exactly(2))
                  ->method('getLiteral')
                  ->with($this->anything())
@@ -208,13 +260,20 @@ class WorkerTest extends PHPUnit_Framework_TestCase
         $id           = 'a worker';
         $lockout_time = 100;
         
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')->disableOriginalConstructor()->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock(); 
+        
+        $mock_allocator = $this->getMockBuilder('LaterJob\Allocator')
+                               ->disableOriginalConstructor()
+                               ->getMock();
+                               
         $mock_allocator->expects($this->once())
                        ->method('receive')
                        ->with($this->equalTo($total_jobs),$this->equalTo($id),$this->isInstanceOf('\DateTime'),$this->equalTo($now));
         
-        $mock_def      = $this->getMock('LaterJob\Config\WorkerConfig',array('getJobsToProcess','getJobLockoutTime'));
+        $mock_def      = $this->getMockBuilder('LaterJob\Config\WorkerConfig')
+                              ->setMethods(array('getJobsToProcess','getJobLockoutTime'))
+                              ->getMock();
+                              
         $mock_def->expects($this->once())
                  ->method('getJobsToProcess')
                  ->will($this->returnValue($total_jobs));

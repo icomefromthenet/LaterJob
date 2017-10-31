@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Loader;
 
-use Pimple;
+use Pimple\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DBALGateway\Table\AbstractTable;
 use Psr\Log\LoggerInterface;
@@ -57,7 +57,7 @@ class EventSubscriber implements LoaderInterface
         $event->addSubscriber($monitor_sub);
     }
     
-    public function boot(Pimple $queue)
+    public function boot(Container $queue)
     {
         $event = $queue['dispatcher'];
         

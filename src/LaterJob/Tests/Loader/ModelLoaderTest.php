@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Tests\Loader;
 
-use Pimple;
+use Pimple\Container;
 use LaterJob\Loader\ModelLoader;
 use PHPUnit_Framework_TestCase;
 
@@ -18,7 +18,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
     {
         $doctrine = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
         $loader   = new ModelLoader($doctrine); 
-        $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $event    = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
         $meta->expects($this->once())
@@ -35,7 +35,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
         $doctrine = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
         $loader   = new ModelLoader($doctrine); 
         
-        $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $event    = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
         $meta->expects($this->once())
@@ -52,7 +52,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
     {
         $doctrine = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
         $loader   = new ModelLoader($doctrine); 
-        $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $event    = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $meta     = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
         $meta->expects($this->once())
@@ -71,8 +71,8 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
     {
         $doctrine                  = $this->getMockBuilder('Doctrine\DBAL\Connection')->disableOriginalConstructor()->getMock();
         $loader                    = new ModelLoader($doctrine); 
-        $pimple                    = new Pimple();
-        $pimple['dispatcher']      = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $pimple                    = new Container();
+        $pimple['dispatcher']      = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         
         $meta                      = $this->getMockBuilder('DBALGateway\Metadata\Table')->disableOriginalConstructor()->getMock();
         
@@ -80,7 +80,7 @@ class ModelLoaderTest extends PHPUnit_Framework_TestCase
              ->method('getName')
              ->will($this->returnValue('table'));
                 
-        $mocked_config             = $this->getMock('LaterJob\Config\DbMetaConfig');
+        $mocked_config             = $this->getMockBuilder('LaterJob\Config\DbMetaConfig')->getMock();
         
         $mocked_config->expects($this->once())
                       ->method('getTransitionTableName')

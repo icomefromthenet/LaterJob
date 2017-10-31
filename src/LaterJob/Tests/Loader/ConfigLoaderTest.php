@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Tests\Loader;
 
-use Pimple;
+use Pimple\Container;
 use LaterJob\Loader\ConfigLoader;
 use LaterJob\Config\DbMetaConfig;
 use LaterJob\Config\QueueConfig;
@@ -62,7 +62,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     
     public function testPimpleBoot()
     {
-        $pimple  = new Pimple();
+        $pimple  = new Container();
         $loader  = new ConfigLoader(); 
         
         $pimple['options'] = array(

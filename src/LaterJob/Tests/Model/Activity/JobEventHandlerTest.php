@@ -54,7 +54,7 @@ class JobEventHandlerTest extends TestsWithFixture
         $metadata   = $this->getTableMetaData()->getTransitionTable(); 
         $table_name = $this->getTableMetaData()->getTransitionTableName();
         $builder    = new TransitionBuilder();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');      
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();      
         
         return new TransitionGateway($table_name,$doctrine,$mock_event,$metadata,null,$builder);
         

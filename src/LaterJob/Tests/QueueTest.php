@@ -18,21 +18,21 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testQueueBootStrap()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
@@ -58,11 +58,11 @@ class QueueTest extends PHPUnit_Framework_TestCase
              ->will($this->returnValue('85acf452-4e61-3a2f-b1b9-4486f24edeb6'));     
         
         
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         
         $mock_event->expects($this->once())
@@ -71,13 +71,13 @@ class QueueTest extends PHPUnit_Framework_TestCase
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
@@ -89,7 +89,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
         $retry_count = 5;
         
         # setup queue options
-        $queue_options = $this->getMock('LaterJob\Config\QueueConfig');
+        $queue_options = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         $queue_options->expects($this->once())
                       ->method('getMaxRetry')
                       ->will($this->returnValue($retry_count));
@@ -103,21 +103,21 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testQuery()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
@@ -142,21 +142,21 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testRemove()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
@@ -174,21 +174,21 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testPurge()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
@@ -206,11 +206,11 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testWorker()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
           
         $uuid->expects($this->once())
@@ -223,24 +223,24 @@ class QueueTest extends PHPUnit_Framework_TestCase
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
         $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
         
-        $queue['config.worker'] = $this->getMock('LaterJob\Config\WorkerConfig');
+        $queue['config.worker'] = $this->getMockBuilder('LaterJob\Config\WorkerConfig')->getMock();
         $queue['config.worker']->expects($this->once())
                                ->method('getWorkerName')
                                ->will($this->returnValue('myworker'));
         
-        $queue['config.queue']  = $this->getMock('LaterJob\Config\QueueConfig');
+        $queue['config.queue']  = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         
         $worker = $queue->worker();
         
@@ -252,21 +252,21 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testReturnsActivityInterface()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
@@ -280,24 +280,24 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testSchedule()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         
-        $mock_worker_config = $this->getMock('LaterJob\Config\WorkerConfig');
+        $mock_worker_config = $this->getMockBuilder('LaterJob\Config\WorkerConfig')->getMock();
         
         $mock_worker_config->expects($this->once())
                             ->method('getCronDefinition')
@@ -319,27 +319,27 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testReturnsMonitor()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         
         $queue          = new Queue($mock_event,$logger,$options,$uuid,$config_loder,$model_loder,$event_loder);
         
-        $queue['config.worker'] = $this->getMock('LaterJob\Config\WorkerConfig');
+        $queue['config.worker'] = $this->getMockBuilder('LaterJob\Config\WorkerConfig')->getMock();
         
         $this->assertInstanceOf('LaterJob\Monitor',$queue->monitor());
     
@@ -349,21 +349,21 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function testLookup()
     {
         $uuid           = $this->getMockBuilder('LaterJob\UUID')->disableOriginalConstructor()->getMock();
-        $logger         = $this->getMock('Psr\Log\LoggerInterface');
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');  
-        $config_loder   = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $model_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
-        $event_loder    = $this->getMock('LaterJob\Loader\LoaderInterface');
+        $logger         = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();  
+        $config_loder   = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $model_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
+        $event_loder    = $this->getMockBuilder('LaterJob\Loader\LoaderInterface')->getMock();
         
         $config_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $model_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         $event_loder->expects($this->once())
                      ->method('boot')
-                     ->with($this->isInstanceOf('Pimple'));
+                     ->with($this->isInstanceOf('Pimple\Container'));
         
         $options = array();
         

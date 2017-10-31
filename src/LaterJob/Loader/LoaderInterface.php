@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Loader;
 
-use Pimple;
+use Pimple\Container;
 
 /**
   *  Interface for loader objects 
@@ -16,9 +16,9 @@ interface LoaderInterface
     *  Bootstrap the Dependecies
     *
     *  @access public
-    *  @param Pimple $queue
+    *  @param Pimple\Container $queue
     */
-    public function boot(Pimple $queue);
+    public function boot(Container $queue);
     
 }
 

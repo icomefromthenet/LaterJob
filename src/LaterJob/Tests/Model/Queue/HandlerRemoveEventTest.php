@@ -45,7 +45,7 @@ class HandlerRemoveEventTest extends  TestsWithFixture
         $metadata   = $this->getTableMetaData()->getQueueTable(); 
         $table_name = $this->getTableMetaData()->getQueueTableName();
         $builder    = new StorageBuilder();
-        $mock_event = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');      
+        $mock_event = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();      
         
         return new  StorageGateway($table_name,$doctrine,$mock_event,$metadata,null,$builder);
         

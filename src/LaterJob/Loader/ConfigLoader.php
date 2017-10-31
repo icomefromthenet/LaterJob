@@ -4,7 +4,7 @@ namespace LaterJob\Loader;
 use LaterJob\Config\DbMetaConfig;
 use LaterJob\Config\QueueConfig;
 use LaterJob\Config\WorkerConfig;
-use Pimple;
+use Pimple\Container;
 
 /**
   *  Methods used to load the config  
@@ -33,7 +33,7 @@ class ConfigLoader implements LoaderInterface
     }
     
     
-    public function boot(Pimple $queue)
+    public function boot(Container $queue)
     {
         $queue['config.database'] = $this->parseDatabaseOptions($queue['options'],new DbMetaConfig());
         $queue['config.queue']    = $this->parseQueueOptions($queue['options'],new QueueConfig());

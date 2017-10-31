@@ -25,7 +25,7 @@ class ActivityTest extends PHPUnit_Framework_TestCase
         $job_id =  '8c195538-2d1b-3bae-a372-3bdf2cb6d9d4';
         $worker_id = '8c195538-2d1b-3bae-a372-3bdf2cb6d9d3';
         
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         
         $activity = new Activity($mock_event);
         
@@ -39,7 +39,7 @@ class ActivityTest extends PHPUnit_Framework_TestCase
     
     public function testActivityPurge()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $before = new DateTime();
         
         $activity = new Activity($mock_event);

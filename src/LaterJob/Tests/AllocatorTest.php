@@ -20,8 +20,8 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     public function testImplementsIterator()
     {
         
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         
         $allocator     = new  Allocator($mock_def,$mock_event);
         
@@ -32,8 +32,8 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     
     public function testReceieve()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         
         $mock_event->expects($this->once())
                    ->method('dispatch')
@@ -60,8 +60,8 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
       */
     public function testExceptionEarlyCallIntervalTimer()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         $allocator      = new  Allocator($mock_def,$mock_event);
         $allocator->getRunningInterval();
         
@@ -69,8 +69,8 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     
     public function testIntervalTimer()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         
         $mock_event->expects($this->once())
                    ->method('dispatch')
@@ -91,8 +91,8 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     
     public function testWhenNoJobsReturned()
     {
-        $mock_event     = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def       = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event     = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def       = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         
         $mock_event->expects($this->at(0))
                    ->method('dispatch')
@@ -120,11 +120,11 @@ class AllocatorTest extends PHPUnit_Framework_TestCase
     
     public function testJobReturnedSetupCorrectly()
     {
-        $mock_event      = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');        
-        $mock_def        = $this->getMock('LaterJob\Config\QueueConfig');
+        $mock_event      = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();        
+        $mock_def        = $this->getMockBuilder('LaterJob\Config\QueueConfig')->getMock();
         $mock_collection = new ArrayCollection();
         $mock_result     = $this->getMockBuilder('LaterJob\Event\QueueSendEvent')->disableOriginalConstructor()->getMock();
-        $mock_storage    = $this->getMock('LaterJob\Model\Queue\Storage');
+        $mock_storage    = $this->getMockBuilder('LaterJob\Model\Queue\Storage')->getMock();
         
         $mock_result->expects($this->exactly(2))
                     ->method('getResult')

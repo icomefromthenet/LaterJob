@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Tests\Loader;
 
-use Pimple;
+use Pimple\Container;
 use LaterJob\Loader\EventSubscriber;
 use PHPUnit_Framework_TestCase;
 
@@ -18,13 +18,13 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
     public function testSubscribeLogHandlers()
     {
         $loader   = new EventSubscriber();
-        $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $event    = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         
         $event->expects($this->once())
               ->method('addSubscriber')
               ->with($this->isInstanceOf('LaterJob\Log\LogSubscriber'));
         
-        $logger = $this->getMock('Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         
         $loader->subscribeLogHandlers($event,$logger);
         
@@ -34,7 +34,7 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
     public function testSubscribeStorageHandlers()
     {
         $loader   = new EventSubscriber();
-        $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $event    = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         
         $event->expects($this->at(0))
               ->method('addSubscriber')
@@ -54,7 +54,7 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
     public function testSubscribeTransitionHandlers()
     {
         $loader   = new EventSubscriber();
-        $event    = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $event    = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         
         $event->expects($this->at(0))
               ->method('addSubscriber')
@@ -84,9 +84,9 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
     
     public function testPimpleBoot()
     {
-        $pimple                     = new Pimple();
-        $pimple['dispatcher']       = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $pimple['logger']           = $this->getMock('Psr\Log\LoggerInterface');
+        $pimple                     = new Container();
+        $pimple['dispatcher']       = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        $pimple['logger']           = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         $pimple['model.queue']      = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();
         $pimple['model.transition'] = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();
         $pimple['model.monitor']    = $this->getMockBuilder('DBALGateway\Table\AbstractTable')->disableOriginalConstructor()->getMock();

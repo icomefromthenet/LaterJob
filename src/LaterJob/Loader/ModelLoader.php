@@ -1,7 +1,7 @@
 <?php
 namespace LaterJob\Loader;
 
-use Pimple;
+use Pimple\Container;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use LaterJob\Model\Activity\TransitionBuilder;
@@ -42,7 +42,7 @@ class ModelLoader implements LoaderInterface
         return new StatsGateway($table,$this->doctrine,$event,$meta,null, new StatsBuilder());
     }
     
-    public function boot(Pimple $queue)
+    public function boot(Container $queue)
     {
         # assign doctrine to the DI object
         $queue['doctrine'] = $this->doctrine;
