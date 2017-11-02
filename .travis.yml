@@ -1,13 +1,15 @@
 language: php
 php:
-  - 5.4
-  - 5.3
+  - 5.6
+  - 5.7
 
+services:
+  - mysql
+  
 before_script:
   - composer install --dev
   - mysql -e 'create database IF NOT EXISTS later_job;'
-  - ./vendor/bin/migrate.php app:install --path migrations --dsn mysql://root:@127.0.0.1/later_job?migration_table=migrations_data
-  - ./vendor/bin/migrate.php app:build --path migrations --force --dsn mysql://root:@127.0.0.1/later_job?migration_table=migrations_data
+  - mysql vouchernum < create.sql
   
 script: 
  - vendor/bin/phpunit --configuration config/travis.lib.xml
