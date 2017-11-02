@@ -9,7 +9,7 @@ services:
 before_script:
   - composer install --dev
   - mysql -e 'create database IF NOT EXISTS later_job;'
-  - mysql vouchernum < create.sql
+  - mysql later_job < create.sql
   
 script: 
  - vendor/bin/phpunit --configuration config/travis.lib.xml
