@@ -9,7 +9,7 @@ class ScheduleControllerTest extends WebTestCase
     public function createApplication()
     {
        GLOBAL $app;
-        $app['exception_handler']->disable();
+        //$app['exception_handler']->disable();
         $app['session.test'] = true;
         
         return $app;

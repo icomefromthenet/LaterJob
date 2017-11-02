@@ -1,10 +1,10 @@
 <?php
 namespace LaterJobApi\Controllers;
 
-use Silex\Application,
-    Silex\ControllerProviderInterface;
-use Symfony\Component\Validator\ConstraintViolationList,
-    Symfony\Component\HttpFoundation\JsonResponse;
+use Silex\Application;
+use Silex\Api\ControllerProviderInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use LaterJob\Exception as LaterJobException;
 
 
@@ -95,7 +95,7 @@ class BaseProvider implements ControllerProviderInterface
     * @access public
     * @return JsonResponse
     */
-    public function handleError(\Exception $e, $code)
+    public function handleError(\Exception $e,  $oRequest, $code)
     {
         switch ($code) {
         case 404:

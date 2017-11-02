@@ -15,6 +15,8 @@
 
     "require-dev" : {
        "silex/silex"                : "~2.0",
+        "symfony/dom-crawler"       : "^2.8",
+        "symfony/browser-kit"       : "^2.8",
         "monolog/monolog"           : "~1.0",
         "phpunit/dbunit"            : ">=1.2",
         "phpunit/phpunit"           : "5.7.*"

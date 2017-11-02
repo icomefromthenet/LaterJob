@@ -9,7 +9,7 @@ class ActivityControllerTest extends TestsWithFixture
     {
         GLOBAL $app;
         
-        $app['exception_handler']->disable();
+        //$app['exception_handler']->disable();
         $app['session.test'] = true;
         
         $app->boot();

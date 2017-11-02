@@ -61,10 +61,10 @@ $logger_app->pushHandler($logger_stream);
 |
 */
 $doctrine = DriverManager::getConnection( array(
-                'dbname'   => 'later_job',
-                'user'     => 'root',
+                'dbname'   => 'c9',
+                'user'     => 'icomefromthenet',
                 'password' => '',
-                'host'     => 'localhost',
+                'host'     => '172.17.0.107',
                 'driver'   => 'pdo_mysql',
             ), new DoctrineConfiguration());
 
@@ -84,7 +84,7 @@ $doctrine->getConfiguration()->setSQLLogger(new StreamQueryLogger($logger_mysql)
 |
 */
 $queue = new Queue(new EventDispatcher(),
-                   new MonologBridge($logger_app),
+                   $logger_app,
                    array(
                         'worker' => array(
                             'jobs_process'      => 300,

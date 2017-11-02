@@ -2,10 +2,10 @@
 namespace LaterJobApi\Controllers;
 
 use DateTime;
-use Silex\Application,
-    Silex\ControllerProviderInterface;
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\Validator\Constraints as Assert;
+use Silex\Application;
+use Silex\Api\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 use LaterJob\Exception as LaterJobException;
 
 class ScheduleProvider extends BaseProvider implements ControllerProviderInterface

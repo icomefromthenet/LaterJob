@@ -2,14 +2,14 @@
 namespace LaterJobApi\Controllers;
 
 use DateTime;
-use Silex\Application,
-    Silex\ControllerProviderInterface;
-use Symfony\Component\Validator\Constraints as Assert,
-    Symfony\Component\HttpFoundation\Request;
-use LaterJob\Config\QueueConfig,
-    LaterJob\Model\Queue\Storage;
-use LaterJob\Formatter\JobFormatter,
-    LaterJob\Exception as LaterJobException;
+use Silex\Application;
+use Silex\Api\ControllerProviderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\Request;
+use LaterJob\Config\QueueConfig;
+use LaterJob\Model\Queue\Storage;
+use LaterJob\Formatter\JobFormatter;
+use LaterJob\Exception as LaterJobException;
 use Doctrine\Common\Collections\Collection;
     
 class QueueProvider extends BaseProvider implements ControllerProviderInterface

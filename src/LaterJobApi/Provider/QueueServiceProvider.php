@@ -18,8 +18,10 @@ use LaterJob\Queue,
     LaterJob\Loader\ModelLoader,
     LaterJob\Loader\EventSubscriber;
 
-use Silex\Application,
-    Silex\ServiceProviderInterface;
+use Silex\Application;
+
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 /**
   *  Base exception class for this app
@@ -62,36 +64,36 @@ class QueueServiceProvider implements ServiceProviderInterface
     
     const QUERY_LOG         = '.query_log'; 
     
-    public function register(Application $app)
+    public function register(Container $app)
     {
         
         $index = $this->index;
         
-        $app[$this->index.self::EVENT_DISPATCHER] = $app->share(function ($name) use ($app) {
+        $app[$this->index.self::EVENT_DISPATCHER] = function ($name) use ($app) {
             return new EventDispatcher(); 
-        });
+        };
         
-        $app[$this->index.self::UUID_GENERATOR] = $app->share(function () use ($app)  {
+        $app[$this->index.self::UUID_GENERATOR] = function () use ($app)  {
             return new UUID(new MersenneRandom());
-        });
+        };
         
-        $app[$this->index.self::LOG_BRIDGE] = $app->share(function() use ($app) {
+        $app[$this->index.self::LOG_BRIDGE] = function() use ($app) {
            return $app['monolog'];
-        });
+        };
         
-        $app[$this->index.self::LOADER_CONFIG] = $app->share(function() use ($app){
+        $app[$this->index.self::LOADER_CONFIG] = function() use ($app){
             return new ConfigLoader();
-        });
+        };
         
-        $app[$this->index.self::LOADER_EVENTS] = $app->share(function() use ($app){
+        $app[$this->index.self::LOADER_EVENTS] = function() use ($app){
             return new EventSubscriber();
-        });
+        };
         
-        $app[$this->index.self::LOADER_MODEL] = $app->share(function() use ($app){
+        $app[$this->index.self::LOADER_MODEL] = function() use ($app){
             return new ModelLoader($app['db']);
-        });
+        };
         
-        $app[$this->index.self::QUEUE] = $app->share(function($name) use ($app,$index){
+        $app[$this->index.self::QUEUE] = function($name) use ($app,$index){
             
              $event  = $app[$index.QueueServiceProvider::EVENT_DISPATCHER]; 
              $log    = $app[$index.QueueServiceProvider::LOG_BRIDGE];
@@ -104,15 +106,15 @@ class QueueServiceProvider implements ServiceProviderInterface
              
              return new Queue($event,$log,$option,$uuid,$config,$model,$events);
             
-        });
+        };
         
-        $app[$this->index.self::QUERY_LOG] = $app->share(function() use ($app){
+        $app[$this->index.self::QUERY_LOG] = function() use ($app){
             return new StreamQueryLogger($app['monolog']);
-        });
+        };
        
     }
 
-    public function boot(Application $app)
+    public function boot(Container $app)
     {
        $app[$this->index.self::EVENT_DISPATCHER]->addSubscriber($app[$this->index.self::QUERY_LOG]); 
     }

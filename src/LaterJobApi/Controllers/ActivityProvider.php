@@ -2,12 +2,12 @@
 namespace LaterJobApi\Controllers;
 
 use DateTime;
-use Silex\Application,
-    Silex\ControllerProviderInterface;
-use LaterJob\Exception as LaterJobException,
-    LaterJob\Model\Activity\Transition;
-use Symfony\Component\Validator\Constraints as Assert,
-    Symfony\Component\HttpFoundation\Request;
+use Silex\Application;
+use Silex\Api\ControllerProviderInterface;
+use LaterJob\Exception as LaterJobException;
+use LaterJob\Model\Activity\Transition;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\Collection;
     
 class ActivityProvider extends BaseProvider implements ControllerProviderInterface
