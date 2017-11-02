@@ -3,30 +3,18 @@ namespace LaterJobApi\Controllers;
 
 use DateTime;
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use LaterJob\Exception as LaterJobException;
 use LaterJob\Model\Activity\Transition;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\Collection;
     
-class ActivityProvider extends BaseProvider implements ControllerProviderInterface
+class ActivityController extends BaseController
 {
     
     const QUERY_LIMIT = 500;
     
-    public function connect(Application $app)
-    {
-        parent::connect($app);
-        
-        // creates a new controller based on the default route
-        $controllers = $app['controllers_factory'];
-
-        $controllers->get('activities', array($this,'getActivities'));
-        $controllers->delete('activities', array($this,'deleteActivities'));
-
-        return $controllers;
-    }
+   
     
     /**
       *  Fetch Activitiy history 

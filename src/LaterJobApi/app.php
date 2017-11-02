@@ -98,9 +98,9 @@ $app['laterjob.api.formatters.monitor'] = function(){
 #
 #------------------------------------------------------------------
 
-$app->mount('/queue',  new \LaterJobApi\Controllers\QueueProvider('mailqueue.queue'));
-$app->mount('/queue',  new \LaterJobApi\Controllers\ActivityProvider('mailqueue.queue'));
-$app->mount('/queue',  new \LaterJobApi\Controllers\MonitorProvider('mailqueue.queue'));
-$app->mount('/queue',  new \LaterJobApi\Controllers\ScheduleProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Provider\QueueProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Provider\ActivityProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Provider\MonitorProvider('mailqueue.queue'));
+$app->mount('/queue',  new \LaterJobApi\Provider\ScheduleProvider('mailqueue.queue'));
 
 return $app;

@@ -3,29 +3,17 @@ namespace LaterJobApi\Controllers;
 
 use DateTime;
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use LaterJob\Exception as LaterJobException;
 use LaterJob\Model\Monitor\Stats;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\Collection;
 
-class MonitorProvider extends BaseProvider implements ControllerProviderInterface
+class MonitorController extends BaseController 
 {
     
     const QUERY_LIMIT = 1000;
     
-    public function connect(Application $app)
-    {
-        parent::connect($app);
-        
-        // creates a new controller based on the default route
-        $controllers = $app['controllers_factory'];
-
-        $controllers->get('/monitoring', array($this,'getMonitoring'));
-        
-        return $controllers;
-    }
     
     public function getMonitoring(Application $app, Request $req)
     {

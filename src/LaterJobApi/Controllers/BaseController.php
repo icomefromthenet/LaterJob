@@ -2,13 +2,12 @@
 namespace LaterJobApi\Controllers;
 
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use LaterJob\Exception as LaterJobException;
 
 
-class BaseProvider implements ControllerProviderInterface
+class BaseController 
 {
     
     protected $index;
@@ -24,23 +23,12 @@ class BaseProvider implements ControllerProviderInterface
       *  @access public
       *  @param string $queue_index
       */
-    public function __construct($queue_index)
+    public function __construct($queue_index, Application $app)
     {
         $this->index = $queue_index;
+        $this->app   = $app;
     }
     
-    
-    //------------------------------------------------------------------
-    # ControllerProviderInterface
-    
-    public function connect(Application $app)
-    {
-       # bind app to his controller
-        $this->app = $app;
-        
-        # bind errro handler
-        $app->error(array($this,'handleError'));
-    }
     
     
     /**

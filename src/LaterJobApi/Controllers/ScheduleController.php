@@ -3,24 +3,12 @@ namespace LaterJobApi\Controllers;
 
 use DateTime;
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use LaterJob\Exception as LaterJobException;
 
-class ScheduleProvider extends BaseProvider implements ControllerProviderInterface
+class ScheduleController extends BaseController 
 {
-    public function connect(Application $app)
-    {
-        parent::connect($app);
-        
-        // creates a new controller based on the default route
-        $controllers = $app['controllers_factory'];
-
-        $controllers->get('/schedule', array($this,'getScheduleAction'));
-
-        return $controllers;
-    }
     
     
     public function getScheduleAction(Application $app, Request $req)

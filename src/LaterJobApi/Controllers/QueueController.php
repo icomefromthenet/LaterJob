@@ -3,7 +3,6 @@ namespace LaterJobApi\Controllers;
 
 use DateTime;
 use Silex\Application;
-use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
 use LaterJob\Config\QueueConfig;
@@ -12,33 +11,11 @@ use LaterJob\Formatter\JobFormatter;
 use LaterJob\Exception as LaterJobException;
 use Doctrine\Common\Collections\Collection;
     
-class QueueProvider extends BaseProvider implements ControllerProviderInterface
+class QueueController extends BaseController 
 {
     
     const QUERY_LIMIT = 500;
     
-    public function connect(Application $app)
-    {
-        parent::connect($app);
-        
-        // creates a new controller based on the default route
-        $controllers = $app['controllers_factory'];
-        
-        $controllers->get('/jobs/{job}', array($this,'getJobAction'))
-                    ->assert('job', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')
-                    ->convert('job',array($this,'lookupJob'));
-                    
-        $controllers->get('/jobs', array($this,'getJobsAction'));
-
-        $controllers->delete('/jobs/{job}', array($this,'deleteJobAction'))
-                    ->assert('job', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')
-                    ->convert('job',array($this,'lookupJob'));
-                    
-        $controllers->delete('/jobs', array($this,'deleteJobsAction'));
-                   
-        
-        return $controllers;
-    }
     
     
     public function lookupJob($job)
