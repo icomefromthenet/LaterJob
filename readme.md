@@ -2,13 +2,13 @@ LaterJob - Database Queue with Metrics.
 ----
 [![Build Status](https://travis-ci.org/icomefromthenet/LaterJob.png?branch=master)](https://travis-ci.org/icomefromthenet/LaterJob)
 
-###I have in the past needed a simple queue for applications hosted on 'sharded host' or other limited php environments. 
+### I have in the past needed a simple queue for applications hosted on 'sharded host' or other limited php environments. 
 1. no access to the cli, 
 2. no persistent processes
 3. no chmod - physically set write permissions in cpanel or equivlent.
 4. Small scale single node installations.
 
-###I developed LaterJob to power jobs such as
+### I developed LaterJob to power jobs such as
 1. Mail Queues.
 2. Sms Queues.
 3. Thumbnail Generation.
