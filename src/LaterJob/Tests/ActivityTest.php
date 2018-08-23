@@ -3,7 +3,7 @@ namespace LaterJob\Tests;
 
 use LaterJob\Activity;
 use LaterJob\Event\QueueEventsMap;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
@@ -12,7 +12,7 @@ use DateTime;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class ActivityTest extends PHPUnit_Framework_TestCase
+class ActivityTest extends TestCase
 {
     
     public function testActivityQuery()

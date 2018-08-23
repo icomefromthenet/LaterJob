@@ -3,7 +3,7 @@ namespace LaterJob\Tests\Loader;
 
 use Pimple\Container;
 use LaterJob\Loader\ModelLoader;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
   *  Test config loading. 
@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class ModelLoaderTest extends PHPUnit_Framework_TestCase
+class ModelLoaderTest extends TestCase
 {
     
     public function testTransitionModelLoader()

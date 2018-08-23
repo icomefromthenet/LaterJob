@@ -3,7 +3,7 @@ namespace LaterJob\Tests\Loader;
 
 use Pimple\Container;
 use LaterJob\Loader\EventSubscriber;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
   *  Test config loading. 
@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class EventSubscriberTest extends PHPUnit_Framework_TestCase
+class EventSubscriberTest extends TestCase
 {
     
     
@@ -76,11 +76,7 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
         
     }
     
-    public function testMonitorHandlers()
-    {
-        $loader  = new EventSubscriber();
-        
-    }
+    
     
     public function testPimpleBoot()
     {
@@ -93,6 +89,8 @@ class EventSubscriberTest extends PHPUnit_Framework_TestCase
         
         $loader  = new EventSubscriber();
         $loader->boot($pimple);
+        
+        $this->assertTrue(true);
         
     }
 }

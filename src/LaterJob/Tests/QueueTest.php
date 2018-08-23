@@ -3,7 +3,7 @@ namespace LaterJob\Tests;
 
 use LaterJob\Queue;
 use LaterJob\Event\QueueEventsMap;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
@@ -12,7 +12,7 @@ use DateTime;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class QueueTest extends PHPUnit_Framework_TestCase
+class QueueTest extends TestCase
 {
     
     public function testQueueBootStrap()

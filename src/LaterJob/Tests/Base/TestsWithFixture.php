@@ -2,15 +2,20 @@
 namespace LaterJob\Tests\Base;
 
 use PDO;
-use PHPUnit_Extensions_Database_Operation_Composite;
-use PHPUnit_Extensions_Database_TestCase;
 use DBALGateway\Tests\Base\DBOperationSetEnv;
 use LaterJob\Config\DbMetaConfig;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use PHPUnit\DbUnit\Operation\Composite;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\DbUnit\Operation\Factory;
+use PHPUnit\DbUnit\TestCaseTrait;
 
-class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
+
+class TestsWithFixture extends TestCase
 {
+    
+   use TestCaseTrait;    
     
     //  ----------------------------------------------------------------------------
     
@@ -48,11 +53,11 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
     
     protected function getSetUpOperation()
     {
-        return new PHPUnit_Extensions_Database_Operation_Composite(array(
+        return new Composite([
             new DBOperationSetEnv('foreign_key_checks',0),
-            parent::getSetUpOperation(),
+            Factory::CLEAN_INSERT(),
             new DBOperationSetEnv('foreign_key_checks',1),
-        ));
+        ]);
     }
     
     

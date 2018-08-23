@@ -326,6 +326,7 @@ class ActivityControllerTest extends TestsWithFixture
         $this->assertEquals(88,$results->result);
                 
     } 
+    
 }
 
 /* End of File */

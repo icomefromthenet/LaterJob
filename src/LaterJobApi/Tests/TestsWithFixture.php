@@ -2,18 +2,22 @@
 namespace LaterJobApi\Tests;
 
 use PDO;
-use PHPUnit_Extensions_Database_Operation_Composite;
-use PHPUnit_Extensions_Database_TestCase;
 use DBALGateway\Tests\Base\DBOperationSetEnv;
 use LaterJob\Config\DbMetaConfig;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use Symfony\Component\HttpKernel\Client,
-    Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\HttpKernel\Client;
+use Symfony\Component\HttpKernel\HttpKernel;
+use PHPUnit\DbUnit\Operation\Composite;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\DbUnit\Operation\Factory;
+use PHPUnit\DbUnit\TestCaseTrait;
 
 
-class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
+class TestsWithFixture extends TestCase
 {
+    
+    use TestCaseTrait { setUp as protected traitSetUp; }
     
     //  ----------------------------------------------------------------------------
     
@@ -51,12 +55,13 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
     
     protected function getSetUpOperation()
     {
-        return new PHPUnit_Extensions_Database_Operation_Composite(array(
+        return new Composite([
             new DBOperationSetEnv('foreign_key_checks',0),
-            parent::getSetUpOperation(),
+            Factory::CLEAN_INSERT(),
             new DBOperationSetEnv('foreign_key_checks',1),
-        ));
+        ]);
     }
+    
     
     
     public function getDataSet()
@@ -78,7 +83,9 @@ class TestsWithFixture extends PHPUnit_Extensions_Database_TestCase
      */
     public function setUp()
     {
-        parent::setUp();
+        // Invokes PHPUnit_Extensions_Database_TestCase_Trait::traitSetUp() (nee setUp),
+        // which in turn calls PHPUnit_Framework_TestCase::setUp()
+        $this->traitSetUp();
         
         $this->app = $this->createApplication();
     }

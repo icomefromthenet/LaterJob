@@ -6,7 +6,7 @@ use LaterJob\Event\JobTransitionEvent;
 use LaterJob\Model\Queue\Storage;
 use LaterJob\Job;
 use LaterJob\Config\QueueConfig as QueueConfig;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
@@ -15,7 +15,7 @@ use DateTime;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class JobTest extends PHPUnit_Framework_TestCase
+class JobTest extends TestCase
 {
     
     public function testJobProperties()

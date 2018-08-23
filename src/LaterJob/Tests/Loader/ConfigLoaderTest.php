@@ -6,7 +6,7 @@ use LaterJob\Loader\ConfigLoader;
 use LaterJob\Config\DbMetaConfig;
 use LaterJob\Config\QueueConfig;
 use LaterJob\Config\WorkerConfig;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
   *  Test config loading. 
@@ -14,7 +14,7 @@ use PHPUnit_Framework_TestCase;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class ConfigLoaderTest extends PHPUnit_Framework_TestCase
+class ConfigLoaderTest extends TestCase
 {
     
     

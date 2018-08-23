@@ -3,7 +3,7 @@ namespace LaterJob\Tests;
 
 use LaterJob\Monitor;
 use LaterJob\Event\MonitoringEventsMap;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
@@ -12,7 +12,7 @@ use DateTime;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class MonitorTest extends PHPUnit_Framework_TestCase
+class MonitorTest extends TestCase
 {
     
     public function testQuery()

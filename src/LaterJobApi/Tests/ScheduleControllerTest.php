@@ -33,6 +33,8 @@ class ScheduleControllerTest extends WebTestCase
             'application/json'
         );
         
+        $this->assertTrue(true);
+        
 
     }
     

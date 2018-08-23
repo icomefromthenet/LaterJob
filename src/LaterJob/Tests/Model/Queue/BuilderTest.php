@@ -3,7 +3,7 @@ namespace LaterJob\Tests\Model\Queue;
 
 use LaterJob\Model\Queue\Storage;
 use LaterJob\Model\Queue\StorageBuilder;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
@@ -12,7 +12,7 @@ use DateTime;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class BuilderTest extends  PHPUnit_Framework_TestCase
+class BuilderTest extends  TestCase
 {
     
     public function testEntityProperties()
@@ -82,7 +82,7 @@ class BuilderTest extends  PHPUnit_Framework_TestCase
         $this->assertEquals($lockout_timer,  $storage->getLockoutTimer());
         $this->assertEquals($retry, $storage->getRetryLeft());
         $this->assertEquals($state, $storage->getState());
-        $this->assertEquals($retry_last,$storage->getRetryLast());
+        $this->assertEquals($retry_last->format('U'),$storage->getRetryLast()->format('U'));
         
         # test builder no handle
         

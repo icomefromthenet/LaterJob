@@ -4,7 +4,7 @@ namespace LaterJob\Tests;
 use LaterJob\Allocator;
 use LaterJob\Event\QueueEventsMap;
 use LaterJob\Event\QueueSendEvent;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class AllocatorTest extends PHPUnit_Framework_TestCase
+class AllocatorTest extends TestCase
 {
     
     public function testImplementsIterator()

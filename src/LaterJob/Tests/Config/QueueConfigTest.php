@@ -2,7 +2,7 @@
 namespace LaterJob\Tests\Config;
 
 use LaterJob\Config\QueueConfig;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DateTime;
 
 /**
@@ -11,7 +11,7 @@ use DateTime;
   *  @author Lewis Dyer <getintouch@icomefromthenet.com>
   *  @since 0.0.1
   */
-class QueueConfigTest extends  PHPUnit_Framework_TestCase
+class QueueConfigTest extends  TestCase
 {
     
     public function testQueueConfigConfigParse()
